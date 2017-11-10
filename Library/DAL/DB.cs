@@ -20,7 +20,7 @@ namespace Library.DAL
                 Connection = new SqlConnection(connectionBuilder.ConnectionString);
                 Connection.Open();
             }
-            catch (SqlException e) { }
+            catch (SqlException e) {}
         }
 
         public void NoQueryCommand(String sql)
