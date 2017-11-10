@@ -30,15 +30,27 @@ namespace ConnectionTest
 
             foreach (Teacher teacher in teachers)
             {
-                teacherSchool = SchoolDAL.GetById(teacher.IdSchool).Name;   //Just testing the "foreign key"
+                teacherSchool = SchoolDAL.GetById(teacher.IdSchool).Name;   // Just testing the "foreign key" to get the school name
                 Console.WriteLine("Name: " + teacher.Name + "\t\tEscola: " + teacherSchool);
             }
         }
 
+        public static void ListCourses(List<Course> courses)
+        {
+            String courseSchool = "";
+
+            foreach (Course course in courses)
+            {
+                courseSchool = SchoolDAL.GetById(course.IdSchool).Name;  // Just testing the "foreign key" to get the school name
+                Console.WriteLine("Name: " + course.Name + "\t\t\tEscola: " + courseSchool);
+            }
+        }
+
+        /* "Test Routines" */
         public static void TestStudents()
         {
             /* Tests with 'students' */
-            Console.WriteLine("---------- Student Tests ----------");
+            Console.WriteLine("\n--------------- Student Tests ---------------");
             // Create some Student objects and fills their atributes
             Student student01 = new Student();
             student01.Id = 0;
@@ -73,8 +85,6 @@ namespace ConnectionTest
             // Delete a student by your ID
             Console.WriteLine("\nDelete: " + student01.Name);
             student01.Delete();
-
-            Console.WriteLine("\nGetAll");
             ListStudents(student01.GetAll());
 
             // Some changes in a student data
@@ -91,7 +101,7 @@ namespace ConnectionTest
         public static void TestSchools()
         {
             /* Tests with 'Schools' */
-            Console.WriteLine("---------- School Tests ----------");
+            Console.WriteLine("\n--------------- School Tests ---------------");
             // Create some School objects and fills their atributes
             School school01 = new School();
             school01.Id = 0;
@@ -101,11 +111,11 @@ namespace ConnectionTest
 
             School school02 = new School();
             school02.Id = 3;
-            school02.Name = "Escola Superior Agrária de Bragança";
-            school02.PostalCode = "5300-253";
-            school02.Phone = "+351 273303200";
+            school02.Name = "Escola Superior de Educação de Bragança";
+            school02.PostalCode = "5300-252";
+            school02.Phone = "+351 273330600";
 
-            // Insert both students to table 'students'
+            // Insert both schools to table 'school'
             school01.Create();
             school02.Create();
 
@@ -120,17 +130,15 @@ namespace ConnectionTest
             // Delete a school by its ID
             Console.WriteLine("\nDelete: " + school02.Name);
             school02.Delete();
-
-            Console.WriteLine("\nGetAll");
             ListSchools(school01.GetAll());
 
             // Some changes in a school data
             school01.Name = "ESTIG";
             school01.Phone = "+351 123123123";
-            // Update a student by your ID
+            // Update a school by your ID
             school01.Update();
 
-            // Get all the students again, now updated
+            // Get all the schools again, now updated
             Console.WriteLine("\nGetAll Updated");
             ListSchools(school01.GetAll());
 
@@ -141,7 +149,7 @@ namespace ConnectionTest
         public static void TestTeachers()
         {
             /* Tests with 'Teachers' */
-            Console.WriteLine("---------- Teacher Tests ----------");
+            Console.WriteLine("\n--------------- Teacher Tests ---------------");
             // Create some Teacher objects and fills their atributes
             Teacher teacher01 = new Teacher();
             teacher01.Id = 0;
@@ -157,7 +165,7 @@ namespace ConnectionTest
             teacher02.Email = "mariaoliveira@ipb.pt";
             teacher02.IdSchool = 3;
 
-            // Insert both students to table 'students'
+            // Insert both teachers to table 'teachers'
             teacher01.Create();
             teacher02.Create();
 
@@ -172,33 +180,82 @@ namespace ConnectionTest
             // Delete a teacher by your ID
             Console.WriteLine("\nDelete: " + teacher01.Name);
             teacher01.Delete();
-
-            Console.WriteLine("\nGetAll");
             ListTeachers(teacher01.GetAll());
 
             // Some changes in a teacher data
             teacher01.Name = "Marcelo de Souza";
             teacher01.IdSchool = 3;
-            // Update a student by your ID
+            // Update a teacher by your ID
             teacher01.Update();
 
-            // Get all the students again, now updated
+            // Get all the teachers again, now updated
             Console.WriteLine("\nGetAll Updated");
             ListTeachers(teacher01.GetAll());
         }
 
+        public static void TestCourses()
+        {
+            /* Tests with 'Courses' */
+            Console.WriteLine("\n--------------- Course Tests ---------------");
+            // Create some Course objects and fills their atributes
+            Course course01 = new Course();
+            course01.Id = 0;
+            course01.Name = "Engenharia Informática";
+            course01.Degree = "Bacharelado";
+            course01.DurationYears = 3;
+            course01.IdSchool = 0;
+
+            Course course02 = new Course();
+            course02.Id = 1;
+            course02.Name = "Desenvolvimento de Produtos Multimédia";
+            course02.Degree = "Técnico Superior";
+            course02.DurationYears = 2;
+            course02.IdSchool = 3;
+
+            // Insert both students to table 'students'
+            course01.Create();
+            course02.Create();
+
+            // Get a course by its ID
+            Console.WriteLine("\nGetById: " + course01.Id);
+            Console.WriteLine(course01.GetById().Name);
+
+            // Get all the courses from table 'course'
+            Console.WriteLine("\nGetAll");
+            ListCourses(course01.GetAll());
+
+            // Delete a course by its ID
+            Console.WriteLine("\nDelete: " + course02.Name);
+            course02.Delete();
+            ListCourses(course01.GetAll());
+
+            // Some change in a course data
+            course02.Name = "Desenvolv. de Prod. Mult.";
+            
+            // Update a student by your ID
+            course02.Update();
+
+            // Get all the students again, now updated
+            Console.WriteLine("\nGetAll Updated");
+            ListCourses(course01.GetAll());
+
+            // Just for teacher tests
+            course02.Create();
+        }
+
         public static void Main(String[] args)
         {
-
             /* Create all the tables */
             StudentDAL.CreateTable();
             SchoolDAL.CreateTable();
             TeacherDAL.CreateTable();
+            CourseDAL.CreateTable();
 
             /* Run some test methods */
             TestStudents();
             TestSchools();
             TestTeachers();
+            TestCourses();
         }
     }
 }
