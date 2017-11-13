@@ -31,20 +31,19 @@ namespace Library.DAL
 
             using (DB db = new DB())
             {
-                using (SqlCommand command = new SqlCommand(sql, db.Connection))
-                {
-                    command.Parameters.AddWithValue("@id", discipline.Id);
-                    command.Parameters.AddWithValue("@name", discipline.Name);
-                    command.Parameters.AddWithValue("@credits", discipline.Credits);
-                    command.Parameters.AddWithValue("@year", discipline.Year);
-                    command.Parameters.AddWithValue("@semester", discipline.Semester);
-                    command.Parameters.AddWithValue("@startTime", discipline.StartTime);
-                    command.Parameters.AddWithValue("endTime", discipline.EndTime);
-                    command.Parameters.AddWithValue("classesHeld", discipline.ClassesHeld);
-                    command.Parameters.AddWithValue("idTeacher", discipline.IdTeacher);
-                    command.Parameters.AddWithValue("idCourse", discipline.IdCourse);
-                    int rows = command.ExecuteNonQuery();
-                }
+                Dictionary<string, object> disciplineDictionary = new Dictionary<string, object>();
+                disciplineDictionary.Add("@id", discipline.Id);
+                disciplineDictionary.Add("@name", discipline.Name);
+                disciplineDictionary.Add("@credits", discipline.Credits);
+                disciplineDictionary.Add("@year", discipline.Year);
+                disciplineDictionary.Add("@semester", discipline.Semester);
+                disciplineDictionary.Add("@startTime", discipline.StartTime);
+                disciplineDictionary.Add("@endTime", discipline.EndTime);
+                disciplineDictionary.Add("@classesHeld", discipline.ClassesHeld);
+                disciplineDictionary.Add("@idTeacher", discipline.IdTeacher);
+                disciplineDictionary.Add("@idCourse", discipline.IdCourse);
+
+                db.NoQueryCommand(sql, disciplineDictionary);
             }
         }
 
@@ -56,32 +55,26 @@ namespace Library.DAL
 
             using (DB db = new DB())
             {
-                using (SqlCommand command = new SqlCommand(sql, db.Connection))
+                List<Discipline> disciplines = new List<Discipline>();
+                List<Object[]> objects = db.QueryCommand(sql);
+
+                foreach (Object[] obj in objects)
                 {
-                    using (SqlDataReader reader = command.ExecuteReader())
-                    {
-                        List<Discipline> disciplines = new List<Discipline>();
+                    Discipline discipline = new Discipline();
+                    discipline.Id = (int)obj[0];
+                    discipline.Name = (String)obj[1];
+                    discipline.Credits = (int)obj[2];
+                    discipline.Year = (int)obj[3];
+                    discipline.Semester = (int)obj[4];
+                    discipline.StartTime = (DateTime)obj[5];
+                    discipline.EndTime = (DateTime)obj[6];
+                    discipline.ClassesHeld = (int)obj[7];
+                    discipline.IdTeacher = (int)obj[8];
+                    discipline.IdCourse = (int)obj[9];
 
-                        while (reader.Read())
-                        {
-                            Discipline discipline = new Discipline();
-
-                            discipline.Id = reader.GetInt32(0);
-                            discipline.Name = reader.GetString(1);
-                            discipline.Credits = reader.GetInt32(2);
-                            discipline.Year = reader.GetInt32(3);
-                            discipline.Semester = reader.GetInt32(4);
-                            discipline.StartTime = reader.GetDateTime(5);
-                            discipline.EndTime = reader.GetDateTime(6);
-                            discipline.ClassesHeld = reader.GetInt32(7);
-                            discipline.IdTeacher = reader.GetInt32(8);
-                            discipline.IdCourse = reader.GetInt32(9);
-
-                            disciplines.Add(discipline);
-                        }
-                        return disciplines;
-                    }
+                    disciplines.Add(discipline);
                 }
+                return disciplines;
             }
         }
 
@@ -93,29 +86,21 @@ namespace Library.DAL
 
             using (DB db = new DB())
             {
-                using (SqlCommand command = new SqlCommand(sql, db.Connection))
-                {
-                    command.Parameters.AddWithValue("@id", id);
+                Object[] objects = db.QueryCommand(sql, id);
+                Discipline discipline = new Discipline();
 
-                    using (SqlDataReader reader = command.ExecuteReader())
-                    {
-                        Discipline discipline = new Discipline();
-                        while (reader.Read())
-                        {
-                            discipline.Id = reader.GetInt32(0);
-                            discipline.Name = reader.GetString(1);
-                            discipline.Credits = reader.GetInt32(2);
-                            discipline.Year = reader.GetInt32(3);
-                            discipline.Semester = reader.GetInt32(4);
-                            discipline.StartTime = reader.GetDateTime(5);
-                            discipline.EndTime = reader.GetDateTime(6);
-                            discipline.ClassesHeld = reader.GetInt32(7);
-                            discipline.IdTeacher = reader.GetInt32(8);
-                            discipline.IdCourse = reader.GetInt32(9);
-                        }
-                        return discipline;
-                    }
-                }
+                discipline.Id = (int)objects[0];
+                discipline.Name = (String)objects[1];
+                discipline.Credits = (int)objects[2];
+                discipline.Year = (int)objects[3];
+                discipline.Semester = (int)objects[4];
+                discipline.StartTime = (DateTime)objects[5];
+                discipline.EndTime = (DateTime)objects[6];
+                discipline.ClassesHeld = (int)objects[7];
+                discipline.IdTeacher = (int)objects[8];
+                discipline.IdCourse = (int)objects[9];
+
+                return discipline;
             }
         }
 
@@ -128,38 +113,34 @@ namespace Library.DAL
 
             using (DB db = new DB())
             {
+                Dictionary<string, object> disciplineDictionary = new Dictionary<string, object>();
+                disciplineDictionary.Add("@id", discipline.Id);
+                disciplineDictionary.Add("@name", discipline.Name);
+                disciplineDictionary.Add("@credits", discipline.Credits);
+                disciplineDictionary.Add("@year", discipline.Year);
+                disciplineDictionary.Add("@semester", discipline.Semester);
+                disciplineDictionary.Add("@startTime", discipline.StartTime);
+                disciplineDictionary.Add("@endTime", discipline.EndTime);
+                disciplineDictionary.Add("@classesHeld", discipline.ClassesHeld);
+                disciplineDictionary.Add("@idTeacher", discipline.IdTeacher);
+                disciplineDictionary.Add("@idCourse", discipline.IdCourse);
 
-                using (SqlCommand command = new SqlCommand(sql, db.Connection))
-                {
-                    command.Parameters.AddWithValue("@id", discipline.Id);
-                    command.Parameters.AddWithValue("@name", discipline.Name);
-                    command.Parameters.AddWithValue("@credits", discipline.Credits);
-                    command.Parameters.AddWithValue("@year", discipline.Year);
-                    command.Parameters.AddWithValue("@semester", discipline.Semester);
-                    command.Parameters.AddWithValue("@startTime", discipline.StartTime);
-                    command.Parameters.AddWithValue("endTime", discipline.EndTime);
-                    command.Parameters.AddWithValue("classesHeld", discipline.ClassesHeld);
-                    command.Parameters.AddWithValue("idTeacher", discipline.IdTeacher);
-                    command.Parameters.AddWithValue("idCourse", discipline.IdCourse);
-                }
+                db.NoQueryCommand(sql, disciplineDictionary);
             }
         }
 
         public static void Delete(int id)
         {
-
             StringBuilder stringBuilder = new StringBuilder();
             stringBuilder.Append("DELETE FROM student WHERE id = @id");
             String sql = stringBuilder.ToString();
 
             using (DB db = new DB())
             {
+                Dictionary<string, object> disciplineIdDict = new Dictionary<string, object>();
+                disciplineIdDict.Add("@id", id);
 
-                using (SqlCommand command = new SqlCommand(sql, db.Connection))
-                {
-                    command.Parameters.AddWithValue("@id", id);
-                    command.ExecuteNonQuery();
-                }
+                db.NoQueryCommand(sql, disciplineIdDict);
             }
         }
     }

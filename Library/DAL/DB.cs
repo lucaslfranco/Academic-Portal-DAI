@@ -49,7 +49,7 @@ namespace Library.DAL
             {
                 using (SqlDataReader reader = command.ExecuteReader())
                 {
-                    List<Object[]> objects= new List<Object[]>();
+                    List<Object[]> objects = new List<Object[]>();
 
                     while (reader.Read()) {
                         Object[] obj = new Object[reader.FieldCount];
@@ -77,6 +77,24 @@ namespace Library.DAL
             }
         }
 
+        public Object[] QueryCommand(String sql, Dictionary<string, int> idDictionary)
+        {
+            using (SqlCommand command = new SqlCommand(sql, Connection))
+            {
+                foreach (KeyValuePair<string, int> id in idDictionary)
+                {
+                    command.Parameters.AddWithValue(id.Key, id.Value);
+                }
+                using (SqlDataReader reader = command.ExecuteReader())
+                {
+                    Object[] objects = new Object[reader.FieldCount];
+                    while (reader.Read())
+                        reader.GetValues(objects);
+
+                    return objects;
+                }
+            }
+        }
 
         public void Dispose()
         {

@@ -31,79 +31,62 @@ namespace Library.DAL
 
             using (DB db = new DB())
             {
-                using (SqlCommand command = new SqlCommand(sql, db.Connection))
-                {
-                    command.Parameters.AddWithValue("@idDiscipline", enrollment.IdDiscipline);
-                    command.Parameters.AddWithValue("@idStudent", enrollment.IdStudent);
-                    command.Parameters.AddWithValue("@missedClasses", enrollment.MissedClasses);
-                    command.Parameters.AddWithValue("@idGrades", enrollment.IdGrades);
-                    int rows = command.ExecuteNonQuery();
-                }
+                Dictionary<string, object> enrollmentDictionary = new Dictionary<string, object>();
+                enrollmentDictionary.Add("@idDiscipline", enrollment.IdDiscipline);
+                enrollmentDictionary.Add("@idStudent", enrollment.IdStudent);
+                enrollmentDictionary.Add("@missedClasses", enrollment.MissedClasses);
+                enrollmentDictionary.Add("@idGrades", enrollment.IdGrades);
+
+                db.NoQueryCommand(sql, enrollmentDictionary);
             }
         }
 
         public static List<Enrollment> GetAll()
         {
-
             StringBuilder stringBuilder = new StringBuilder();
             stringBuilder.Append("SELECT * FROM enrollment");
             String sql = stringBuilder.ToString();
 
             using (DB db = new DB())
             {
+                List<Enrollment> enrollments = new List<Enrollment>();
+                List<Object[]> objects = db.QueryCommand(sql);
 
-                using (SqlCommand command = new SqlCommand(sql, db.Connection))
+                foreach (Object[] obj in objects)
                 {
-                    using (SqlDataReader reader = command.ExecuteReader())
-                    {
+                    Enrollment enrollment = new Enrollment();
+                    enrollment.IdDiscipline = (int)obj[0];
+                    enrollment.IdStudent = (int)obj[1];
+                    enrollment.MissedClasses = (int)obj[2];
+                    enrollment.IdGrades = (int)obj[3];
 
-                        List<Enrollment> enrollments = new List<Enrollment>();
-
-                        while (reader.Read())
-                        {
-                            Enrollment enrollment = new Enrollment();
-
-                            enrollment.IdDiscipline = reader.GetInt32(0);
-                            enrollment.IdStudent = reader.GetInt32(1);
-                            enrollment.MissedClasses = reader.GetInt32(2);
-                            enrollment.IdGrades = reader.GetInt32(3);
-
-                            enrollments.Add(enrollment);
-                        }
-                        return enrollments;
-                    }
+                    enrollments.Add(enrollment);
                 }
+                return enrollments;
             }
         }
 
-        public static Enrollment GetById(Enrollment enrollment)
+        public static Enrollment GetById(int idDiscipline, int idStudent)
         {
-
             StringBuilder stringBuilder = new StringBuilder();
             stringBuilder.Append("SELECT * FROM enrollment WHERE idDiscipline = @idDiscipline AND idStudent = @idStudent");
             String sql = stringBuilder.ToString();
 
             using (DB db = new DB())
             {
+                Dictionary<string, int> enrollmentIdDict = new Dictionary<string, int>();
+                enrollmentIdDict.Add("@idDiscipline", idDiscipline);
+                enrollmentIdDict.Add("@idStudent", idStudent);
 
-                using (SqlCommand command = new SqlCommand(sql, db.Connection))
-                {
-                    command.Parameters.AddWithValue("@idDiscipline", enrollment.IdDiscipline);
-                    command.Parameters.AddWithValue("@idStudent", enrollment.IdStudent);
+                Object[] objects = db.QueryCommand(sql, enrollmentIdDict);
+                Enrollment enrollment = new Enrollment();
 
-                    using (SqlDataReader reader = command.ExecuteReader())
-                    {
-                        Enrollment dbEnrollment = new Enrollment();
-                        while (reader.Read())
-                        {
-                            dbEnrollment.IdDiscipline = reader.GetInt32(0);
-                            dbEnrollment.IdStudent = reader.GetInt32(1);
-                            dbEnrollment.MissedClasses = reader.GetInt32(2);
-                            dbEnrollment.IdGrades = reader.GetInt32(3);
-                        }
-                        return enrollment;
-                    }
-                }
+                enrollment.IdDiscipline = (int)objects[0];
+                enrollment.IdStudent = (int)objects[1];
+                enrollment.MissedClasses = (int)objects[2];
+                enrollment.IdGrades = (int)objects[3];
+
+                return enrollment;
             }
         }
 
@@ -117,19 +100,17 @@ namespace Library.DAL
 
             using (DB db = new DB())
             {
+                Dictionary<string, object> enrollmentDictionary = new Dictionary<string, object>();
+                enrollmentDictionary.Add("@idDiscipline", enrollment.IdDiscipline);
+                enrollmentDictionary.Add("@idStudent", enrollment.IdStudent);
+                enrollmentDictionary.Add("@missedClasses", enrollment.MissedClasses);
+                enrollmentDictionary.Add("@idGrades", enrollment.IdGrades);
 
-                using (SqlCommand command = new SqlCommand(sql, db.Connection))
-                {
-                    command.Parameters.AddWithValue("@idDiscipline", enrollment.IdDiscipline);
-                    command.Parameters.AddWithValue("@idStudent", enrollment.IdStudent);
-                    command.Parameters.AddWithValue("@missedClasses", enrollment.MissedClasses);
-                    command.Parameters.AddWithValue("@idGrades", enrollment.IdGrades);
-                    command.ExecuteNonQuery();
-                }
+                db.NoQueryCommand(sql, enrollmentDictionary);
             }
         }
 
-        public static void Delete(Enrollment enrollment)
+        public static void Delete(int idDiscipline, int idStudent)
         {
 
             StringBuilder stringBuilder = new StringBuilder();
@@ -138,13 +119,11 @@ namespace Library.DAL
 
             using (DB db = new DB())
             {
+                Dictionary<string, object> enrollmentIdDict = new Dictionary<string, object>();
+                enrollmentIdDict.Add("@idDiscipline", idDiscipline);
+                enrollmentIdDict.Add("@idStudent", idStudent);
 
-                using (SqlCommand command = new SqlCommand(sql, db.Connection))
-                {
-                    command.Parameters.AddWithValue("@idDiscipline", enrollment.IdDiscipline);
-                    command.Parameters.AddWithValue("@idDiscipline", enrollment.IdStudent);
-                    command.ExecuteNonQuery();
-                }
+                db.NoQueryCommand(sql, enrollmentIdDict);
             }
         }
     }

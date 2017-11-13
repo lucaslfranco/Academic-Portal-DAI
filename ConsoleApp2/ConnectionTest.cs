@@ -35,7 +35,7 @@ namespace ConnectionTest
             foreach (Teacher teacher in teachers)
             {
                 teacherSchool = SchoolDAL.GetById(teacher.IdSchool).Name;   // Just testing the "foreign key" to get the school name
-                Console.WriteLine("Name: " + teacher.Name + "\t\tEscola: " + teacherSchool);
+                Console.WriteLine("\nNome: " + teacher.Name + "\nEscola: " + teacherSchool);
             }
         }
 
@@ -46,7 +46,34 @@ namespace ConnectionTest
             foreach (Course course in courses)
             {
                 courseSchool = SchoolDAL.GetById(course.IdSchool).Name;  // Just testing the "foreign key" to get the school name
-                Console.WriteLine("Name: " + course.Name + "\t\t\tEscola: " + courseSchool);
+                Console.WriteLine("\nNome: " + course.Name + "\nEscola: " + courseSchool);
+            }
+        }
+
+        public static void ListDisciplines(List<Discipline> disciplines)
+        {
+            String disciplineTeacher = "";
+
+            foreach (Discipline discipline in disciplines)
+            {
+                disciplineTeacher = TeacherDAL.GetById(discipline.IdTeacher).Name;  // Just testing the "foreign key" to get the school name
+                Console.WriteLine("\nNome: " + discipline.Name + "\nProfessor: " + disciplineTeacher);
+            }
+        }
+
+        public static void ListEnrollments(List<Enrollment> enrollments)
+        {
+            foreach (Enrollment enrollment in enrollments)
+            {
+                Console.WriteLine("\nNumero de Faltas: " + enrollment.MissedClasses);
+            }
+        }
+
+        public static void ListGrades(List<Grades> gradesList)
+        {
+            foreach (Grades grades in gradesList)
+            {
+               Console.WriteLine("\nNota 01: " + grades.Grade1 + "\tNota 02: " + grades.Grade2);
             }
         }
 
@@ -107,6 +134,9 @@ namespace ConnectionTest
             // Get all the students again, now updated
             Console.WriteLine("\nGetAll Updated");
             ListStudents(student02.GetAll());
+
+            // Just for enrollment tests
+            student02.Create();
         }
 
         public static void TestSchools()
@@ -194,10 +224,10 @@ namespace ConnectionTest
             ListTeachers(teacher01.GetAll());
 
             // Some changes in a teacher data
-            teacher01.Name = "Marcelo de Souza";
-            teacher01.IdSchool = 3;
+            teacher02.Name = "Maria da Silva Souza ";
+            teacher02.IdSchool = 0;
             // Update a teacher by your ID
-            teacher01.Update();
+            teacher02.Update();
 
             // Get all the teachers again, now updated
             Console.WriteLine("\nGetAll Updated");
@@ -223,7 +253,7 @@ namespace ConnectionTest
             course02.DurationYears = 2;
             course02.IdSchool = 3;
 
-            // Insert both students to table 'students'
+            // Insert both courses to table 'courses'
             course01.Create();
             course02.Create();
 
@@ -243,15 +273,173 @@ namespace ConnectionTest
             // Some change in a course data
             course02.Name = "Desenvolv. de Prod. Mult.";
             
-            // Update a student by your ID
+            // Update a course by your ID
             course02.Update();
 
-            // Get all the students again, now updated
+            // Get all the courses again, now updated
             Console.WriteLine("\nGetAll Updated");
             ListCourses(course01.GetAll());
 
             // Just for teacher tests
             course02.Create();
+        }
+
+        public static void TestDisciplines()
+        {
+            /* Tests with 'Disciplines' */
+            Console.WriteLine("\n--------------- Discipline Tests ---------------");
+            // Create some Discipline objects and fills their atributes
+            Discipline discipline01 = new Discipline();
+            discipline01.Id = 0;
+            discipline01.Name = "Desenvolvimento de Aplicações Informáticas";
+            discipline01.Credits = 6;
+            discipline01.Year = 2017;
+            discipline01.Semester = 1;
+            discipline01.StartTime = new DateTime(2017, 11, 7, 14, 0, 0);
+            discipline01.EndTime = new DateTime(2017, 11, 7, 16, 0, 0);
+            discipline01.ClassesHeld = 10;
+            discipline01.IdTeacher = 3;
+            discipline01.IdCourse = 0;
+
+            Discipline discipline02 = new Discipline();
+            discipline02.Id = 1;
+            discipline02.Name = "Sistemas Distribuídos";
+            discipline02.Credits = 6;
+            discipline02.Year = 2017;
+            discipline02.Semester = 1;
+            discipline02.StartTime = new DateTime(2017, 11, 7, 11, 0, 0);
+            discipline02.EndTime = new DateTime(2017, 11, 7, 13, 0, 0);
+            discipline02.ClassesHeld = 8;
+            discipline02.IdTeacher = 3;
+            discipline02.IdCourse = 0;
+
+            // Insert both disciplines to table 'disciplines'
+            discipline01.Create();
+            discipline02.Create();
+
+            // Get a discipline by its ID
+            Console.WriteLine("\nGetById: " + discipline01.Id);
+            Console.WriteLine(discipline01.GetById().Name);
+
+            // Get all the disciplines from table 'discipline'
+            Console.WriteLine("\nGetAll");
+            ListDisciplines(discipline01.GetAll());
+
+            // Delete a discipline by its ID
+            Console.WriteLine("\nDelete: " + discipline02.Name);
+            discipline02.Delete();
+            ListDisciplines(discipline01.GetAll());
+
+            // Some change in a discipline data
+            discipline02.Name = "Sistemas Distribuídos I";
+
+            // Update a discipline by your ID
+            discipline02.Update();
+
+            // Get all the disciplines again, now updated
+            Console.WriteLine("\nGetAll Updated");
+            ListDisciplines(discipline02.GetAll());
+
+            // Just for another tests
+            discipline02.Create();
+        }
+
+        public static void TestGrades()
+        {
+            /* Tests with 'Grades' */
+            Console.WriteLine("\n--------------- Grade Tests ---------------");
+            // Create some Grade objects and fills their atributes
+            Grades grades01 = new Grades();
+            grades01.Id = 0;
+            grades01.Grade1 = 8;
+            grades01.Grade2 = 6;
+            grades01.Grade3= 5;
+            grades01.Grade4 = 2;
+
+            Grades grades02 = new Grades();
+            grades02.Id = 1;
+            grades02.Grade1 = 4;
+            grades02.Grade2 = 2;
+            grades02.Grade3 = 2;
+            grades02.Grade4 = 1;
+
+            // Insert both grades to table 'grades'
+            grades01.Create();
+            grades02.Create();
+
+            // Get a grade by its IDs
+            Console.WriteLine("\nGetByIds: " + grades01.Id);
+            Console.WriteLine("Nota 01: " + grades01.GetById().Grade1);
+
+            // Get all the grades from table 'grade'
+            Console.WriteLine("\nGetAll");
+            ListGrades(grades01.GetAll());
+
+            // Delete a grade by its ID
+            Console.WriteLine("\nDelete");
+            grades02.Delete();
+            ListGrades(grades01.GetAll());
+
+            // Some change in a grade data
+            grades01.Grade1 = 2;
+
+            // Update a grade by your ID
+            grades01.Update();
+
+            // Get all the grades again, now updated
+            Console.WriteLine("\nGetAll Updated");
+            ListGrades(grades01.GetAll());
+
+            // Just for another tests
+            grades02.Create();
+        }
+
+        public static void TestEnrollments()
+        {
+            /* Tests with 'Enrollments' */
+            Console.WriteLine("\n--------------- Enrollment Tests ---------------");
+            // Create some Enrollment objects and fills their atributes
+            Enrollment enrollment01 = new Enrollment();
+            enrollment01.IdDiscipline = 0;
+            enrollment01.IdStudent = 0;
+            enrollment01.MissedClasses = 6;
+            enrollment01.IdGrades = 0;
+
+            Enrollment enrollment02 = new Enrollment();
+            enrollment02.IdDiscipline = 0;
+            enrollment02.IdStudent = 1;
+            enrollment02.MissedClasses = 3;
+            enrollment02.IdGrades = 1;
+            
+            // Insert both enrollments to table 'enrollments'
+            enrollment01.Create();
+            enrollment02.Create();
+
+            // Get a enrollment by its IDs
+            Console.WriteLine("\nGetByIds: " + enrollment01.IdDiscipline + " e " + enrollment01.IdStudent);
+            Console.WriteLine("Numero de faltas: " + enrollment01.GetById().MissedClasses);
+
+            // Get all the enrollments from table 'enrollment'
+            Console.WriteLine("\nGetAll");
+            ListEnrollments(enrollment01.GetAll());
+
+            // Delete a enrollment by its ID
+            Console.WriteLine("\nDelete");
+            enrollment02.Delete();
+            ListEnrollments(enrollment01.GetAll());
+
+            // Some change in a enrollment data
+            enrollment02.MissedClasses = 2;
+
+            // Update a enrollment by your ID
+            enrollment02.Update();
+
+            // Get all the enrollments again, now updated
+            Console.WriteLine("\nGetAll Updated");
+            ListEnrollments(enrollment02.GetAll());
+
+            // Just for another tests
+            enrollment02.Create();
         }
 
         public static void Main(String[] args)
@@ -261,13 +449,19 @@ namespace ConnectionTest
             SchoolDAL.CreateTable();
             TeacherDAL.CreateTable();
             CourseDAL.CreateTable();
+            DisciplineDAL.CreateTable();
+            MessageDAL.CreateTable();
+            GradesDAL.CreateTable();
+            EnrollmentDAL.CreateTable();
 
             /* Run some test methods */
             TestStudents();
-            // TestSchools();
-            // TestTeachers();
-            // TestCourses();
-            
+            TestSchools();
+            TestTeachers();
+            TestCourses();
+            TestDisciplines();
+            TestGrades();
+            TestEnrollments();
         }
     }
 }

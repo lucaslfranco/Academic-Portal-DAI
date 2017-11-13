@@ -12,7 +12,7 @@ namespace Library.DAL
         {
             StringBuilder stringBuilder = new StringBuilder();
             stringBuilder.Append("DROP TABLE IF EXISTS message; " +
-                "CREATE TABLE message (id int not null, title varchar(255) not null, content varchar(255) not null, idDiscipline int not null)");
+                "CREATE TABLE message (id int not null, title varchar(45) not null, content varchar(255) not null, time DateTime not null, idDiscipline int not null)");
             String sql = stringBuilder.ToString();
 
             using (DB db = new DB())
@@ -24,20 +24,20 @@ namespace Library.DAL
         public static void Create(Message message)
         {
             StringBuilder stringBuilder = new StringBuilder();
-            stringBuilder.Append("INSERT INTO message (id, title, content, idDiscipline) VALUES " +
-                "(@id, @title, @content, @idDiscipline)");
+            stringBuilder.Append("INSERT INTO message (id, title, content, time, idDiscipline) VALUES " +
+                "(@id, @title, @content, @time, @idDiscipline)");
             String sql = stringBuilder.ToString();
 
             using (DB db = new DB())
             {
-                using (SqlCommand command = new SqlCommand(sql, db.Connection))
-                {
-                    command.Parameters.AddWithValue("@id", message.Id);
-                    command.Parameters.AddWithValue("@title", message.Title);
-                    command.Parameters.AddWithValue("@content", message.Content);
-                    command.Parameters.AddWithValue("@idDiscipline", message.IdDiscipline);
-                    int rows = command.ExecuteNonQuery();
-                }
+                Dictionary<string, object> messageDictionary = new Dictionary<string, object>();
+                messageDictionary.Add("@id", message.Id);
+                messageDictionary.Add("@title", message.Title);
+                messageDictionary.Add("@content", message.Content);
+                messageDictionary.Add("@time", message.Time);
+                messageDictionary.Add("@idDiscipline", message.IdDiscipline);
+
+                db.NoQueryCommand(sql, messageDictionary);
             }
         }
 
@@ -49,26 +49,22 @@ namespace Library.DAL
 
             using (DB db = new DB())
             {
-                using (SqlCommand command = new SqlCommand(sql, db.Connection))
+                List<Message> messages = new List<Message>();
+                List<Object[]> objects = db.QueryCommand(sql);
+
+                foreach (Object[] obj in objects)
                 {
-                    using (SqlDataReader reader = command.ExecuteReader())
-                    {
-                        List<Message> messages = new List<Message>();
-
-                        while (reader.Read())
-                        {
-                            Message message = new Message();
-
-                            message.Id = reader.GetInt32(0);
-                            message.Title = reader.GetString(1);
-                            message.Content = reader.GetString(2);
-                            message.IdDiscipline = reader.GetInt32(4);
-
-                            messages.Add(message);
-                        }
-                        return messages;
-                    }
+                    Message message = new Message();
+                    message.Id = (int)obj[0];
+                    message.Title = (String)obj[1];
+                    message.Content = (String)obj[2];
+                    message.Time = (DateTime)obj[3];
+                    message.IdDiscipline = (int)obj[4];
+                   
+                    messages.Add(message);
                 }
+
+                return messages;
             }
         }
 
@@ -80,23 +76,16 @@ namespace Library.DAL
 
             using (DB db = new DB())
             {
-                using (SqlCommand command = new SqlCommand(sql, db.Connection))
-                {
-                    command.Parameters.AddWithValue("@id", id);
+                Object[] objects = db.QueryCommand(sql, id);
+                Message message = new Message();
 
-                    using (SqlDataReader reader = command.ExecuteReader())
-                    {
-                        Message message = new Message();
-                        while (reader.Read())
-                        {
-                            message.Id = reader.GetInt32(0);
-                            message.Title = reader.GetString(1);
-                            message.Content = reader.GetString(2);
-                            message.IdDiscipline = reader.GetInt32(4);
-                        }
-                        return message;
-                    }
-                }
+                message.Id = (int)objects[0];
+                message.Title = (String)objects[1];
+                message.Content = (String)objects[2];
+                message.Time = (DateTime)objects[3];
+                message.IdDiscipline = (int)objects[4];
+
+                return message;
             }
         }
 
@@ -109,16 +98,14 @@ namespace Library.DAL
 
             using (DB db = new DB())
             {
+                Dictionary<string, object> messageDictionary = new Dictionary<string, object>();
+                messageDictionary.Add("@id", message.Id);
+                messageDictionary.Add("@title", message.Title);
+                messageDictionary.Add("@content", message.Content);
+                messageDictionary.Add("@time", message.Time);
+                messageDictionary.Add("@idDiscipline", message.IdDiscipline);
 
-                using (SqlCommand command = new SqlCommand(sql, db.Connection))
-                {
-
-                    command.Parameters.AddWithValue("@id", message.Id);
-                    command.Parameters.AddWithValue("@title", message.Title);
-                    command.Parameters.AddWithValue("@content", message.Content);
-                    command.Parameters.AddWithValue("@idDiscipline", message.IdDiscipline);
-                    command.ExecuteNonQuery();
-                }
+                db.NoQueryCommand(sql, messageDictionary);
             }
         }
 
@@ -126,17 +113,15 @@ namespace Library.DAL
         {
 
             StringBuilder stringBuilder = new StringBuilder();
-            stringBuilder.Append("DELETE FROM student WHERE id = @id");
+            stringBuilder.Append("DELETE FROM message WHERE id = @id");
             String sql = stringBuilder.ToString();
 
             using (DB db = new DB())
             {
+                Dictionary<string, object> messageIdDict = new Dictionary<string, object>();
+                messageIdDict.Add("@id", id);
 
-                using (SqlCommand command = new SqlCommand(sql, db.Connection))
-                {
-                    command.Parameters.AddWithValue("@id", id);
-                    command.ExecuteNonQuery();
-                }
+                db.NoQueryCommand(sql, messageIdDict);
             }
         }
     }

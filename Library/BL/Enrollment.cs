@@ -25,7 +25,7 @@ namespace Library.BL
 
         public Enrollment GetById()
         {
-            return EnrollmentDAL.GetById(this);
+            return EnrollmentDAL.GetById(IdDiscipline, IdStudent);
         }
 
         public void Update()
@@ -35,7 +35,7 @@ namespace Library.BL
 
         public void Delete()
         {
-            EnrollmentDAL.Delete(this);
+            EnrollmentDAL.Delete(IdDiscipline, IdStudent);
         }
     }
 }

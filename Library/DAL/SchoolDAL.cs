@@ -99,15 +99,13 @@ namespace Library.DAL
 
             using (DB db = new DB())
             {
+                Dictionary<string, object> schoolDictionary = new Dictionary<string, object>();
+                schoolDictionary.Add("@id", school.Id);
+                schoolDictionary.Add("@name", school.Name);
+                schoolDictionary.Add("@postalCode", school.PostalCode);
+                schoolDictionary.Add("@phone", school.Phone);
 
-                using (SqlCommand command = new SqlCommand(sql, db.Connection))
-                {
-                    command.Parameters.AddWithValue("@id", school.Id);
-                    command.Parameters.AddWithValue("@name", school.Name);
-                    command.Parameters.AddWithValue("@postalCode", school.PostalCode);
-                    command.Parameters.AddWithValue("@phone", school.Phone);
-                    command.ExecuteNonQuery();
-                }
+                db.NoQueryCommand(sql, schoolDictionary);
             }
         }
 
@@ -120,12 +118,10 @@ namespace Library.DAL
 
             using (DB db = new DB())
             {
+                Dictionary<string, object> schoolIdDict = new Dictionary<string, object>();
+                schoolIdDict.Add("@id", id);
 
-                using (SqlCommand command = new SqlCommand(sql, db.Connection))
-                {
-                    command.Parameters.AddWithValue("@id", id);
-                    command.ExecuteNonQuery();
-                }
+                db.NoQueryCommand(sql, schoolIdDict);
             }
         }
     }

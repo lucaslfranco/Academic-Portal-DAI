@@ -30,17 +30,16 @@ namespace Library.DAL
                 "(@id, @name, @condition, @email, @idSchool)");
             String sql = stringBuilder.ToString();
 
-            using (DB db = new DB()) {
-                
-                using (SqlCommand command = new SqlCommand(sql, db.Connection))
-                {
-                    command.Parameters.AddWithValue("@id", teacher.Id);
-                    command.Parameters.AddWithValue("@name", teacher.Name);
-                    command.Parameters.AddWithValue("@condition", teacher.Condition);
-                    command.Parameters.AddWithValue("@email", teacher.Email);
-                    command.Parameters.AddWithValue("@idSchool", teacher.IdSchool);
-                    int rows = command.ExecuteNonQuery();
-                }
+            using (DB db = new DB()) 
+            {
+                Dictionary<string, object> teacherDictionary = new Dictionary<string, object>();
+                teacherDictionary.Add("@id", teacher.Id);
+                teacherDictionary.Add("@name", teacher.Name);
+                teacherDictionary.Add("@condition", teacher.Condition);
+                teacherDictionary.Add("@email", teacher.Email);
+                teacherDictionary.Add("@idSchool", teacher.IdSchool);
+
+                db.NoQueryCommand(sql, teacherDictionary);
             }
         }
 
@@ -53,28 +52,21 @@ namespace Library.DAL
 
             using (DB db = new DB()) {
 
-                using (SqlCommand command = new SqlCommand(sql, db.Connection))
+                List<Teacher> teachers = new List<Teacher>();
+                List<Object[]> objects = db.QueryCommand(sql);
+
+                foreach (Object[] obj in objects)
                 {
-                    using (SqlDataReader reader = command.ExecuteReader())
-                    {
+                    Teacher teacher = new Teacher();
+                    teacher.Id = (int)obj[0];
+                    teacher.Name = (String)obj[1];
+                    teacher.Condition = (String)obj[2];
+                    teacher.Email = (String)obj[3];
+                    teacher.IdSchool = (int)obj[4];
 
-                        List<Teacher> teachers = new List<Teacher>();
-
-                        while (reader.Read())
-                        {
-                            Teacher teacher = new Teacher();
-
-                            teacher.Id = reader.GetInt32(0);
-                            teacher.Name = reader.GetString(1);
-                            teacher.Condition = reader.GetString(2);
-                            teacher.Email = reader.GetString(3);
-                            teacher.IdSchool = reader.GetInt32(4);
-
-                            teachers.Add(teacher);
-                        }
-                        return teachers;
-                    }
+                    teachers.Add(teacher);
                 }
+                return teachers;
             }
         }
 
@@ -87,24 +79,16 @@ namespace Library.DAL
 
             using (DB db = new DB()) {
 
-                using (SqlCommand command = new SqlCommand(sql, db.Connection))
-                {
-                    command.Parameters.AddWithValue("@id", id);
+                Object[] objects = db.QueryCommand(sql, id);
+                Teacher teacher = new Teacher();
 
-                    using (SqlDataReader reader = command.ExecuteReader())
-                    {
-                        Teacher teacher = new Teacher();
-                        while (reader.Read())
-                        {
-                            teacher.Id = reader.GetInt32(0);
-                            teacher.Name = reader.GetString(1);
-                            teacher.Condition = reader.GetString(2);
-                            teacher.Email = reader.GetString(3);
-                            teacher.IdSchool = reader.GetInt32(4);
-                        }
-                        return teacher;
-                    }
-                }
+                teacher.Id = (int)objects[0];
+                teacher.Name = (String)objects[1];
+                teacher.Condition = (String)objects[2];
+                teacher.Email = (String)objects[3];
+                teacher.IdSchool = (int)objects[4];
+
+                return teacher;
             }
         }
 
@@ -117,16 +101,14 @@ namespace Library.DAL
 
             using (DB db = new DB()) {
 
-                using (SqlCommand command = new SqlCommand(sql, db.Connection))
-                {
+                Dictionary<string, object> teacherDictionary = new Dictionary<string, object>();
+                teacherDictionary.Add("@id", teacher.Id);
+                teacherDictionary.Add("@name", teacher.Name);
+                teacherDictionary.Add("@condition", teacher.Condition);
+                teacherDictionary.Add("@email", teacher.Email);
+                teacherDictionary.Add("@idSchool", teacher.IdSchool);
 
-                    command.Parameters.AddWithValue("@id", teacher.Id);
-                    command.Parameters.AddWithValue("@name", teacher.Name);
-                    command.Parameters.AddWithValue("@condition", teacher.Condition);
-                    command.Parameters.AddWithValue("@email", teacher.Email);
-                    command.Parameters.AddWithValue("@idSchool", teacher.IdSchool);
-                    command.ExecuteNonQuery();
-                }
+                db.NoQueryCommand(sql, teacherDictionary);
             }
         }
 
@@ -134,16 +116,14 @@ namespace Library.DAL
         {
 
             StringBuilder stringBuilder = new StringBuilder();
-            stringBuilder.Append("DELETE FROM student WHERE id = @id");
+            stringBuilder.Append("DELETE FROM teacher WHERE id = @id");
             String sql = stringBuilder.ToString();
 
             using (DB db = new DB()) {
+                Dictionary<string, object> teacherIdDict = new Dictionary<string, object>();
+                teacherIdDict.Add("@id", id);
 
-                using (SqlCommand command = new SqlCommand(sql, db.Connection))
-                {
-                    command.Parameters.AddWithValue("@id", id);
-                    command.ExecuteNonQuery();
-                }
+                db.NoQueryCommand(sql, teacherIdDict);
             }
         }
     }

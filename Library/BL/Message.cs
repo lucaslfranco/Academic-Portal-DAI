@@ -9,6 +9,7 @@ namespace Library.BL
         public int Id { get; set; }
         public String Title { get; set; }
         public String Content { get; set; }
+        public DateTime Time { get; set; }
         public int IdDiscipline { get; set; }
 
         // BL Methods

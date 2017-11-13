@@ -83,13 +83,13 @@ namespace Library.DAL {
                 Object[] objects = db.QueryCommand(sql, id);
                 Student student = new Student();
 
-                student.Id = (int) objects[0];
-                student.Name = (String) objects[1];
-                student.BirthDate = (DateTime) objects[2];
-                student.EnrollDate = (DateTime) objects[3];
-                student.Country = (String) objects[4];
-                student.Email = (String) objects[5];
-                student.Phone = (String) objects[6];
+                student.Id = (int)objects[0];
+                student.Name = (String)objects[1];
+                student.BirthDate = (DateTime)objects[2];
+                student.EnrollDate = (DateTime)objects[3];
+                student.Country = (String)objects[4];
+                student.Email = (String)objects[5];
+                student.Phone = (String)objects[6];
 
                 return student;
             }
@@ -124,6 +124,7 @@ namespace Library.DAL {
             String sql = stringBuilder.ToString();
 
             using (DB db = new DB()) {
+
                 Dictionary<string, object> studentIdDict = new Dictionary<string, object>();
                 studentIdDict.Add("@id", id);
 
