@@ -1,4 +1,5 @@
 ﻿using Library.BL;
+using Library.DAL;
 using System;
 using System.Collections.Generic;
 using System.Data;
@@ -12,8 +13,8 @@ namespace Library.DAL {
 
             StringBuilder stringBuilder = new StringBuilder();
             stringBuilder.Append("DROP TABLE IF EXISTS student; " +
-                "CREATE TABLE student (id int not null, name varchar(255) not null, birthDate varchar(45) not null, " +
-                    "enrollDate varchar(45) not null, country varchar(45) not null, email varchar(45) not null, phone varchar(45))");
+                "CREATE TABLE student (id int not null, name varchar(255) not null, birthDate datetime not null, " +
+                    "enrollDate datetime not null, country varchar(45) not null, email varchar(45) not null, phone varchar(45))");
             String sql = stringBuilder.ToString();
 
             using (DB db = new DB()) {
@@ -25,23 +26,21 @@ namespace Library.DAL {
 
             StringBuilder stringBuilder = new StringBuilder();
             stringBuilder.Append("INSERT INTO student (id, name, birthDate, enrollDate, country, email, phone) VALUES " +
-                "(@id, @name, @birthDate, @birthDate, @country, @email, @phone)");
+                "(@id, @name, @birthDate, @enrollDate, @country, @email, @phone)");
             String sql = stringBuilder.ToString();
-
 
             using (DB db = new DB())
             {
-                using (SqlCommand command = new SqlCommand(sql, db.Connection))
-                {
-                    command.Parameters.AddWithValue("@id", student.Id);
-                    command.Parameters.AddWithValue("@name", student.Name);
-                    command.Parameters.AddWithValue("@birthDate", student.BirthDate);
-                    command.Parameters.AddWithValue("@enrollDate", student.EnrollDate);
-                    command.Parameters.AddWithValue("@country", student.Country);
-                    command.Parameters.AddWithValue("@email", student.Email);
-                    command.Parameters.AddWithValue("@phone", student.Phone);
-                    int rows = command.ExecuteNonQuery();
-                }
+                Dictionary<string, object> studentDictionary = new Dictionary<string, object>();
+                studentDictionary.Add("@id", student.Id);
+                studentDictionary.Add("@name", student.Name);
+                studentDictionary.Add("@birthDate", student.BirthDate);
+                studentDictionary.Add("@enrollDate", student.EnrollDate);
+                studentDictionary.Add("@country", student.Country);
+                studentDictionary.Add("@email", student.Email);
+                studentDictionary.Add("@phone", student.Phone);
+
+                db.NoQueryCommand(sql, studentDictionary);
             }
         }
 
@@ -53,27 +52,23 @@ namespace Library.DAL {
 
             using (DB db = new DB()) {
 
-                using (SqlCommand command = new SqlCommand(sql, db.Connection)) {
-                    using (SqlDataReader reader = command.ExecuteReader()) {
+                List<Student> students = new List<Student>();
+                List<Object[]> objects = db.QueryCommand(sql);
 
-                        List<Student> students = new List<Student>();
+                foreach (Object[] obj in objects) {
+                    Student student = new Student();
+                    student.Id = (int) obj[0];
+                    student.Name = (String) obj[1];
+                    student.BirthDate = (DateTime) obj[2];
+                    student.EnrollDate = (DateTime) obj[3];
+                    student.Country = (String) obj[4];
+                    student.Email = (String) obj[5];
+                    student.Phone = (String) obj[6];
+                
+                    students.Add(student);
+                 }
 
-                        while (reader.Read()) {
-                            Student student = new Student();
-
-                            student.Id = reader.GetInt32(0);
-                            student.Name = reader.GetString(1);
-                            student.BirthDate = reader.GetString(2);
-                            student.EnrollDate = reader.GetString(3);
-                            student.Country = reader.GetString(4);
-                            student.Email = reader.GetString(5);
-                            student.Phone = reader.GetString(6);
-
-                            students.Add(student);
-                        }
-                        return students;
-                    }
-                }
+                return students;
             }
         }
 
@@ -83,25 +78,20 @@ namespace Library.DAL {
             stringBuilder.Append("SELECT * FROM student WHERE id=@id");
             String sql = stringBuilder.ToString();
 
-            using (DB db = new DB()) {
-                
-                using (SqlCommand command = new SqlCommand(sql, db.Connection)) {
-                    command.Parameters.Add("@id", SqlDbType.Int).Value = id;
+            using (DB db = new DB())
+            {
+                Object[] objects = db.QueryCommand(sql, id);
+                Student student = new Student();
 
-                    using (SqlDataReader reader = command.ExecuteReader()) {
-                        Student student = new Student();
-                        while (reader.Read()) {
-                            student.Id = reader.GetInt32(0);
-                            student.Name = reader.GetString(1);
-                            student.BirthDate = reader.GetString(2);
-                            student.EnrollDate = reader.GetString(3);
-                            student.Country = reader.GetString(4);
-                            student.Email = reader.GetString(5);
-                            student.Phone = reader.GetString(6);
-                        }
-                        return student;
-                    }
-                }
+                student.Id = (int) objects[0];
+                student.Name = (String) objects[1];
+                student.BirthDate = (DateTime) objects[2];
+                student.EnrollDate = (DateTime) objects[3];
+                student.Country = (String) objects[4];
+                student.Email = (String) objects[5];
+                student.Phone = (String) objects[6];
+
+                return student;
             }
         }
 
@@ -114,17 +104,16 @@ namespace Library.DAL {
 
             using (DB db = new DB()) {
 
-                using (SqlCommand command = new SqlCommand(sql, db.Connection)) {
+                Dictionary<string, object> studentDictionary = new Dictionary<string, object>();
+                studentDictionary.Add("@id", student.Id);
+                studentDictionary.Add("@name", student.Name);
+                studentDictionary.Add("@birthDate", student.BirthDate);
+                studentDictionary.Add("@enrollDate", student.EnrollDate);
+                studentDictionary.Add("@country", student.Country);
+                studentDictionary.Add("@email", student.Email);
+                studentDictionary.Add("@phone", student.Phone);
 
-                    command.Parameters.AddWithValue("@id", student.Id);
-                    command.Parameters.AddWithValue("@name", student.Name);
-                    command.Parameters.AddWithValue("@birthDate", student.BirthDate);
-                    command.Parameters.AddWithValue("@enrollDate", student.EnrollDate);
-                    command.Parameters.AddWithValue("@country", student.Country);
-                    command.Parameters.AddWithValue("@email", student.Email);
-                    command.Parameters.AddWithValue("@phone", student.Phone);
-                    command.ExecuteNonQuery();
-                }
+                db.NoQueryCommand(sql, studentDictionary);
             }
         }
 
@@ -135,45 +124,11 @@ namespace Library.DAL {
             String sql = stringBuilder.ToString();
 
             using (DB db = new DB()) {
+                Dictionary<string, object> studentIdDict = new Dictionary<string, object>();
+                studentIdDict.Add("@id", id);
 
-                using (SqlCommand command = new SqlCommand(sql, db.Connection)) {
-                    command.Parameters.AddWithValue("@id", id);
-                    command.ExecuteNonQuery();
-                }
+                db.NoQueryCommand(sql, studentIdDict);        
             }
         }   
-
-        /*   public static void DB() {
-               Console.WriteLine("Conexão com BD");
-               SQLiteConnection.CreateFile("MyDB.sqlite");
-               SQLiteConnection sqlConnection = new SQLiteConnection("Data Source=MyDB.sqlite;");
-               sqlConnection.Open();
-
-               String sql = "create table Pessoa (nome varchar(45), idade int)";
-               SQLiteCommand sqlCommand = new SQLiteCommand(sql, sqlConnection);
-               sqlCommand.ExecuteNonQuery();
-
-               sql = "insert into Pessoa (nome, idade) values ('pessoa01', 33)";
-               sqlCommand = new SQLiteCommand(sql, sqlConnection);
-               sqlCommand.ExecuteNonQuery();
-
-               sql = "insert into Pessoa (nome, idade) values ('pessoa02', 21)";
-               sqlCommand = new SQLiteCommand(sql, sqlConnection);
-               sqlCommand.ExecuteNonQuery();
-
-               sql = "insert into Pessoa (nome, idade) values ('pessoa03', 51)";
-               sqlCommand = new SQLiteCommand(sql, sqlConnection);
-               sqlCommand.ExecuteNonQuery();
-
-               sql = "select * from Pessoa order by nome asc";
-               sqlCommand = new SQLiteCommand(sql, sqlConnection);
-
-               SQLiteDataReader reader = sqlCommand.ExecuteReader();
-               while (reader.Read())
-                   Console.WriteLine("Nome: " + reader["nome"] + "\tIdade: " + reader["idade"]);
-
-               sqlConnection.Close();
-           }
-       */
     }
 }

@@ -8,8 +8,8 @@ namespace Library.BL
     {
         public int Id { get; set; }
         public String Name { get; set; }
-        public String BirthDate { get; set; }
-        public String EnrollDate { get; set; }
+        public DateTime BirthDate { get; set; }
+        public DateTime EnrollDate { get; set; }
         public String Country { get; set; }
         public String Email { get; set; }
         public String Phone { get; set; }

@@ -32,15 +32,13 @@ namespace Library.DAL
 
             using (DB db = new DB())
             {
+                Dictionary<string, object> schoolDictionary = new Dictionary<string, object>();
+                schoolDictionary.Add("@id", school.Id);
+                schoolDictionary.Add("@name", school.Name);
+                schoolDictionary.Add("@postalCode", school.PostalCode);
+                schoolDictionary.Add("@phone", school.Phone);
 
-                using (SqlCommand command = new SqlCommand(sql, db.Connection))
-                {
-                    command.Parameters.AddWithValue("@id", school.Id);
-                    command.Parameters.AddWithValue("@name", school.Name);
-                    command.Parameters.AddWithValue("@postalCode", school.PostalCode);
-                    command.Parameters.AddWithValue("@phone", school.Phone);
-                    int rows = command.ExecuteNonQuery();
-                }
+                db.NoQueryCommand(sql, schoolDictionary);
             }
         }
 
@@ -53,28 +51,20 @@ namespace Library.DAL
 
             using (DB db = new DB())
             {
+                List<School> schools = new List<School>();
+                List<Object[]> objects = db.QueryCommand(sql);
 
-                using (SqlCommand command = new SqlCommand(sql, db.Connection))
+                foreach (Object[] obj in objects)
                 {
-                    using (SqlDataReader reader = command.ExecuteReader())
-                    {
+                    School school = new School();
+                    school.Id = (int)obj[0];
+                    school.Name = (String)obj[1];
+                    school.PostalCode = (String)obj[2];
+                    school.Phone = (String)obj[3];
 
-                        List<School> schools = new List<School>();
-
-                        while (reader.Read())
-                        {
-                            School school = new School();
-
-                            school.Id = reader.GetInt32(0);
-                            school.Name = reader.GetString(1);
-                            school.PostalCode = reader.GetString(2);
-                            school.Phone = reader.GetString(3);
-
-                            schools.Add(school);
-                        }
-                        return schools;
-                    }
+                    schools.Add(school);
                 }
+                return schools;
             }
         }
 
@@ -87,24 +77,15 @@ namespace Library.DAL
 
             using (DB db = new DB())
             {
+                Object[] objects = db.QueryCommand(sql, id);
+                School school = new School();
 
-                using (SqlCommand command = new SqlCommand(sql, db.Connection))
-                {
-                    command.Parameters.AddWithValue("@id", id);
+                school.Id = (int)objects[0];
+                school.Name = (String)objects[1];
+                school.PostalCode = (String)objects[2];
+                school.Phone = (String)objects[3];
 
-                    using (SqlDataReader reader = command.ExecuteReader())
-                    {
-                        School school = new School();
-                        while (reader.Read())
-                        {
-                            school.Id = reader.GetInt32(0);
-                            school.Name = reader.GetString(1);
-                            school.PostalCode = reader.GetString(2);
-                            school.Phone = reader.GetString(3);
-                        }
-                        return school;
-                    }
-                }
+                return school;
             }
         }
 

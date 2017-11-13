@@ -12,8 +12,12 @@ namespace ConnectionTest
         // Run the List of students and print their names on the screen
         public static void ListStudents(List<Student> students)
         {
-            foreach(Student student in students)
-                Console.WriteLine(student.Name);
+            foreach (Student student in students)
+            {
+                Console.WriteLine("Nome: " + student.Name);
+                Console.WriteLine("Data de Nascimento: " + student.BirthDate.ToString("d"));
+                Console.WriteLine("Email: " + student.Email);
+            }
         }
 
         // Run the List of schools and print their names on the screen
@@ -55,8 +59,8 @@ namespace ConnectionTest
             Student student01 = new Student();
             student01.Id = 0;
             student01.Name = "Paulo";
-            student01.BirthDate = "10/06/1986";
-            student01.EnrollDate = "21/03/2016";
+            student01.BirthDate = new DateTime(1986, 06, 10);
+            student01.EnrollDate = new DateTime(2016, 03, 21);
             student01.Country = "México";
             student01.Email = "paulo@email.com";
             student01.Phone = "+351 1238222";
@@ -64,8 +68,8 @@ namespace ConnectionTest
             Student student02 = new Student();
             student02.Id = 1;
             student02.Name = "Maria";
-            student02.BirthDate = "22/02/1990";
-            student02.EnrollDate = "25/09/2017";
+            student02.BirthDate = new DateTime(1990, 02, 22);
+            student02.EnrollDate = new DateTime(2017, 09, 25);
             student02.Country = "Portugal";
             student02.Email = "maria@email.pt";
             student02.Phone = "1231231";
@@ -75,8 +79,15 @@ namespace ConnectionTest
             student02.Create();
 
             // Get a student by your ID
-            Console.WriteLine("\nGetById: " + student01.Id);
-            Console.WriteLine(student01.GetById().Name);
+            Student studentTest = student01.GetById();
+
+            Console.WriteLine("\nGetById: " + studentTest.Id);
+            Console.WriteLine("Nome: " + studentTest.Name);
+            Console.WriteLine("Data de Nascimento: " + studentTest.BirthDate.ToString("d"));
+            Console.WriteLine("Data Matricula: " + studentTest.EnrollDate.ToString("d"));
+            Console.WriteLine("País: " + studentTest.Country);
+            Console.WriteLine("Email: " + studentTest.Email);
+            Console.WriteLine("Número de Telemóvel: " + studentTest.Phone);
 
             // Get all the students from table 'student'
             Console.WriteLine("\nGetAll");
@@ -253,9 +264,10 @@ namespace ConnectionTest
 
             /* Run some test methods */
             TestStudents();
-            TestSchools();
-            TestTeachers();
-            TestCourses();
+            // TestSchools();
+            // TestTeachers();
+            // TestCourses();
+            
         }
     }
 }
