@@ -10,7 +10,7 @@ namespace Library.BL
         public String Title { get; set; }
         public String Content { get; set; }
         public DateTime Time { get; set; }
-        public int IdDiscipline { get; set; }
+        public int IdSubject { get; set; }
 
         // BL Methods
         public void Create()

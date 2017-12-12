@@ -1,8 +1,6 @@
 ﻿using Library.BL;
-using Library.DAL;
 using System;
 using System.Collections.Generic;
-using System.Data.SqlClient;
 using System.Text;
 
 namespace Library.DAL
@@ -13,7 +11,8 @@ namespace Library.DAL
         {
             StringBuilder stringBuilder = new StringBuilder();
             stringBuilder.Append("DROP TABLE IF EXISTS grades; " +
-                "CREATE TABLE grades (id int not null, grade1 float not null, grade2 float, grade3 float, grade4 float)");
+                "CREATE TABLE grades (id int not null, grade1 float not null, grade2 float, grade3 float, grade4 float " +
+                "CONSTRAINT PK_grades PRIMARY KEY (id))");
             String sql = stringBuilder.ToString();
 
             using (DB db = new DB())

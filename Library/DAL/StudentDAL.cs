@@ -14,7 +14,8 @@ namespace Library.DAL {
             StringBuilder stringBuilder = new StringBuilder();
             stringBuilder.Append("DROP TABLE IF EXISTS student; " +
                 "CREATE TABLE student (id int not null, name varchar(255) not null, birthDate datetime not null, " +
-                    "enrollDate datetime not null, country varchar(45) not null, email varchar(45) not null, phone varchar(45))");
+                    "enrollDate datetime not null, country varchar(45) not null, email varchar(45) not null, phone varchar(45), " +
+                    "CONSTRAINT PK_student PRIMARY KEY (id))");
             String sql = stringBuilder.ToString();
 
             using (DB db = new DB()) {

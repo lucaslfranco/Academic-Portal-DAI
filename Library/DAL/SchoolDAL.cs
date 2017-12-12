@@ -13,7 +13,8 @@ namespace Library.DAL
 
             StringBuilder stringBuilder = new StringBuilder();
             stringBuilder.Append("DROP TABLE IF EXISTS school; " +
-                "CREATE TABLE school (id int not null, name varchar(255) not null, postalCode varchar(255) not null, phone varchar(45) not null)");
+                "CREATE TABLE school (id int not null, name varchar(255) not null, postalCode varchar(255) not null, phone varchar(45) not null " +
+                "CONSTRAINT PK_school PRIMARY KEY (id))");
             String sql = stringBuilder.ToString();
 
             using (DB db = new DB())

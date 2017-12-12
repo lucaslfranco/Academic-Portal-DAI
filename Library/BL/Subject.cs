@@ -1,11 +1,10 @@
 ﻿using Library.DAL;
 using System;
 using System.Collections.Generic;
-using System.Text;
 
 namespace Library.BL
 {
-    public class Discipline
+    public class Subject
     {
         public int Id { get; set; }
         public String Name { get; set; }
@@ -21,27 +20,27 @@ namespace Library.BL
         // BL Methods
         public void Create()
         {
-            DisciplineDAL.Create(this);
+            SubjectDAL.Create(this);
         }
 
-        public List<Discipline> GetAll()
+        public List<Subject> GetAll()
         {
-            return DisciplineDAL.GetAll();
+            return SubjectDAL.GetAll();
         }
 
-        public Discipline GetById()
+        public Subject GetById()
         {
-            return DisciplineDAL.GetById(Id);
+            return SubjectDAL.GetById(Id);
         }
 
         public void Update()
         {
-            DisciplineDAL.Update(this);
+            SubjectDAL.Update(this);
         }
 
         public void Delete()
         {
-            DisciplineDAL.Delete(Id);
+            SubjectDAL.Delete(Id);
         }
     }
 }

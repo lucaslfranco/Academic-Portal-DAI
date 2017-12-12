@@ -7,7 +7,7 @@ namespace Library.BL
 {
     public class Enrollment
     {
-        public int IdDiscipline { get; set; }
+        public int IdSubject { get; set; }
         public int IdStudent { get; set; }
         public int MissedClasses { get; set; }
         public int IdGrades { get; set; }
@@ -25,7 +25,7 @@ namespace Library.BL
 
         public Enrollment GetById()
         {
-            return EnrollmentDAL.GetById(IdDiscipline, IdStudent);
+            return EnrollmentDAL.GetById(IdSubject, IdStudent);
         }
 
         public void Update()
@@ -35,7 +35,7 @@ namespace Library.BL
 
         public void Delete()
         {
-            EnrollmentDAL.Delete(IdDiscipline, IdStudent);
+            EnrollmentDAL.Delete(IdSubject, IdStudent);
         }
     }
 }

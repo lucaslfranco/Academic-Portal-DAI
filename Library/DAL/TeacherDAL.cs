@@ -1,7 +1,6 @@
 ﻿using Library.BL;
 using System;
 using System.Collections.Generic;
-using System.Data.SqlClient;
 using System.Text;
 
 namespace Library.DAL
@@ -13,7 +12,10 @@ namespace Library.DAL
 
             StringBuilder stringBuilder = new StringBuilder();
             stringBuilder.Append("DROP TABLE IF EXISTS teacher; " +
-                "CREATE TABLE teacher (id int not null, name varchar(255) not null, condition varchar(255) not null, email varchar(45) not null, idSchool int not null)");
+                "CREATE TABLE teacher (id int not null, name varchar(255) not null, condition varchar(255) not null, email varchar(45) not null, idSchool int not null, " +
+                "CONSTRAINT PK_teacher PRIMARY KEY (id), " +
+                "CONSTRAINT FK_teacher_school FOREIGN KEY (idSchool) REFERENCES school (id) " +
+                "ON UPDATE CASCADE ON DELETE CASCADE)");
             String sql = stringBuilder.ToString();
 
             using (DB db = new DB())

@@ -12,7 +12,10 @@ namespace Library.DAL
         {
             StringBuilder stringBuilder = new StringBuilder();
             stringBuilder.Append("DROP TABLE IF EXISTS course; " +
-                "CREATE TABLE course (id int not null, name varchar(255) not null, degree varchar(255) not null, durationYears int not null, idSchool int not null)");
+                "CREATE TABLE course (id int not null, name varchar(255) not null, degree varchar(255) not null, durationYears int not null, idSchool int not null " +
+                "CONSTRAINT PK_course PRIMARY KEY (id), " +
+                "CONSTRAINT FK_course_school FOREIGN KEY (idSchool) REFERENCES school (id) " +
+                "ON UPDATE CASCADE ON DELETE CASCADE)");
             String sql = stringBuilder.ToString();
 
             using (DB db = new DB())

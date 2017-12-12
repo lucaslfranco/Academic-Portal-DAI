@@ -1,7 +1,6 @@
 ﻿using Library.BL;
 using System;
 using System.Collections.Generic;
-using System.Data.SqlClient;
 using System.Text;
 
 namespace Library.DAL
@@ -12,7 +11,10 @@ namespace Library.DAL
         {
             StringBuilder stringBuilder = new StringBuilder();
             stringBuilder.Append("DROP TABLE IF EXISTS message; " +
-                "CREATE TABLE message (id int not null, title varchar(45) not null, content varchar(255) not null, time DateTime not null, idDiscipline int not null)");
+                "CREATE TABLE message (id int not null, title varchar(45) not null, content varchar(255) not null, time DateTime not null, idSubject int not null " +
+                "CONSTRAINT PK_message PRIMARY KEY (id), " +
+                "CONSTRAINT FK_message_subject FOREIGN KEY (idSubject) REFERENCES subject (id) " +
+                "ON UPDATE CASCADE ON DELETE CASCADE)");
             String sql = stringBuilder.ToString();
 
             using (DB db = new DB())
@@ -24,8 +26,8 @@ namespace Library.DAL
         public static void Create(Message message)
         {
             StringBuilder stringBuilder = new StringBuilder();
-            stringBuilder.Append("INSERT INTO message (id, title, content, time, idDiscipline) VALUES " +
-                "(@id, @title, @content, @time, @idDiscipline)");
+            stringBuilder.Append("INSERT INTO message (id, title, content, time, idSubject) VALUES " +
+                "(@id, @title, @content, @time, @idSubject)");
             String sql = stringBuilder.ToString();
 
             using (DB db = new DB())
@@ -35,7 +37,7 @@ namespace Library.DAL
                 messageDictionary.Add("@title", message.Title);
                 messageDictionary.Add("@content", message.Content);
                 messageDictionary.Add("@time", message.Time);
-                messageDictionary.Add("@idDiscipline", message.IdDiscipline);
+                messageDictionary.Add("@idSubject", message.IdSubject);
 
                 db.NoQueryCommand(sql, messageDictionary);
             }
@@ -59,7 +61,7 @@ namespace Library.DAL
                     message.Title = (String)obj[1];
                     message.Content = (String)obj[2];
                     message.Time = (DateTime)obj[3];
-                    message.IdDiscipline = (int)obj[4];
+                    message.IdSubject = (int)obj[4];
                    
                     messages.Add(message);
                 }
@@ -83,7 +85,7 @@ namespace Library.DAL
                 message.Title = (String)objects[1];
                 message.Content = (String)objects[2];
                 message.Time = (DateTime)objects[3];
-                message.IdDiscipline = (int)objects[4];
+                message.IdSubject = (int)objects[4];
 
                 return message;
             }
@@ -93,7 +95,7 @@ namespace Library.DAL
         {
             StringBuilder stringBuilder = new StringBuilder();
             stringBuilder.Append("UPDATE message SET id = @id, title = @title, content = @content, " +
-                "idDiscipline = @idDiscipline WHERE id = @id");
+                "idSubject = @idSubject WHERE id = @id");
             String sql = stringBuilder.ToString();
 
             using (DB db = new DB())
@@ -103,7 +105,7 @@ namespace Library.DAL
                 messageDictionary.Add("@title", message.Title);
                 messageDictionary.Add("@content", message.Content);
                 messageDictionary.Add("@time", message.Time);
-                messageDictionary.Add("@idDiscipline", message.IdDiscipline);
+                messageDictionary.Add("@idSubject", message.IdSubject);
 
                 db.NoQueryCommand(sql, messageDictionary);
             }

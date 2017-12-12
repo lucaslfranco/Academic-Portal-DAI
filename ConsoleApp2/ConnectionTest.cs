@@ -9,7 +9,8 @@ namespace ConnectionTest
     {
         /* Only for testing in console application */
 
-        // Run the List of students and print their names on the screen
+        // Run the List of objects and print some of your atributes value
+
         public static void ListStudents(List<Student> students)
         {
             foreach (Student student in students)
@@ -20,14 +21,12 @@ namespace ConnectionTest
             }
         }
 
-        // Run the List of schools and print their names on the screen
         public static void ListSchools(List<School> schools)
         {
             foreach (School school in schools)
                 Console.WriteLine(school.Name);
         }
 
-        // Run the List of schools and print their names and associated school on the screen
         public static void ListTeachers(List<Teacher> teachers)
         {
             String teacherSchool = "";
@@ -50,14 +49,14 @@ namespace ConnectionTest
             }
         }
 
-        public static void ListDisciplines(List<Discipline> disciplines)
+        public static void ListSubjects(List<Subject> subjects)
         {
-            String disciplineTeacher = "";
+            String subjectTeacher = "";
 
-            foreach (Discipline discipline in disciplines)
+            foreach (Subject subject in subjects)
             {
-                disciplineTeacher = TeacherDAL.GetById(discipline.IdTeacher).Name;  // Just testing the "foreign key" to get the school name
-                Console.WriteLine("\nNome: " + discipline.Name + "\nProfessor: " + disciplineTeacher);
+                subjectTeacher = TeacherDAL.GetById(subject.IdTeacher).Name;  // Just testing the "foreign key" to get the school name
+                Console.WriteLine("\nNome: " + subject.Name + "\nProfessor: " + subjectTeacher);
             }
         }
 
@@ -126,6 +125,7 @@ namespace ConnectionTest
             ListStudents(student01.GetAll());
 
             // Some changes in a student data
+            student02.Id = 2;
             student02.Name = "Mariana";
             student02.Email = "mariana@email.pt";
             // Update a student by your ID
@@ -271,6 +271,7 @@ namespace ConnectionTest
             ListCourses(course01.GetAll());
 
             // Some change in a course data
+            course02.Id = 2;
             course02.Name = "Desenvolv. de Prod. Mult.";
             
             // Update a course by your ID
@@ -284,64 +285,65 @@ namespace ConnectionTest
             course02.Create();
         }
 
-        public static void TestDisciplines()
+        public static void TestSubjects()
         {
-            /* Tests with 'Disciplines' */
-            Console.WriteLine("\n--------------- Discipline Tests ---------------");
-            // Create some Discipline objects and fills their atributes
-            Discipline discipline01 = new Discipline();
-            discipline01.Id = 0;
-            discipline01.Name = "Desenvolvimento de Aplicações Informáticas";
-            discipline01.Credits = 6;
-            discipline01.Year = 2017;
-            discipline01.Semester = 1;
-            discipline01.StartTime = new DateTime(2017, 11, 7, 14, 0, 0);
-            discipline01.EndTime = new DateTime(2017, 11, 7, 16, 0, 0);
-            discipline01.ClassesHeld = 10;
-            discipline01.IdTeacher = 3;
-            discipline01.IdCourse = 0;
+            /* Tests with 'Subjects' */
+            Console.WriteLine("\n--------------- Subject Tests ---------------");
+            // Create some Subject objects and fills their atributes
+            Subject subject01 = new Subject();
+            subject01.Id = 0;
+            subject01.Name = "Desenvolvimento de Aplicações Informáticas";
+            subject01.Credits = 6;
+            subject01.Year = 2017;
+            subject01.Semester = 1;
+            subject01.StartTime = new DateTime(2017, 11, 7, 14, 0, 0);
+            subject01.EndTime = new DateTime(2017, 11, 7, 16, 0, 0);
+            subject01.ClassesHeld = 10;
+            subject01.IdTeacher = 3;
+            subject01.IdCourse = 0;
 
-            Discipline discipline02 = new Discipline();
-            discipline02.Id = 1;
-            discipline02.Name = "Sistemas Distribuídos";
-            discipline02.Credits = 6;
-            discipline02.Year = 2017;
-            discipline02.Semester = 1;
-            discipline02.StartTime = new DateTime(2017, 11, 7, 11, 0, 0);
-            discipline02.EndTime = new DateTime(2017, 11, 7, 13, 0, 0);
-            discipline02.ClassesHeld = 8;
-            discipline02.IdTeacher = 3;
-            discipline02.IdCourse = 0;
+            Subject subject02 = new Subject();
+            subject02.Id = 1;
+            subject02.Name = "Sistemas Distribuídos";
+            subject02.Credits = 6;
+            subject02.Year = 2017;
+            subject02.Semester = 1;
+            subject02.StartTime = new DateTime(2017, 11, 7, 11, 0, 0);
+            subject02.EndTime = new DateTime(2017, 11, 7, 13, 0, 0);
+            subject02.ClassesHeld = 8;
+            subject02.IdTeacher = 3;
+            subject02.IdCourse = 0;
 
-            // Insert both disciplines to table 'disciplines'
-            discipline01.Create();
-            discipline02.Create();
+            // Insert both subjects to table 'subjects'
+            subject01.Create();
+            subject02.Create();
 
-            // Get a discipline by its ID
-            Console.WriteLine("\nGetById: " + discipline01.Id);
-            Console.WriteLine(discipline01.GetById().Name);
+            // Get a subject by its ID
+            Console.WriteLine("\nGetById: " + subject01.Id);
+            Console.WriteLine(subject01.GetById().Name);
 
-            // Get all the disciplines from table 'discipline'
+            // Get all the subjects from table 'subject'
             Console.WriteLine("\nGetAll");
-            ListDisciplines(discipline01.GetAll());
+            ListSubjects(subject01.GetAll());
 
-            // Delete a discipline by its ID
-            Console.WriteLine("\nDelete: " + discipline02.Name);
-            discipline02.Delete();
-            ListDisciplines(discipline01.GetAll());
+            // Delete a subject by its ID
+            Console.WriteLine("\nDelete: " + subject02.Name);
+            subject02.Delete();
+            ListSubjects(subject01.GetAll());
 
-            // Some change in a discipline data
-            discipline02.Name = "Sistemas Distribuídos I";
+            // Some change in a subject data
+            subject02.Id = 2;
+            subject02.Name = "Sistemas Distribuídos I";
 
-            // Update a discipline by your ID
-            discipline02.Update();
+            // Update a subject by your ID
+            subject02.Update();
 
-            // Get all the disciplines again, now updated
+            // Get all the subjects again, now updated
             Console.WriteLine("\nGetAll Updated");
-            ListDisciplines(discipline02.GetAll());
+            ListSubjects(subject02.GetAll());
 
             // Just for another tests
-            discipline02.Create();
+            subject02.Create();
         }
 
         public static void TestGrades()
@@ -381,6 +383,7 @@ namespace ConnectionTest
             ListGrades(grades01.GetAll());
 
             // Some change in a grade data
+            grades02.Id = 2;
             grades01.Grade1 = 2;
 
             // Update a grade by your ID
@@ -400,13 +403,13 @@ namespace ConnectionTest
             Console.WriteLine("\n--------------- Enrollment Tests ---------------");
             // Create some Enrollment objects and fills their atributes
             Enrollment enrollment01 = new Enrollment();
-            enrollment01.IdDiscipline = 0;
+            enrollment01.IdSubject = 0;
             enrollment01.IdStudent = 0;
             enrollment01.MissedClasses = 6;
             enrollment01.IdGrades = 0;
 
             Enrollment enrollment02 = new Enrollment();
-            enrollment02.IdDiscipline = 0;
+            enrollment02.IdSubject = 0;
             enrollment02.IdStudent = 1;
             enrollment02.MissedClasses = 3;
             enrollment02.IdGrades = 1;
@@ -416,7 +419,7 @@ namespace ConnectionTest
             enrollment02.Create();
 
             // Get a enrollment by its IDs
-            Console.WriteLine("\nGetByIds: " + enrollment01.IdDiscipline + " e " + enrollment01.IdStudent);
+            Console.WriteLine("\nGetByIds: " + enrollment01.IdSubject + " e " + enrollment01.IdStudent);
             Console.WriteLine("Numero de faltas: " + enrollment01.GetById().MissedClasses);
 
             // Get all the enrollments from table 'enrollment'
@@ -429,6 +432,7 @@ namespace ConnectionTest
             ListEnrollments(enrollment01.GetAll());
 
             // Some change in a enrollment data
+            enrollment02.IdSubject = 2;
             enrollment02.MissedClasses = 2;
 
             // Update a enrollment by your ID
@@ -449,7 +453,7 @@ namespace ConnectionTest
             SchoolDAL.CreateTable();
             TeacherDAL.CreateTable();
             CourseDAL.CreateTable();
-            DisciplineDAL.CreateTable();
+            SubjectDAL.CreateTable();
             MessageDAL.CreateTable();
             GradesDAL.CreateTable();
             EnrollmentDAL.CreateTable();
@@ -459,7 +463,7 @@ namespace ConnectionTest
             TestSchools();
             TestTeachers();
             TestCourses();
-            TestDisciplines();
+            TestSubjects();
             TestGrades();
             TestEnrollments();
         }
