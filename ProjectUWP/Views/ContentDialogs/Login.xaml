@@ -1,0 +1,24 @@
+﻿<ContentDialog
+    x:Class="ProjectUWP.Views.ContentDialogs.Login"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    mc:Ignorable="d"
+    Title="PORTAL DAI">
+    
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="80"/>
+            <RowDefinition Height="50"/>
+        </Grid.RowDefinitions>
+        <StackPanel Grid.Row="0" Orientation="Horizontal" HorizontalAlignment="Left">
+            <TextBlock Text="Código :" Margin="0 0 10 0" VerticalAlignment="Center"/>
+            <TextBox TextChanging="idTextBox_TextChanging" x:Name="idTextBox" Width="180" Height="20"/>
+        </StackPanel>
+        <StackPanel Grid.Row="1" Orientation="Horizontal"> 
+            <Button x:Name="studentButton" Click="studentButton_Click" Width="130" Content="Sou Aluno" Margin="0 0 10 0"/>
+            <Button x:Name="teacherButton" Click="teacherButton_Click" Width="130" Content="Sou Professor"/>
+        </StackPanel>
+    </Grid>
+</ContentDialog>

@@ -1,0 +1,85 @@
+﻿<ContentDialog
+    x:Class="ProjectUWP.Views.ContentDialogs.StudentUpdate"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    mc:Ignorable="d"
+    Title="Atualização de Dados de Estudante"
+    PrimaryButtonText="Atualizar"
+    SecondaryButtonText="Cancelar"
+    PrimaryButtonClick="StudentUpdate_PrimaryButtonClick"
+    SecondaryButtonClick="StudentUpdate_SecondaryButtonClick">
+   
+    <Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}" 
+          Width="600" Height="500">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="2*"/>
+            <RowDefinition Height="3*"/>
+            <RowDefinition Height="2*"/>
+            <RowDefinition Height="3*"/>
+            <RowDefinition Height="2*"/>
+            <RowDefinition Height="3*"/>
+            <RowDefinition Height="2*"/>
+            <RowDefinition Height="3*"/>
+            <RowDefinition Height="2*"/>
+            <RowDefinition Height="3*"/>
+            <RowDefinition Height="2*"/>
+            <RowDefinition Height="3*"/>
+            <RowDefinition Height="2*"/>
+            <RowDefinition Height="3*"/>
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="*"/>
+        </Grid.ColumnDefinitions>
+
+        <GridView Grid.Row="0">
+            <TextBlock Text="Código"/>
+        </GridView>
+        <GridView Grid.Row="1" HorizontalAlignment="Left">
+            <TextBox x:Name="idTextBox" Width="250"/>
+        </GridView>
+
+        <GridView Grid.Row="2" Margin="0 0 0 0">
+            <TextBlock Text="Nome"/>
+        </GridView>
+        <GridView Grid.Row="3" HorizontalAlignment="Left">
+            <TextBox x:Name="nameTextBox" Width="250"/>
+        </GridView>
+
+        <GridView Grid.Row="4" Margin="0 0 0 0">
+            <TextBlock Text="Data de Nascimento"/>
+        </GridView>
+        <GridView Grid.Row="5" HorizontalAlignment="Left">
+            <TextBox x:Name="birthDateTextBox" Width="250"/>
+        </GridView>
+
+        <GridView Grid.Row="6" Margin="0 0 0 0">
+            <TextBlock Text="Data de Matrícula"/>
+        </GridView>
+        <GridView Grid.Row="7" HorizontalAlignment="Left">
+            <TextBox x:Name="enrollDateTextBox" Width="250"/>
+        </GridView>
+
+        <GridView Grid.Row="8" Margin="0 0 0 0">
+            <TextBlock Text="País" HorizontalAlignment="Left"/>
+        </GridView>
+        <GridView Grid.Row="9" HorizontalAlignment="Left">
+            <TextBox x:Name="countryTextBox" Width="250"/>
+        </GridView>
+
+        <GridView Grid.Row="10" Margin="0 0 0 0">
+            <TextBlock Text="Email"/>
+        </GridView>
+        <GridView Grid.Row="11" HorizontalAlignment="Left">
+            <TextBox x:Name="emailTextBox" Width="250"/>
+        </GridView>
+
+        <GridView Grid.Row="12" Margin="0 0 0 0">
+            <TextBlock Text="Número de Telemóvel"/>
+        </GridView>
+        <GridView Grid.Row="13" HorizontalAlignment="Left">
+            <TextBox x:Name="phoneTextBox" Width="250"/>
+        </GridView>
+    </Grid>
+</ContentDialog>

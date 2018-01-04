@@ -1,0 +1,63 @@
+﻿<Page
+    x:Class="ProjectUWP.Views.Pages.StudentHomeView"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:bl="using:Library.BL"
+    mc:Ignorable="d">
+
+    <Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="50"/>
+            <RowDefinition Height="100"/>
+            <RowDefinition Height="50"/>
+            <RowDefinition Height="40"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+        <TextBlock Grid.Row="0" Text="Informações Gerais" FontWeight="SemiBold" FontSize="20"/>
+        <StackPanel Grid.Row="1" Orientation="Horizontal">
+            <TextBlock Text="ID : " FontWeight="SemiBold" Margin="10 0 5 0"/>
+            <TextBlock x:Name="idTextBlock" Width="70"/>
+            <TextBlock Text="Nome : " FontWeight="SemiBold" Margin="0 0 5 0"/>
+            <TextBlock x:Name="nameTextBlock" Width="300"/>
+            <TextBlock Text="Email : " FontWeight="SemiBold" Margin="0 0 5 0"/>
+            <TextBlock x:Name="emailTextBlock"/>
+        </StackPanel>
+        <TextBlock Grid.Row="2" Text="Disciplinas Matriculadas" FontWeight="SemiBold" FontSize="20"/>
+        <Grid Grid.Row="3">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="100"/>
+                <ColumnDefinition Width="350"/>
+                <ColumnDefinition Width="80"/>
+                <ColumnDefinition Width="250"/>
+                <ColumnDefinition/>
+            </Grid.ColumnDefinitions>
+            <TextBlock Grid.Column="0" Text="ID" FontWeight="Bold" VerticalAlignment="Center" Margin="10 0 0 0"/>
+            <TextBlock Grid.Column="1" Text="Nome da Disciplina" FontWeight="Bold" VerticalAlignment="Center" Margin="10 0 0 0"/>
+            <TextBlock Grid.Column="2" Text="Créditos" FontWeight="Bold" VerticalAlignment="Center" Margin="10 0 0 0"/>
+            <TextBlock Grid.Column="3" Text="Professor" FontWeight="Bold" VerticalAlignment="Center" Margin="10 0 0 0"/>
+            <TextBlock Grid.Column="4" Text="Escola" FontWeight="Bold" VerticalAlignment="Center" Margin="10 0 0 0"/>
+        </Grid>
+        <ListView Grid.Row="4" ItemsSource="{x:Bind EnrolledSubjects}">
+            <ListView.ItemTemplate>
+                <DataTemplate x:Name="SubjectsDataTemplate" x:DataType="bl:Subject">
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="100"/>
+                            <ColumnDefinition Width="350"/>
+                            <ColumnDefinition Width="80"/>
+                            <ColumnDefinition Width="250"/>
+                            <ColumnDefinition/>
+                        </Grid.ColumnDefinitions>
+                        <TextBlock Grid.Column="0" Text="{x:Bind Id}"/>
+                        <TextBlock Grid.Column="1" Text="{x:Bind Name}"/>
+                        <TextBlock Grid.Column="2" Text="{x:Bind Credits}"/>
+                        <TextBlock Grid.Column="3" Text="{x:Bind IdTeacher}"/>
+                        <TextBlock Grid.Column="4" Text="{x:Bind IdCourse}"/>
+                    </Grid>
+                </DataTemplate>
+            </ListView.ItemTemplate>
+        </ListView>
+    </Grid>
+</Page>

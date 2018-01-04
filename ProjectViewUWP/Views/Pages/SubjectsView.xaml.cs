@@ -1,5 +1,6 @@
 ﻿using Library.BL;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 
@@ -9,7 +10,7 @@ namespace ProjectViewUWP.SubjectsPages
 {
     public sealed partial class SubjectsView : Page
     {
-        public List<Subject> Subjects;
+        ObservableCollection<Subject> Subjects;
 
         public SubjectsView()
         {
@@ -17,15 +18,12 @@ namespace ProjectViewUWP.SubjectsPages
             Subjects = GetSubjects();
         }
 
-        public List<Subject> GetSubjects()
+        public ObservableCollection<Subject> GetSubjects()
         {
-            List<Subject> subjects = new List<Subject>();
             Subject subjectDB = new Subject();
+            
+            ObservableCollection<Subject> subjects = new ObservableCollection<Subject>(subjectDB.GetAll());
 
-            foreach (Subject subject in subjectDB.GetAll())
-            {
-                subjects.Add(subject);
-            }
             return subjects;
         }
 

@@ -444,11 +444,26 @@ namespace ConnectionTest
 
             // Just for another tests
             enrollment02.Create();
+
+            // Test relation between Subjects and Student
+            Student student = new Student();
+            student.Id = 1;
+            foreach (var enr in student.GetAll())
+            {
+                Console.WriteLine(enr.Id + " - " + enr.Name);
+            }
+
+            List<Subject> subjects = student.GetSubjectsByStudent();
+            foreach (var s in subjects)
+            {
+                Console.WriteLine(s.Id + " - " + s.Name);
+            }
         }
 
         public static void Main(String[] args)
         {
             /* Create all the tables */
+            /*
             StudentDAL.CreateTable();
             SchoolDAL.CreateTable();
             TeacherDAL.CreateTable();
@@ -457,15 +472,18 @@ namespace ConnectionTest
             MessageDAL.CreateTable();
             GradesDAL.CreateTable();
             EnrollmentDAL.CreateTable();
+            */
 
             /* Run some test methods */
-            TestStudents();
+            //TestStudents();
+            /*
             TestSchools();
             TestTeachers();
             TestCourses();
             TestSubjects();
             TestGrades();
             TestEnrollments();
+            */
         }
     }
 }

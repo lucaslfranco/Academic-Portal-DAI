@@ -3,6 +3,8 @@ using System;
 using System.Collections.Generic;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
+using Windows.UI.Xaml.Controls.Primitives;
+using Windows.UI.Xaml.Input;
 
 namespace ProjectViewUWP.StudentPages
 {
@@ -37,6 +39,29 @@ namespace ProjectViewUWP.StudentPages
         private void SearchStudentsBtn_Click(object sender, RoutedEventArgs e)
         {
             Students = GetStudents();
+        }
+
+        private void StudentMoreOptions_Click(object sender, RoutedEventArgs e)
+        {
+            FlyoutBase.ShowAttachedFlyout((FrameworkElement)sender);
+            Students = GetStudents();
+        }
+
+        private void Rectangle_Tapped(object sender, TappedRoutedEventArgs e)
+        {
+        }
+
+        private void StudentEditOption_Click(object sender, RoutedEventArgs e)  
+        {
+
+        }
+
+        private void StudentDeleteOption_Click(object sender, RoutedEventArgs e)
+        {
+            StudentDeleteConfirmation student = new StudentDeleteConfirmation();
+
+            //Student student = (Student) ((Button)sender).Tag;
+            //student.Delete();
         }
     }
 }

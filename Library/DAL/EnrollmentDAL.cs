@@ -78,7 +78,8 @@ namespace Library.DAL
                 enrollmentIdDict.Add("@idSubject", idSubject);
                 enrollmentIdDict.Add("@idStudent", idStudent);
 
-                Object[] objects = db.QueryCommand(sql, enrollmentIdDict);
+                Object[] objects = db.QueryCommand(sql, enrollmentIdDict)[0];
+
                 Enrollment enrollment = new Enrollment();
 
                 enrollment.IdSubject = (int)objects[0];

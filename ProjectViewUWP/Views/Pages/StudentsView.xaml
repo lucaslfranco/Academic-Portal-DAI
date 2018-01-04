@@ -1,0 +1,61 @@
+﻿<Page
+    x:Class="ProjectViewUWP.StudentPages.StudentsView"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:bl="using:Library.BL"
+    mc:Ignorable="d">
+
+    <Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="50"/>
+            <RowDefinition Height="40"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+        <StackPanel Grid.Row="0" Orientation="Horizontal">
+            <Button x:Name="AddStudentBtn" Click="AddStudentBtn_Click" Content="Adicionar Estudante"/>
+            <Button x:Name="SearchStudentsBtn" Click="SearchStudentsBtn_Click" Content="Buscar Estudantes" Margin="30 0 0 0"/>
+        </StackPanel>
+        <Grid Grid.Row="1">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="80"/>
+                <ColumnDefinition Width="300"/>
+                <ColumnDefinition Width="150"/>
+                <ColumnDefinition Width="200"/>
+            </Grid.ColumnDefinitions>
+            <TextBlock Grid.Column="0" Text="ID" FontWeight="Bold" VerticalAlignment="Center" Margin="10 0 0 0"/>
+            <TextBlock Grid.Column="1" Text="Nome do Estudante" FontWeight="Bold" VerticalAlignment="Center" Margin="10 0 0 0"/>
+            <TextBlock Grid.Column="2" Text="Data de Matrícula" FontWeight="Bold" VerticalAlignment="Center" Margin="10 0 0 0"/>
+            <TextBlock Grid.Column="3" Text="Email" FontWeight="Bold" VerticalAlignment="Center" Margin="10 0 0 0"/>
+        </Grid>
+        <ListView Grid.Row="2" ItemsSource="{x:Bind Students}">
+            <ListView.ItemTemplate>
+                <DataTemplate x:Name="StudentsDataTemplate" x:DataType="bl:Student">
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="80"/>
+                            <ColumnDefinition Width="300"/>
+                            <ColumnDefinition Width="150"/>
+                            <ColumnDefinition Width="200"/>
+                            <ColumnDefinition Width="40"/>
+                        </Grid.ColumnDefinitions>
+                        <TextBlock Grid.Column="0" Text="{x:Bind Id}"/>
+                        <TextBlock Grid.Column="1" Text="{x:Bind Name}"/>
+                        <TextBlock Grid.Column="2" Text="{x:Bind EnrollDate}"/>
+                        <TextBlock Grid.Column="3" Text="{x:Bind Email}"/>
+                        <Button Tag="{x:Bind}" x:Name="StudentMoreOptions" Click="StudentMoreOptions_Click" Grid.Column="4">
+                            <SymbolIcon Symbol="More"/>
+                            <FlyoutBase.AttachedFlyout>
+                                <MenuFlyout>
+                                    <MenuFlyoutItem x:Name="StudentEditOption" Click="StudentEditOption_Click" Icon="Copy" Text="Editar" />
+                                    <MenuFlyoutItem x:Name="StudentDeleteOption" Click="StudentDeleteOption_Click"  Icon="Delete" Text="Deletar"/>
+                                </MenuFlyout>
+                            </FlyoutBase.AttachedFlyout>
+                        </Button>
+                    </Grid>
+                </DataTemplate>
+            </ListView.ItemTemplate>
+        </ListView>
+    </Grid>
+</Page>

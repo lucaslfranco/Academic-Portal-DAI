@@ -13,10 +13,10 @@ namespace Library.DAL
             try
             {
                 var connectionBuilder = new SqlConnectionStringBuilder();
-                connectionBuilder.DataSource = "projectdai.database.windows.net";
-                connectionBuilder.UserID = "lucasfranco";
+                connectionBuilder.DataSource = "daiproject.database.windows.net";
+                connectionBuilder.UserID = "useradmin";
                 connectionBuilder.Password = "DAIpassword321";
-                connectionBuilder.InitialCatalog = "aplicacaoDAI";
+                connectionBuilder.InitialCatalog = "DAI_DB";
 
                 Connection = new SqlConnection(connectionBuilder.ConnectionString);
                 Connection.Open();
@@ -43,6 +43,7 @@ namespace Library.DAL
                 command.ExecuteNonQuery();
             }
         }
+
         public List<Object[]> QueryCommand(String sql)
         {
             using (SqlCommand command = new SqlCommand(sql, Connection))
@@ -77,7 +78,7 @@ namespace Library.DAL
             }
         }
 
-        public Object[] QueryCommand(String sql, Dictionary<string, int> idDictionary)
+        public List<Object[]> QueryCommand(String sql, Dictionary<string, int> idDictionary)
         {
             using (SqlCommand command = new SqlCommand(sql, Connection))
             {
@@ -87,10 +88,14 @@ namespace Library.DAL
                 }
                 using (SqlDataReader reader = command.ExecuteReader())
                 {
-                    Object[] objects = new Object[reader.FieldCount];
-                    while (reader.Read())
-                        reader.GetValues(objects);
+                    List<Object[]> objects = new List<Object[]>();
 
+                    while (reader.Read())
+                    {
+                        Object[] obj = new Object[reader.FieldCount];
+                        reader.GetValues(obj);
+                        objects.Add(obj);
+                    }
                     return objects;
                 }
             }
