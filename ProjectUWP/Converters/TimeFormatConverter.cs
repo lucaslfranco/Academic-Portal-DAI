@@ -1,9 +1,8 @@
 ﻿using System;
-using Windows.UI.Xaml.Data;
 
-namespace ProjectUWP
+namespace ProjectUWP.Converters
 {
-    public class DateFormatConverter : IValueConverter
+    class TimeFormatConverter
     {
         public object Convert(object value, Type targetType, object parameter, string language)
         {
@@ -11,7 +10,7 @@ namespace ProjectUWP
                 return null;
 
             DateTime dt = DateTime.Parse(value.ToString());
-            return dt.ToString("dd/MM/yyyy");
+            return dt.ToString("HH:mm");
         }
 
         public object ConvertBack(object value, Type targetType, object parameter, string language)

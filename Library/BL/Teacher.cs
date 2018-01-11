@@ -27,6 +27,11 @@ namespace Library.BL
             return TeacherDAL.GetById(Id);
         }
 
+        public List<Subject> GetSubjectsByTeacher()
+        {
+            return TeacherDAL.GetSubjectsByTeacher(this.Id);
+        }
+
         public void Update()
         {
             TeacherDAL.Update(this);

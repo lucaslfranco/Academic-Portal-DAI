@@ -31,6 +31,10 @@ namespace Library.BL
         {
             return StudentDAL.GetSubjectsByStudent(Id);
         }
+        public List<Message> GetMessagesByStudent()
+        {
+            return StudentDAL.GetMessagesByStudent(Id);
+        }
 
         public void Update() {
             StudentDAL.Update(this);

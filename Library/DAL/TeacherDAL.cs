@@ -81,16 +81,60 @@ namespace Library.DAL
 
             using (DB db = new DB()) {
 
+                Teacher teacher = null;
                 Object[] objects = db.QueryCommand(sql, id);
-                Teacher teacher = new Teacher();
-
-                teacher.Id = (int)objects[0];
-                teacher.Name = (String)objects[1];
-                teacher.Condition = (String)objects[2];
-                teacher.Email = (String)objects[3];
-                teacher.IdSchool = (int)objects[4];
+                
+                if(objects != null)
+                {
+                    teacher = new Teacher();
+                    teacher.Id = (int)objects[0];
+                    teacher.Name = (String)objects[1];
+                    teacher.Condition = (String)objects[2];
+                    teacher.Email = (String)objects[3];
+                    teacher.IdSchool = (int)objects[4];
+                }
 
                 return teacher;
+            }
+        }
+
+        public static List<Subject> GetSubjectsByTeacher(int idTeacher)
+        {
+            StringBuilder stringBuilder = new StringBuilder();
+            stringBuilder.Append("SELECT s.* " +
+                "FROM teacher t " +
+                "INNER JOIN subject s " +
+                    "ON t.id = s.idTeacher " +
+                "WHERE s.idTeacher = @idTeacher"
+             );
+            String sql = stringBuilder.ToString();
+
+            using (DB db = new DB())
+            {
+                Dictionary<string, int> idDict = new Dictionary<string, int>();
+                idDict.Add("@idTeacher", idTeacher);
+
+                List<Subject> subjects = new List<Subject>();
+                List<Object[]> objects = db.QueryCommand(sql, idDict);
+
+                foreach (Object[] obj in objects)
+                {
+                    Subject subject = new Subject();
+
+                    subject.Id = (int)obj[0];
+                    subject.Name = (String)obj[1];
+                    subject.Credits = (int)obj[2];
+                    subject.Year = (int)obj[3];
+                    subject.Semester = (int)obj[4];
+                    subject.StartTime = (DateTime)obj[5];
+                    subject.EndTime = (DateTime)obj[6];
+                    subject.ClassesHeld = (int)obj[7];
+                    subject.IdTeacher = (int)obj[8];
+                    subject.IdCourse = (int)obj[9];
+
+                    subjects.Add(subject);
+                }
+                return subjects;
             }
         }
 

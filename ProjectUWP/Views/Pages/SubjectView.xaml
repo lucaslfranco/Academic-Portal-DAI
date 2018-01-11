@@ -1,0 +1,237 @@
+﻿<Page
+    x:Class="ProjectUWP.Views.Pages.SubjectView"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    mc:Ignorable="d">
+
+    <StackPanel>
+        <Pivot x:Name="rootPivot">
+            <PivotItem Header="Informações da Disciplina">
+                <Grid>
+                    <Grid.Resources>
+                        <SolidColorBrush x:Key="tableHeaderColor" Color="Gray"/>
+                        <SolidColorBrush x:Key="tableHeaderBackground" Color="LightGray"/>
+                        <Thickness x:Key="tableHeaderMargin">2, 2, 0 ,2</Thickness>
+                        <Thickness x:Key="tableCellMargin">0, 10, 0 ,0</Thickness>
+                    </Grid.Resources>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="50"/>
+                        <RowDefinition Height="500"/>
+                    </Grid.RowDefinitions>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="20*"/>
+                        <ColumnDefinition Width="*"/>
+                    </Grid.ColumnDefinitions>
+                    <Grid Grid.Row="1" Grid.Column="1">
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="40"/>
+                            <RowDefinition Height="60"/>
+                            <RowDefinition Height="40"/>
+                            <RowDefinition Height="60"/>
+                            <RowDefinition Height="40"/>
+                            <RowDefinition Height="60"/>
+                        </Grid.RowDefinitions>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="2*"/>
+                            <ColumnDefinition Width="*"/>
+                            <ColumnDefinition Width="*"/>
+                            <ColumnDefinition Width="*"/>
+                            <ColumnDefinition Width="*"/>
+                        </Grid.ColumnDefinitions>
+
+                        <Border Grid.Row="0" BorderBrush="{StaticResource tableHeaderColor}" Background="{StaticResource tableHeaderBackground}" BorderThickness="2 2 1 2">
+                            <TextBlock Text="Código da Disciplina" FontWeight="SemiBold" VerticalAlignment="Center" Margin="10 0 0 0"/>
+                        </Border>
+                        <Border Grid.Row="0" Grid.Column="1" BorderBrush="{StaticResource tableHeaderColor}" BorderThickness="1 0 0 0"/>
+                        <Border Grid.Row="1" Grid.Column="0" BorderBrush="{StaticResource tableHeaderColor}" BorderThickness="1 0 0 0">
+                            <TextBlock Text="10" x:Name="idTextBlock" Margin="10 10 0 0"/>
+                        </Border>
+                        <Border Grid.Row="1" Grid.Column="1" BorderBrush="{StaticResource tableHeaderColor}" BorderThickness="1 0 0 0"/>
+
+                        <Border Grid.Row="2" Grid.Column="0" BorderBrush="{StaticResource tableHeaderColor}" Background="{StaticResource tableHeaderBackground}" BorderThickness="{StaticResource tableHeaderMargin}">
+                            <TextBlock Text="Nome da Disciplina" FontWeight="SemiBold" VerticalAlignment="Center" Margin="10 0 0 0"/>
+                        </Border>
+                        <Border Grid.Row="2" Grid.Column="1" Grid.ColumnSpan="2" BorderBrush="{StaticResource tableHeaderColor}" Background="{StaticResource tableHeaderBackground}" BorderThickness="{StaticResource tableHeaderMargin}">
+                            <TextBlock Text="Professor" FontWeight="SemiBold" VerticalAlignment="Center" Margin="10 0 0 0"/>
+                        </Border>
+                        <Border Grid.Row="2" Grid.Column="3" BorderBrush="{StaticResource tableHeaderColor}" Background="{StaticResource tableHeaderBackground}" BorderThickness="{StaticResource tableHeaderMargin}">
+                            <TextBlock Text="Ano" FontWeight="SemiBold" VerticalAlignment="Center" HorizontalAlignment="Center"/>
+                        </Border>
+                        <Border Grid.Row="2" Grid.Column="4" BorderBrush="{StaticResource tableHeaderColor}" Background="{StaticResource tableHeaderBackground}" BorderThickness="2">
+                            <TextBlock Text="Semestre" FontWeight="SemiBold" HorizontalAlignment="Center" Margin="{StaticResource tableCellMargin}"/>
+                        </Border>
+
+                        <Border Grid.Row="3" Grid.Column="0" BorderBrush="{StaticResource tableHeaderColor}" BorderThickness="1 0 0 0">
+                            <TextBlock x:Name="nameTextBlock" VerticalAlignment="Top" Margin="10 10 0 0"/>
+                        </Border>
+                        <Border Grid.Row="3" Grid.Column="1" Grid.ColumnSpan="2" BorderBrush="{StaticResource tableHeaderColor}" BorderThickness="1 0 0 0">
+                            <TextBlock x:Name="teacherTextBlock" VerticalAlignment="Top" Margin="10 10 0 0"/>
+                        </Border>
+                        <Border Grid.Row="3" Grid.Column="3" BorderBrush="{StaticResource tableHeaderColor}" BorderThickness="1 0 0 0">
+                            <TextBlock x:Name="yearTextBlock" HorizontalAlignment="Center" Margin="{StaticResource tableCellMargin}"/>
+                        </Border>
+                        <Border Grid.Row="3" Grid.Column="4" BorderBrush="{StaticResource tableHeaderColor}" BorderThickness="1 0 1 0">
+                            <TextBlock x:Name="semesterTextBlock" HorizontalAlignment="Center" Margin="{StaticResource tableCellMargin}"/>
+                        </Border>
+
+                        <Border Grid.Row="4" Grid.Column="0" BorderBrush="{StaticResource tableHeaderColor}" Background="{StaticResource tableHeaderBackground}" BorderThickness="{StaticResource tableHeaderMargin}">
+                            <TextBlock Text="Curso" FontWeight="SemiBold" VerticalAlignment="Center" Margin="10 0 0 0"/>
+                        </Border>
+                        <Border Grid.Row="4" Grid.Column="1" BorderBrush="{StaticResource tableHeaderColor}" Background="{StaticResource tableHeaderBackground}" BorderThickness="{StaticResource tableHeaderMargin}">
+                            <TextBlock Text="Créditos" FontWeight="SemiBold" VerticalAlignment="Center" HorizontalAlignment="Center"/>
+                        </Border>
+                        <Border Grid.Row="4" Grid.Column="2" BorderBrush="{StaticResource tableHeaderColor}" Background="{StaticResource tableHeaderBackground}" BorderThickness="{StaticResource tableHeaderMargin}">
+                            <TextBlock Text="Aulas Realizadas" FontWeight="SemiBold" HorizontalAlignment="Center" Margin="{StaticResource tableCellMargin}"/>
+                        </Border>
+                        <Border Grid.Row="4" Grid.Column="3" BorderBrush="{StaticResource tableHeaderColor}" Background="{StaticResource tableHeaderBackground}" BorderThickness="2 2 0 2">
+                            <TextBlock Text="Horário de Início" FontWeight="SemiBold" VerticalAlignment="Center" HorizontalAlignment="Center"/>
+                        </Border>
+                        <Border Grid.Row="4" Grid.Column="4" BorderBrush="{StaticResource tableHeaderColor}" Background="{StaticResource tableHeaderBackground}" BorderThickness="2 2 2 2">
+                            <TextBlock Text="Horário de Término" FontWeight="SemiBold" HorizontalAlignment="Center" Margin="{StaticResource tableCellMargin}"/>
+                        </Border>
+
+                        <Border Grid.Row="5" Grid.Column="0" BorderBrush="{StaticResource tableHeaderColor}" BorderThickness="1 0 0 1">
+                            <TextBlock x:Name="courseTextBlock" Margin="10 10 0 0"/>
+                        </Border>
+                        <Border Grid.Row="5" Grid.Column="1" BorderBrush="{StaticResource tableHeaderColor}" BorderThickness="1 0 0 1">
+                            <TextBlock x:Name="creditsTextBlock" HorizontalAlignment="Center" Margin="{StaticResource tableCellMargin}"/>
+                        </Border>
+                        <Border Grid.Row="5" Grid.Column="2" BorderBrush="{StaticResource tableHeaderColor}" BorderThickness="1 0 0 1">
+                            <TextBlock x:Name="classesHeldTextBlock" HorizontalAlignment="Center" Margin="{StaticResource tableCellMargin}"/>
+                        </Border>
+                        <Border Grid.Row="5" Grid.Column="3" BorderBrush="{StaticResource tableHeaderColor}" BorderThickness="1 0 0 1">
+                            <TextBlock x:Name="startTimeTextBlock" HorizontalAlignment="Center" Margin="{StaticResource tableCellMargin}"/>
+                        </Border>
+                        <Border Grid.Row="5" Grid.Column="4" BorderBrush="{StaticResource tableHeaderColor}" BorderThickness="1 0 1 1">
+                            <TextBlock x:Name="endTimeTextBlock" HorizontalAlignment="Center" Margin="{StaticResource tableCellMargin}"/>
+                        </Border>
+                    </Grid>
+                </Grid>
+            </PivotItem>
+            <PivotItem Header="Situação">
+                <Grid>
+                    <Grid.Resources>
+                        <SolidColorBrush x:Key="tableHeaderColor" Color="Gray"/>
+                        <SolidColorBrush x:Key="tableHeaderBackground" Color="LightGray"/>
+                        <Thickness x:Key="tableHeaderMargin">2, 2, 0 ,2</Thickness>
+                        <Thickness x:Key="tableCellMargin">0, 10, 0 ,0</Thickness>
+                    </Grid.Resources>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="50"/>
+                        <RowDefinition Height="*"/>
+                    </Grid.RowDefinitions>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="2*"/>
+                    </Grid.ColumnDefinitions>
+
+                    <Grid Grid.Row="1" Grid.Column="0">
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="50"/>
+                            <RowDefinition Height="40"/>
+                            <RowDefinition Height="40"/>
+                            <RowDefinition Height="40"/>
+                            <RowDefinition Height="40"/>
+                            <RowDefinition Height="40"/>
+                        </Grid.RowDefinitions>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="*"/>
+                            <ColumnDefinition Width="*"/>
+                            <ColumnDefinition Width="*"/>
+                            <ColumnDefinition Width="*"/>
+                        </Grid.ColumnDefinitions>
+
+                        <Border Grid.Row="0" Grid.Column="1" Grid.ColumnSpan="2" BorderBrush="{StaticResource tableHeaderColor}" Background="{StaticResource tableHeaderBackground}" BorderThickness="2 2 2 0">
+                            <TextBlock Text="Notas" FontWeight="SemiBold" VerticalAlignment="Center" HorizontalAlignment="Center"/>
+                        </Border>
+                        <Border Grid.Row="1" Grid.Column="1" BorderBrush="{StaticResource tableHeaderColor}" Background="{StaticResource tableHeaderBackground}" BorderThickness="2 2 2 2">
+                            <TextBlock Text="1ª Nota" FontWeight="SemiBold" VerticalAlignment="Center" HorizontalAlignment="Center"/>
+                        </Border>
+                        <Border Grid.Row="1"  Grid.Column="2" BorderBrush="{StaticResource tableHeaderColor}" BorderThickness="0 2 2 1">
+                            <TextBlock x:Name="grade1textBlock" VerticalAlignment="Center" HorizontalAlignment="Center"/>
+                        </Border>
+                        <Border Grid.Row="2" Grid.Column="1" BorderBrush="{StaticResource tableHeaderColor}" Background="{StaticResource tableHeaderBackground}" BorderThickness="2 0 2 2">
+                            <TextBlock Text="2ª Nota" FontWeight="SemiBold" VerticalAlignment="Center" HorizontalAlignment="Center"/>
+                        </Border>
+                        <Border Grid.Row="2" Grid.Column="2" BorderBrush="{StaticResource tableHeaderColor}" BorderThickness="0 0 2 1">
+                            <TextBlock x:Name="grade2textBlock" VerticalAlignment="Center" HorizontalAlignment="Center"/>
+                        </Border>
+
+                        <Border Grid.Row="3" Grid.Column="1" BorderBrush="{StaticResource tableHeaderColor}" Background="{StaticResource tableHeaderBackground}" BorderThickness="2 0 2 2">
+                            <TextBlock Text="3ª Nota" FontWeight="SemiBold" VerticalAlignment="Center"  HorizontalAlignment="Center"/>
+                        </Border>
+                        <Border Grid.Row="3" Grid.Column="2" BorderBrush="{StaticResource tableHeaderColor}" BorderThickness="0 0 2 1">
+                            <TextBlock x:Name="grade3textBlock" VerticalAlignment="Center" HorizontalAlignment="Center"/>
+                        </Border>
+                        <Border Grid.Row="4" Grid.Column="1" BorderBrush="{StaticResource tableHeaderColor}" Background="{StaticResource tableHeaderBackground}" BorderThickness="2 0 2 2">
+                            <TextBlock Text="4ª Nota" FontWeight="SemiBold" VerticalAlignment="Center" HorizontalAlignment="Center"/>
+                        </Border>
+                        <Border Grid.Row="4" Grid.Column="2" BorderBrush="{StaticResource tableHeaderColor}" BorderThickness="0 0 2 2">
+                            <TextBlock x:Name="grade4textBlock" VerticalAlignment="Center" HorizontalAlignment="Center"/>
+                        </Border>
+                        <Border Grid.Row="5" Grid.Column="1" BorderBrush="{StaticResource tableHeaderColor}" Background="{StaticResource tableHeaderBackground}" BorderThickness="2 0 2 2">
+                            <TextBlock Text="Média" FontWeight="SemiBold" VerticalAlignment="Center" HorizontalAlignment="Center"/>
+                        </Border>
+                        <Border Grid.Row="5" Grid.Column="2" BorderBrush="{StaticResource tableHeaderColor}" BorderThickness="0 0 2 2">
+                            <TextBlock x:Name="averageTextBlock" VerticalAlignment="Center" HorizontalAlignment="Center"/>
+                        </Border>
+                    </Grid>
+
+                    <Grid Grid.Row="1" Grid.Column="1">
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="50"/>
+                            <RowDefinition Height="40"/>
+                            <RowDefinition Height="40"/>
+                            <RowDefinition Height="40"/>
+                            <RowDefinition Height="40"/>
+                        </Grid.RowDefinitions>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="*"/>
+                            <ColumnDefinition Width="2*"/>
+                            <ColumnDefinition Width="*"/>
+                            <ColumnDefinition Width="*"/>
+                        </Grid.ColumnDefinitions>
+
+                        <Border Grid.Row="0" Grid.Column="1" Grid.ColumnSpan="2" BorderBrush="{StaticResource tableHeaderColor}" Background="{StaticResource tableHeaderBackground}" BorderThickness="2 2 2 0">
+                            <TextBlock Text="Presenças" FontWeight="SemiBold" VerticalAlignment="Center" HorizontalAlignment="Center"/>
+                        </Border>
+                        <Border Grid.Row="1" Grid.Column="1" BorderBrush="{StaticResource tableHeaderColor}" Background="{StaticResource tableHeaderBackground}" BorderThickness="2 2 2 2">
+                            <TextBlock Text="Nº Aulas Realizadas" FontWeight="SemiBold" VerticalAlignment="Center" HorizontalAlignment="Center"/>
+                        </Border>
+                        <Border Grid.Row="1"  Grid.Column="2" BorderBrush="{StaticResource tableHeaderColor}" BorderThickness="0 2 2 1">
+                            <TextBlock x:Name="classesHeldTextBlock2" VerticalAlignment="Center" HorizontalAlignment="Center"/>
+                        </Border>
+                        <Border Grid.Row="2" Grid.Column="1" BorderBrush="{StaticResource tableHeaderColor}" Background="{StaticResource tableHeaderBackground}" BorderThickness="2 0 2 2">
+                            <TextBlock Text="Nº Presenças" FontWeight="SemiBold" VerticalAlignment="Center" HorizontalAlignment="Center"/>
+                        </Border>
+                        <Border Grid.Row="2" Grid.Column="2" BorderBrush="{StaticResource tableHeaderColor}" BorderThickness="0 0 2 1">
+                            <TextBlock x:Name="attendanceTextBlock" VerticalAlignment="Center" HorizontalAlignment="Center"/>
+                        </Border>
+                        <Border Grid.Row="3" Grid.Column="1" BorderBrush="{StaticResource tableHeaderColor}" Background="{StaticResource tableHeaderBackground}" BorderThickness="2 0 2 2">
+                            <TextBlock Text="% Presenças" FontWeight="SemiBold" VerticalAlignment="Center" HorizontalAlignment="Center"/>
+                        </Border>
+                        <Border Grid.Row="3" Grid.Column="2" BorderBrush="{StaticResource tableHeaderColor}" BorderThickness="0 0 2 2">
+                            <TextBlock x:Name="attendanceRateTextBlock" VerticalAlignment="Center" HorizontalAlignment="Center"/>
+                        </Border>
+                        <Border Grid.Row="4" Grid.Column="1" BorderBrush="{StaticResource tableHeaderColor}" Background="{StaticResource tableHeaderBackground}" BorderThickness="2 0 2 2">
+                            <TextBlock Text="Situação Atual" FontWeight="SemiBold" VerticalAlignment="Center" HorizontalAlignment="Center"/>
+                        </Border>
+                        <Border Grid.Row="4" Grid.Column="2" BorderBrush="{StaticResource tableHeaderColor}" BorderThickness="0 0 2 2">
+                            <TextBlock x:Name="situationTextBlock" VerticalAlignment="Center" HorizontalAlignment="Center"/>
+                        </Border>
+
+                    </Grid>
+                </Grid>
+            </PivotItem>
+            <PivotItem Header="Outros">
+                <TextBlock Text="Outras Informações Relevantes!"/>
+            </PivotItem>
+        </Pivot>
+        <Button x:Name="BackToMainPageButton" Click="BackToMainPageButton_Click">
+            <SymbolIcon Symbol="Back"/>
+        </Button>
+    </StackPanel>
+</Page>

@@ -1,9 +1,9 @@
-﻿using ProjectUWP.Views.ContentDialogs;
+﻿using Library.BL;
+using ProjectUWP.Views.ContentDialogs;
 using ProjectUWP.Views.Pages;
+using System;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
-using System;
-using Library.BL;
 
 namespace ProjectUWP
 {
@@ -11,72 +11,92 @@ namespace ProjectUWP
     {
         Student,
         Teacher,
-        Admin
+        Admin,
+        NoType
     }
 
     public sealed partial class MainPage : Page
     {
         public UserType Usertype { get; set; }
         public Student Student { get; set; }
+        public Teacher Teacher { get; set; }
+
+        private Login loginPage;
 
         public MainPage()
         {
             this.InitializeComponent();
         }
 
+        // Populate and return an array with ContentFrame and an object (Student or Teacher) to send to another pages
+        private Object[] ObjectsToSendOnNavigate(Object obj)
+        {
+            Object[] objects = new Object[2];
+            objects[0] = ContentFrame;
+            objects[1] = obj;
+            return objects;
+        }
+
         private async void CallLogin()
         {
-            Login loginPage = new Login();
+            // Reset the user type
+            Usertype = UserType.NoType;
+
+            // Call an asynchronous instance of login page
+            loginPage = new Login();
             await loginPage.ShowAsync();
+
             //If primary button is clicked by the user, so the option Student was selected
             if (UserType.Student == (UserType)loginPage.Usertype) 
             {        
-                // Stores the student ID
-                int LoginId = Int32.Parse(loginPage.Content.ToString());
-
-                // Instantiate an object and get student from database
-                Student = new Student() {
-                    Id = LoginId
-                };
-                Student = Student.GetById();
-
+                // Stores the student object obtained from the login page
+                Student = (Student) loginPage.Content;
+              
                 // Set user type as Student
                 Usertype = UserType.Student;
 
                 // Add NavView items to Student
                 NavView.MenuItems.Clear();
                 NavView.MenuItems.Add(new NavigationViewItemHeader()
-                { Content = "Menu de Navigação" });
+                { Content = "Portal do Aluno"});
                 NavView.MenuItems.Add(new NavigationViewItem()
                 { Content = "Início", Icon = new SymbolIcon(Symbol.Home), Tag = "home" });
                 NavView.MenuItems.Add(new NavigationViewItem()
-                { Content = "Informações", Icon = new SymbolIcon(Symbol.People), Tag = "perfil" });
+                { Content = "Perfil", Icon = new SymbolIcon(Symbol.ContactInfo), Tag = "perfil" });
                 NavView.MenuItems.Add(new NavigationViewItem()
-                { Content = "Disciplinas", Icon = new SymbolIcon(Symbol.Library), Tag = "subjects" });
+                { Content = "Professores", Icon = new SymbolIcon(Symbol.People), Tag = "teachersView" });
+                NavView.MenuItems.Add(new NavigationViewItem()
+                { Content = "Avisos", Icon = new SymbolIcon(Symbol.Message), Tag = "messagesView" });
+
+                ContentFrame.Navigate(typeof(StudentHomeView), ObjectsToSendOnNavigate(Student));
             }
             //If secondary button is clicked by the user, so the option Teacher was selected
             else if(UserType.Teacher == (UserType)loginPage.Usertype)
             {
                 // Stores the teacher ID
-                int id = Int32.Parse(loginPage.Content.ToString());
+                Teacher = (Teacher) loginPage.Content;
                 // Set user type as Teacher
                 Usertype = UserType.Teacher;
 
                 // Add NavView items to Teacher
                 NavView.MenuItems.Clear();
                 NavView.MenuItems.Add(new NavigationViewItemHeader()
-                { Content = "Menu de Navigação" });
+                { Content = "Portal do Professor" });
                 NavView.MenuItems.Add(new NavigationViewItem()
                 { Content = "Início", Icon = new SymbolIcon(Symbol.Home), Tag = "home" });
                 NavView.MenuItems.Add(new NavigationViewItem()
                 { Content = "Disciplinas", Icon = new SymbolIcon(Symbol.Library), Tag = "subjectsView" });
                 NavView.MenuItems.Add(new NavigationViewItem()
-                { Content = "Estudantes", Icon = new SymbolIcon(Symbol.People), Tag = "students" });
+                { Content = "Alunos", Icon = new SymbolIcon(Symbol.People), Tag = "studentsView" });
+
+                ContentFrame.Navigate(typeof(TeacherHomeView), ObjectsToSendOnNavigate(Teacher));
             }
+            
         }
 
         private void Login_Click(object sender, RoutedEventArgs e)
-        {
+        {            
+            //Call login page
             CallLogin();
         }
 
@@ -92,26 +112,30 @@ namespace ProjectUWP
                 switch (args.InvokedItem)
                 {
                     case "home":
-                        ContentFrame.Navigate(typeof(StudentHomeView), Student);
+                        ContentFrame.Navigate(typeof(StudentHomeView), ObjectsToSendOnNavigate(Student));
                         break;
                     case "perfil":
-                        ContentFrame.Navigate(typeof(SubjectsView));
-                        break;
-                    case "subjects":
                         ContentFrame.Navigate(typeof(StudentsView));
                         break;
-                }
+                    case "teachersView":
+                        ContentFrame.Navigate(typeof(TeachersView), ContentFrame);
+                        break;
+                    case "messagesView":
+                        ContentFrame.Navigate(typeof(MessagesView), ObjectsToSendOnNavigate(Student));
+                        break;
+                   }
             }
             else if(Usertype == UserType.Teacher)
             {
                 switch (args.InvokedItem)
                 {
                     case "home":
+                        ContentFrame.Navigate(typeof(TeacherHomeView), ObjectsToSendOnNavigate(Teacher));
                         break;
                     case "subjectsView":
-                        ContentFrame.Navigate(typeof(SubjectsView));
+                        ContentFrame.Navigate(typeof(SubjectsView), ObjectsToSendOnNavigate(Teacher));
                         break;
-                    case "students":
+                    case "studentsView":
                         ContentFrame.Navigate(typeof(StudentsView));
                         break;
                 }
@@ -128,43 +152,54 @@ namespace ProjectUWP
             if (Usertype == UserType.Student)
             {
                 NavigationViewItem item = args.SelectedItem as NavigationViewItem;
-
-                switch (item.Tag)
-                {
-                    case "home":
-                        ContentFrame.Navigate(typeof(StudentHomeView), Student);
-                        break;
-                    case "perfil":
-                        ContentFrame.Navigate(typeof(SubjectsView));
-                        break;
-                    case "subjects":
-                        ContentFrame.Navigate(typeof(StudentsView));
-                        break;
+                
+                if(item != null)
+                { 
+                    switch (item.Tag)
+                    {
+                        case "home":
+                            ContentFrame.Navigate(typeof(StudentHomeView), ObjectsToSendOnNavigate(Student));
+                            break;
+                        case "perfil":
+                            ContentFrame.Navigate(typeof(StudentsView));
+                            break;
+                        case "teachersView":
+                            ContentFrame.Navigate(typeof(TeachersView), ContentFrame);
+                            break;
+                        case "messagesView":
+                            ContentFrame.Navigate(typeof(MessagesView), ObjectsToSendOnNavigate(Student));
+                            break;
+                    }
                 }
             }
             else if (Usertype == UserType.Teacher)
             {
                 NavigationViewItem item = args.SelectedItem as NavigationViewItem;
 
-                switch (item.Tag)
+                if (item != null)
                 {
-                    case "home":
-                        break;
-                    case "subjectsView":
-                        ContentFrame.Navigate(typeof(SubjectsView));
-                        break;
-                    case "students":
-                        ContentFrame.Navigate(typeof(StudentsView));
-                        break;
+                    switch (item.Tag)
+                    {
+                        case "home":
+                            ContentFrame.Navigate(typeof(TeacherHomeView), ObjectsToSendOnNavigate(Teacher));
+                            break;
+                        case "subjectsView":
+                            ContentFrame.Navigate(typeof(SubjectsView), ObjectsToSendOnNavigate(Teacher));
+                            break;
+                        case "studentsView":
+                            ContentFrame.Navigate(typeof(StudentsView));
+                            break;
+                    }
                 }
             }
-
         }
     
         private void NavView_Loaded(object sender, RoutedEventArgs e)
         {
+            // Call login method
             CallLogin();
 
+            // Set selected item
             foreach (NavigationViewItemBase item in NavView.MenuItems)
             {
                 if (item is NavigationViewItem && item.Tag.ToString() == "home")

@@ -11,7 +11,7 @@ namespace Library.DAL
         {
             StringBuilder stringBuilder = new StringBuilder();
             stringBuilder.Append("DROP TABLE IF EXISTS message; " +
-                "CREATE TABLE message (id int not null, title varchar(45) not null, content varchar(255) not null, time DateTime not null, idSubject int not null " +
+                "CREATE TABLE message (id int not null IDENTITY(1,1), title varchar(45) not null, content varchar(255) not null, time DateTime not null, idSubject int not null " +
                 "CONSTRAINT PK_message PRIMARY KEY (id), " +
                 "CONSTRAINT FK_message_subject FOREIGN KEY (idSubject) REFERENCES subject (id) " +
                 "ON UPDATE CASCADE ON DELETE CASCADE)");
@@ -65,7 +65,6 @@ namespace Library.DAL
                    
                     messages.Add(message);
                 }
-
                 return messages;
             }
         }

@@ -13,7 +13,7 @@ namespace Library.DAL {
 
             StringBuilder stringBuilder = new StringBuilder();
             stringBuilder.Append("DROP TABLE IF EXISTS student; " +
-                "CREATE TABLE student (id int not null, name varchar(255) not null, birthDate datetime not null, " +
+                "CREATE TABLE student (id int not null auto_increment, name varchar(255) not null, birthDate datetime not null, " +
                     "enrollDate datetime not null, country varchar(45) not null, email varchar(45) not null, phone varchar(45), " +
                     "CONSTRAINT PK_student PRIMARY KEY (id))");
             String sql = stringBuilder.ToString();
@@ -81,17 +81,20 @@ namespace Library.DAL {
 
             using (DB db = new DB())
             {
+                Student student = null;
                 Object[] objects = db.QueryCommand(sql, id);
-                Student student = new Student();
 
-                student.Id = (int)objects[0];
-                student.Name = (String)objects[1];
-                student.BirthDate = (DateTime)objects[2];
-                student.EnrollDate = (DateTime)objects[3];
-                student.Country = (String)objects[4];
-                student.Email = (String)objects[5];
-                student.Phone = (String)objects[6];
-
+                if (objects != null)
+                {
+                    student = new Student();
+                    student.Id = (int)objects[0];
+                    student.Name = (String)objects[1];
+                    student.BirthDate = (DateTime)objects[2];
+                    student.EnrollDate = (DateTime)objects[3];
+                    student.Country = (String)objects[4];
+                    student.Email = (String)objects[5];
+                    student.Phone = (String)objects[6];
+                }
                 return student;
             }
         }
@@ -135,6 +138,43 @@ namespace Library.DAL {
                 }
 
                 return subjects;
+            }
+        }
+
+        public static List<Message> GetMessagesByStudent(int idStudent)
+        {
+            StringBuilder stringBuilder = new StringBuilder();
+            stringBuilder.Append("SELECT m.* " +
+                "FROM subject s " +
+                "inner join message m " +
+                    "on s.id = m.idSubject " +
+                "inner join enrollment e " +
+                    "on s.id = e.idSubject " +
+                "inner join student st " +
+                    "on st.id = e.idStudent " +
+                "where st.id = @idStudent");
+            String sql = stringBuilder.ToString();
+
+            using (DB db = new DB())
+            {
+                Dictionary<string, int> messagesIdDict = new Dictionary<string, int>();
+                messagesIdDict.Add("@idStudent", idStudent);
+
+                List<Message> messages = new List<Message>();
+                List<Object[]> objects = db.QueryCommand(sql, messagesIdDict);
+
+                foreach (Object[] obj in objects)
+                {
+                    Message message = new Message();
+                    message.Id = (int)obj[0];
+                    message.Title = (String)obj[1];
+                    message.Content = (String)obj[2];
+                    message.Time = (DateTime)obj[3];
+                    message.IdSubject = (int)obj[4];
+
+                    messages.Add(message);
+                }
+                return messages;
             }
         }
 

@@ -69,10 +69,13 @@ namespace Library.DAL
                 command.Parameters.AddWithValue("@id", id);
                 using (SqlDataReader reader = command.ExecuteReader())
                 {
-                    Object[] objects = new Object[reader.FieldCount];
-                    while (reader.Read())
+                    Object[] objects = null;
+
+                    if (reader.Read()) {
+                        objects = new Object[reader.FieldCount];
                         reader.GetValues(objects);
-    
+                    }
+
                     return objects;
                 }
             }

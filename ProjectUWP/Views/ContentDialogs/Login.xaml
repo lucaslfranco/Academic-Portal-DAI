@@ -9,16 +9,18 @@
     
     <Grid>
         <Grid.RowDefinitions>
-            <RowDefinition Height="80"/>
-            <RowDefinition Height="50"/>
+            <RowDefinition Height="70"/>
+            <RowDefinition Height="35"/>
+            <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
         <StackPanel Grid.Row="0" Orientation="Horizontal" HorizontalAlignment="Left">
             <TextBlock Text="Código :" Margin="0 0 10 0" VerticalAlignment="Center"/>
-            <TextBox TextChanging="idTextBox_TextChanging" x:Name="idTextBox" Width="180" Height="20"/>
+            <TextBox x:Name="idTextBox" TextChanging="idTextBox_TextChanging" Width="180" Height="20"/>
         </StackPanel>
         <StackPanel Grid.Row="1" Orientation="Horizontal"> 
             <Button x:Name="studentButton" Click="studentButton_Click" Width="130" Content="Sou Aluno" Margin="0 0 10 0"/>
             <Button x:Name="teacherButton" Click="teacherButton_Click" Width="130" Content="Sou Professor"/>
         </StackPanel>
+        <TextBlock Grid.Row="2" x:Name="errorTextBlock" Visibility="Collapsed" HorizontalAlignment="Center" FontWeight="SemiBold" Margin="0 10 0 0" TextDecorations="Underline" Foreground="Red" />
     </Grid>
 </ContentDialog>
