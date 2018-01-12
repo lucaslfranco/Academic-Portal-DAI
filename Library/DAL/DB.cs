@@ -44,6 +44,18 @@ namespace Library.DAL
             }
         }
 
+        public int NoQueryCommandScalar(String sql, Dictionary<string, object> dictionary)
+        {
+            using (SqlCommand command = new SqlCommand(sql, Connection))
+            {
+                foreach (KeyValuePair<string, object> item in dictionary)
+                {
+                    command.Parameters.AddWithValue(item.Key, item.Value);
+                }
+                return (int) command.ExecuteScalar();
+            }
+        }
+
         public List<Object[]> QueryCommand(String sql)
         {
             using (SqlCommand command = new SqlCommand(sql, Connection))

@@ -95,8 +95,8 @@ namespace Library.DAL
         {
 
             StringBuilder stringBuilder = new StringBuilder();
-            stringBuilder.Append("UPDATE enrollment SET idSubject = @idSubject, idStudent = @idStudent, missedClasses = @missedClasses, " +
-                "idGrades = @idGrades WHERE idSubject = @idSubject");
+            stringBuilder.Append("UPDATE enrollment SET missedClasses = @missedClasses, " +
+                "idGrades = @idGrades WHERE idSubject = @idSubject AND idStudent = @idStudent");
             String sql = stringBuilder.ToString();
 
             using (DB db = new DB())

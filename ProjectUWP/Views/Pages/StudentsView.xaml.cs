@@ -1,7 +1,7 @@
 ﻿using Library.BL;
 using ProjectUWP.Views.ContentDialogs;
 using System;
-using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Controls.Primitives;
@@ -10,7 +10,8 @@ namespace ProjectUWP.Views.Pages
 {
     public sealed partial class StudentsView : Page
     {
-        public List<Student> Students;
+        public Student Student = new Student();
+        public ObservableCollection<Student> Students;
 
         public StudentsView()
         {
@@ -18,27 +19,22 @@ namespace ProjectUWP.Views.Pages
             Students = GetStudents();
         }
 
-        public static List<Student> GetStudents()
+        public ObservableCollection<Student> GetStudents()
         {
-            List<Student> students = new List<Student>();
-            Student studentDB = new Student();
-
-            foreach (Student student in studentDB.GetAll())
-            {
-                students.Add(student);   
-            }
-            return students;
+            return new ObservableCollection<Student>(Student.GetAll());
         }
 
-        private async void AddStudentBtn_Click(object sender, RoutedEventArgs e)
+        public void UpdateListView()
+        {
+            Students = GetStudents();
+            studentsListView.ItemsSource = Students;
+        }
+
+        private async void AddStudentButton_Click(object sender, RoutedEventArgs e)
         {
             StudentRegister studentRegister = new StudentRegister();
             await studentRegister.ShowAsync();
-        }
-
-        private void SearchStudentsBtn_Click(object sender, RoutedEventArgs e)
-        {
-            Students = GetStudents();
+            UpdateListView();
         }
 
         private void StudentMoreOptions_Click(object sender, RoutedEventArgs e)
@@ -52,7 +48,7 @@ namespace ProjectUWP.Views.Pages
 
             StudentUpdate studentUpdate = new StudentUpdate(selectedStudent);
             await studentUpdate.ShowAsync();
-            Students = GetStudents();
+            UpdateListView();
         }
 
         private async void StudentDeleteOption_Click(object sender, RoutedEventArgs e)
@@ -61,7 +57,7 @@ namespace ProjectUWP.Views.Pages
 
             StudentDeleteConfirmation studentDeleteConfirm = new StudentDeleteConfirmation(selectedStudent);
             await studentDeleteConfirm.ShowAsync();
-            Students = GetStudents();
+            UpdateListView();
         }
     }
 }

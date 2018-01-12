@@ -9,6 +9,12 @@
     mc:Ignorable="d">
 
     <Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
+        <Grid.Resources>
+            <SolidColorBrush x:Key="tableHeaderColor" Color="Gray"/>
+            <SolidColorBrush x:Key="tableHeaderBackground" Color="LightGray"/>
+            <Thickness x:Key="tableHeaderMargin">2, 2, 0 ,2</Thickness>
+            <Thickness x:Key="tableCellMargin">0, 10, 0 ,0</Thickness>
+        </Grid.Resources>
         <Grid.RowDefinitions>
             <RowDefinition Height="50"/>
             <RowDefinition Height="40"/>
@@ -18,49 +24,54 @@
         <StackPanel Grid.Row="0" Orientation="Vertical">
             <TextBlock Text="Lista de Estudantes Cadastrados" FontWeight="SemiBold" FontSize="20"/>
         </StackPanel>
-        <Grid Grid.Row="1">
-            <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="100"/>
-                <ColumnDefinition Width="300"/>
-                <ColumnDefinition Width="150"/>
-                <ColumnDefinition Width="300"/>
-            </Grid.ColumnDefinitions>
-            <TextBlock Grid.Column="0" Text="ID" FontWeight="Bold" VerticalAlignment="Center" Margin="10 0 0 0"/>
-            <TextBlock Grid.Column="1" Text="Nome do Estudante" FontWeight="Bold" VerticalAlignment="Center" Margin="10 0 0 0"/>
-            <TextBlock Grid.Column="2" Text="Data de Matrícula" FontWeight="Bold" VerticalAlignment="Center" Margin="10 0 0 0"/>
-            <TextBlock Grid.Column="3" Text="Email" FontWeight="Bold" VerticalAlignment="Center" Margin="10 0 0 0"/>
-        </Grid>
-        <ListView Grid.Row="2" ItemsSource="{x:Bind Students}">
-            <ListView.ItemTemplate>
-                <DataTemplate x:Name="StudentsDataTemplate" x:DataType="bl:Student">
-                    <Grid>
-                        <Grid.Resources>
-                            <conv:DateFormatConverter x:Key="DateToStringFormatConverter"/>
-                        </Grid.Resources>
-                        <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width="100"/>
-                            <ColumnDefinition Width="300"/>
-                            <ColumnDefinition Width="150"/>
-                            <ColumnDefinition Width="300"/>
-                            <ColumnDefinition Width="40"/>
-                        </Grid.ColumnDefinitions>
-                        <TextBlock Grid.Column="0" Text="{x:Bind Id}" VerticalAlignment="Center"/>
-                        <TextBlock Grid.Column="1" Text="{Binding Name}" VerticalAlignment="Center"/>
-                        <TextBlock Grid.Column="2" Text="{Binding EnrollDate, Converter={StaticResource DateToStringFormatConverter}}" VerticalAlignment="Center"/>
-                        <TextBlock Grid.Column="3" Text="{x:Bind Email}" VerticalAlignment="Center"/>
-                        <Button x:Name="StudentMoreOptions" Click="StudentMoreOptions_Click" Grid.Column="4" VerticalAlignment="Center">
-                            <SymbolIcon Symbol="More"/>
-                            <FlyoutBase.AttachedFlyout>
-                                <MenuFlyout>
-                                    <MenuFlyoutItem Tag="{x:Bind}" x:Name="StudentUpdateOption" Click="StudentUpdateOption_Click" Icon="Copy" Text="Editar" />
-                                    <MenuFlyoutItem Tag="{x:Bind}" x:Name="StudentDeleteOption" Click="StudentDeleteOption_Click"  Icon="Delete" Text="Deletar"/>
-                                </MenuFlyout>
-                            </FlyoutBase.AttachedFlyout>
-                        </Button>
-                    </Grid>
-                </DataTemplate>
-            </ListView.ItemTemplate>
-        </ListView>
-        <Button Grid.Row="3" x:Name="AddStudentBtn" Click="AddStudentBtn_Click" Content="Adicionar Estudante" HorizontalAlignment="Left"/>
+        <Border Grid.Row="1" BorderBrush="{StaticResource tableHeaderColor}" Background="{StaticResource tableHeaderBackground}" BorderThickness="2">
+            <Grid Grid.Row="1">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="100"/>
+                    <ColumnDefinition Width="350"/>
+                    <ColumnDefinition Width="150"/>
+                    <ColumnDefinition Width="350"/>
+                    <ColumnDefinition Width="*"/>
+                </Grid.ColumnDefinitions>
+                <TextBlock Grid.Column="0" Text="ID" FontWeight="Bold" VerticalAlignment="Center" Margin="10 0 0 0"/>
+                <TextBlock Grid.Column="1" Text="Nome do Estudante" FontWeight="Bold" VerticalAlignment="Center" Margin="10 0 0 0"/>
+                <TextBlock Grid.Column="2" Text="Data de Matrícula" FontWeight="Bold" VerticalAlignment="Center" Margin="10 0 0 0"/>
+                <TextBlock Grid.Column="3" Text="Email" FontWeight="Bold" VerticalAlignment="Center" Margin="10 0 0 0"/>
+            </Grid>
+        </Border>
+        <Border Grid.Row="2" BorderBrush="{StaticResource tableHeaderColor}" BorderThickness="2 0 2 2">
+            <ListView x:Name="studentsListView" Grid.Row="2" ItemsSource="{x:Bind Students}" SelectionMode="None">
+                <ListView.ItemTemplate>
+                    <DataTemplate x:Name="StudentsDataTemplate" x:DataType="bl:Student">
+                        <Grid>
+                            <Grid.Resources>
+                                <conv:DateFormatConverter x:Key="DateToStringFormatConverter"/>
+                            </Grid.Resources>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="100"/>
+                                <ColumnDefinition Width="350"/>
+                                <ColumnDefinition Width="150"/>
+                                <ColumnDefinition Width="350"/>
+                                <ColumnDefinition Width="*"/>
+                            </Grid.ColumnDefinitions>
+                            <TextBlock Grid.Column="0" Text="{x:Bind Id}" VerticalAlignment="Center"/>
+                            <TextBlock Grid.Column="1" Text="{Binding Name}" VerticalAlignment="Center"/>
+                            <TextBlock Grid.Column="2" Text="{Binding EnrollDate, Converter={StaticResource DateToStringFormatConverter}}" VerticalAlignment="Center"/>
+                            <TextBlock Grid.Column="3" Text="{x:Bind Email}" VerticalAlignment="Center"/>
+                            <Button x:Name="StudentMoreOptions" Click="StudentMoreOptions_Click" Grid.Column="4" VerticalAlignment="Center">
+                                <SymbolIcon Symbol="More"/>
+                                <FlyoutBase.AttachedFlyout>
+                                    <MenuFlyout Placement="Bottom">
+                                        <MenuFlyoutItem Tag="{x:Bind}" x:Name="StudentUpdateOption" Click="StudentUpdateOption_Click" Icon="Copy" Text="Editar" />
+                                        <MenuFlyoutItem Tag="{x:Bind}" x:Name="StudentDeleteOption" Click="StudentDeleteOption_Click"  Icon="Delete" Text="Deletar"/>
+                                    </MenuFlyout>
+                                </FlyoutBase.AttachedFlyout>
+                            </Button>
+                        </Grid>
+                    </DataTemplate>
+                </ListView.ItemTemplate>
+            </ListView>
+        </Border>
+        <Button Grid.Row="3" x:Name="AddStudentButton" Click="AddStudentButton_Click" Content="Adicionar Estudante" HorizontalAlignment="Left"/>
     </Grid>
 </Page>

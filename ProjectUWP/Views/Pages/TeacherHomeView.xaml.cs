@@ -8,10 +8,10 @@ namespace ProjectUWP.Views.Pages
 {
     public sealed partial class TeacherHomeView : Page
     {
+        public Frame ContentFrame { get; private set; }
         public Teacher Teacher { get; set; }
         public ObservableCollection<Subject> Subjects { get; set; }
-        public Frame ContentFrame { get; private set; }
-
+        
         public TeacherHomeView()
         {
             this.InitializeComponent();

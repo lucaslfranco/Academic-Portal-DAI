@@ -37,7 +37,7 @@
                 <TextBlock Grid.Column="2" Text="Data" FontWeight="Bold" VerticalAlignment="Center" HorizontalAlignment="Center"/>
             </Grid>
         </Border>
-        <ListView Grid.Row="3" ItemsSource="{x:Bind Messages}" BorderBrush="{StaticResource tableHeaderColor}" BorderThickness="2 0 2 2" SelectionMode="None">
+        <ListView Grid.Row="3" x:Name="messageListView" ItemsSource="{x:Bind Messages}" BorderBrush="{StaticResource tableHeaderColor}" BorderThickness="2 0 2 2" SelectionMode="None">
 
             <ListView.ItemTemplate>
                 <DataTemplate x:Name="MessagesDataTemplate" x:DataType="bl:Message">

@@ -14,9 +14,9 @@ namespace Library.BL
         public double Grade4 { get; set; }
 
         // BL Methods
-        public void Create()
+        public int Create()
         {
-            GradesDAL.Create(this);
+            return GradesDAL.Create(this);
         }
 
         public List<Grades> GetAll()

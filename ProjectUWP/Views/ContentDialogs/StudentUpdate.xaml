@@ -27,7 +27,7 @@
         </Grid.ColumnDefinitions>
 
         <TextBlock Grid.Row="0" Text="Código" VerticalAlignment="Center" HorizontalAlignment="Left" Margin="10 0 0 0"/>
-        <TextBox Grid.Row="0" Grid.Column="1" x:Name="idTextBox" Height="30" Width="300"/>
+        <TextBox Grid.Row="0" Grid.Column="1" x:Name="idTextBox" IsEnabled="False" Height="30" Width="300"/>
         <TextBlock Grid.Row="1" Grid.Column="0" Text="Nome" VerticalAlignment="Center" HorizontalAlignment="Left" Margin="10 0 0 0"/>
         <TextBox Grid.Row="1" Grid.Column="1" x:Name="nameTextBox" Height="30" Width="300"/>
 

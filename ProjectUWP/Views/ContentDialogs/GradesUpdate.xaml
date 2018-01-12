@@ -1,0 +1,45 @@
+﻿<ContentDialog
+    x:Class="ProjectUWP.Views.ContentDialogs.GradesUpdate"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    mc:Ignorable="d"
+    Title="Atualizar Notas"
+    PrimaryButtonText="Atualizar"
+    SecondaryButtonText="Cancelar"
+    PrimaryButtonClick="UpdateButton_Click"
+    SecondaryButtonClick="CancelButton_Click">
+
+    <Grid Height="200">
+        <Grid.Resources>
+            <SolidColorBrush x:Key="tableHeaderColor" Color="Gray"/>
+            <SolidColorBrush x:Key="tableHeaderBackground" Color="LightGray"/>
+            <Thickness x:Key="tableHeaderMargin">2, 2, 0 ,2</Thickness>
+            <Thickness x:Key="tableCellMargin">0, 10, 0 ,0</Thickness>
+        </Grid.Resources>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="2*"/>
+            <RowDefinition Height="2*"/>
+            <RowDefinition Height="2*"/>
+            <RowDefinition Height="2*"/>
+            <RowDefinition Height="2*"/>
+            <RowDefinition Height="2*"/>
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="2*"/>
+        </Grid.ColumnDefinitions>
+        <TextBlock Grid.Row="0" Grid.ColumnSpan="2" x:Name="studentNameTextBlock" VerticalAlignment="Center" FontWeight="SemiBold"/>
+        <TextBlock Grid.Row="1" Grid.Column="0" Text="1ª Nota" VerticalAlignment="Center" HorizontalAlignment="Center"/>
+        <TextBox Grid.Row="1" Grid.Column="1" x:Name="grade1TextBox" Width="80" VerticalAlignment="Center"/>
+        <TextBlock Grid.Row="2" Grid.Column="0" Text="2ª Nota" VerticalAlignment="Center" HorizontalAlignment="Center"/>
+        <TextBox Grid.Row="2" Grid.Column="1" x:Name="grade2TextBox" Width="80" VerticalAlignment="Center"/>
+        <TextBlock Grid.Row="3" Grid.Column="0" Text="3ª Nota" VerticalAlignment="Center" HorizontalAlignment="Center"/>
+        <TextBox Grid.Row="3" Grid.Column="1" x:Name="grade3TextBox" Width="80" VerticalAlignment="Center"/>
+        <TextBlock Grid.Row="4" Grid.Column="0" Text="4ª Nota" VerticalAlignment="Center" HorizontalAlignment="Center"/>
+        <TextBox Grid.Row="4" Grid.Column="1" x:Name="grade4TextBox" Width="80" VerticalAlignment="Center"/>
+        <TextBlock Grid.Row="5" Grid.Column="0" Text="Faltas" VerticalAlignment="Center" HorizontalAlignment="Center"/>
+        <TextBox Grid.Row="5" Grid.Column="1" x:Name="absenceTextBox" Width="80" VerticalAlignment="Center"/>
+    </Grid>
+</ContentDialog>

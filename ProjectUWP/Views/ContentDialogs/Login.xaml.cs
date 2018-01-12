@@ -25,28 +25,49 @@ namespace ProjectUWP.Views.ContentDialogs
             EnableUserButtons(false);
         }
 
+        private void DisplayErrorMessage(String errorMessage)
+        {
+            errorTextBlock.Text = errorMessage;
+            errorTextBlock.Visibility = Visibility.Visible;
+            idTextBox.Text = "";
+            passwordTextBox.Password = "";
+        }
+
         private void studentButton_Click(object sender, RoutedEventArgs e)
         {
             // Set user type as Student 
             this.Usertype = UserType.Student;
 
             // Set Student ID, instantiate an object and get student from database
-            Student.Id = Int32.Parse(idTextBox.Text);
-            Student StudentFromDB = Student.GetById();
-
-            if (StudentFromDB != null)
+            try
             {
-                // Set content with the student object
-                this.Content = StudentFromDB;
+                Student.Id = Int32.Parse(idTextBox.Text);
+                Student StudentFromDB = Student.GetById();
 
-                // Close the ContentDialog
-                this.Hide();
+                // Simulate a authentication with a static value for password
+                if (passwordTextBox.Password.CompareTo("student321") == 0)
+                {                    
+                    if (StudentFromDB != null)
+                    {
+                        // Set content with the student object
+                        this.Content = StudentFromDB;
+
+                        // Close the ContentDialog
+                        this.Hide();
+                    }
+                    else
+                    {
+                        DisplayErrorMessage("Aluno Não Cadastrado!");
+                    }
+                }
+                else
+                {
+                    DisplayErrorMessage("Aluno Não Cadastrado ou Senha Inválida!");
+                }
             }
-            else
+            catch(FormatException fe)
             {
-                errorTextBlock.Text = "Aluno Não Cadastrado!";
-                errorTextBlock.Visibility = Visibility.Visible;
-                idTextBox.Text = "";
+                DisplayErrorMessage("O Código deve ser um número inteiro!");
             }
         }
 
@@ -55,24 +76,43 @@ namespace ProjectUWP.Views.ContentDialogs
             // Set user type as Teacher 
             this.Usertype = UserType.Teacher;
 
-            // Set Teacher ID, instantiate an object and get teacher from database
-            Teacher.Id = Int32.Parse(idTextBox.Text);
-            Teacher TeacherFromDB = Teacher.GetById();
-
-            if (TeacherFromDB != null)
+            try
             {
-                // Set content with the teacher object
-                this.Content = TeacherFromDB;
+                // Set Teacher ID, instantiate an object and get teacher from database
+                Teacher.Id = Int32.Parse(idTextBox.Text);
+                Teacher TeacherFromDB = Teacher.GetById();
 
-                // Close the ContentDialog
-                this.Hide();
+                if(passwordTextBox.Password.CompareTo("teacher321") == 0)
+                {
+
+                    if (TeacherFromDB != null)
+                    {
+                        // Set content with the teacher object
+                        this.Content = TeacherFromDB;
+
+                        // Close the ContentDialog
+                        this.Hide();
+                    }
+                    else
+                    {
+                        DisplayErrorMessage("Professor Não Cadastrado!");
+                    }
+                }
+                else
+                {
+                    DisplayErrorMessage("Professor Não Cadastrado ou Senha Inválida!");
+                }
             }
-            else
+            catch(FormatException fe)
             {
-                errorTextBlock.Text = "Professor Não Cadastrado!";
-                errorTextBlock.Visibility = Visibility.Visible;
-                idTextBox.Text = "";
+                DisplayErrorMessage("O Código Deve Ser Um Número Inteiro!");
             }
+        }
+        
+        private void adminButton_Click(object sender, RoutedEventArgs e)
+        {
+            this.Usertype = UserType.Admin;
+            Hide();
         }
 
         private void EnableUserButtons(bool value)

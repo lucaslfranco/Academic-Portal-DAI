@@ -41,7 +41,7 @@ namespace ProjectUWP
         {
             // Reset the user type
             Usertype = UserType.NoType;
-
+            
             // Call an asynchronous instance of login page
             loginPage = new Login();
             await loginPage.ShowAsync();
@@ -86,12 +86,25 @@ namespace ProjectUWP
                 { Content = "Início", Icon = new SymbolIcon(Symbol.Home), Tag = "home" });
                 NavView.MenuItems.Add(new NavigationViewItem()
                 { Content = "Disciplinas", Icon = new SymbolIcon(Symbol.Library), Tag = "subjectsView" });
-                NavView.MenuItems.Add(new NavigationViewItem()
-                { Content = "Alunos", Icon = new SymbolIcon(Symbol.People), Tag = "studentsView" });
 
                 ContentFrame.Navigate(typeof(TeacherHomeView), ObjectsToSendOnNavigate(Teacher));
             }
-            
+            else if(UserType.Admin == (UserType)loginPage.Usertype)
+            {
+                // Set user type as Admin
+                Usertype = UserType.Admin;
+
+                // Add NavView items to Admin
+                NavView.MenuItems.Clear();
+                NavView.MenuItems.Add(new NavigationViewItemHeader()
+                { Content = "Portal do Admin" });
+                NavView.MenuItems.Add(new NavigationViewItem()
+                { Content = "Alunos", Icon = new SymbolIcon(Symbol.People), Tag = "studentsView" });
+                NavView.MenuItems.Add(new NavigationViewItem()
+                { Content = "Matriculas", Icon = new SymbolIcon(Symbol.Library), Tag = "subjectsAdminPage" });
+
+                ContentFrame.Navigate(typeof(SubjectsAdminPage), ContentFrame);
+            }            
         }
 
         private void Login_Click(object sender, RoutedEventArgs e)
@@ -134,6 +147,15 @@ namespace ProjectUWP
                         break;
                     case "subjectsView":
                         ContentFrame.Navigate(typeof(SubjectsView), ObjectsToSendOnNavigate(Teacher));
+                        break;
+                }
+            }
+            else if(Usertype == UserType.Admin)
+            {
+                switch (args.InvokedItem)
+                {
+                    case "subjectsAdminPage":
+                        ContentFrame.Navigate(typeof(SubjectsAdminPage), ContentFrame);
                         break;
                     case "studentsView":
                         ContentFrame.Navigate(typeof(StudentsView));
@@ -185,6 +207,20 @@ namespace ProjectUWP
                             break;
                         case "subjectsView":
                             ContentFrame.Navigate(typeof(SubjectsView), ObjectsToSendOnNavigate(Teacher));
+                            break;
+                    }
+                }
+            }
+            else if (Usertype == UserType.Admin)
+            {
+                NavigationViewItem item = args.SelectedItem as NavigationViewItem;
+
+                if (item != null)
+                {
+                    switch (item.Tag)
+                    {
+                        case "subjectsAdminPage":
+                            ContentFrame.Navigate(typeof(SubjectsAdminPage), ContentFrame);
                             break;
                         case "studentsView":
                             ContentFrame.Navigate(typeof(StudentsView));

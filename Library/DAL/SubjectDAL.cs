@@ -173,7 +173,7 @@ namespace Library.DAL
         public static void Delete(int id)
         {
             StringBuilder stringBuilder = new StringBuilder();
-            stringBuilder.Append("DELETE FROM student WHERE id = @id");
+            stringBuilder.Append("DELETE FROM subject WHERE id = @id");
             String sql = stringBuilder.ToString();
 
             using (DB db = new DB())

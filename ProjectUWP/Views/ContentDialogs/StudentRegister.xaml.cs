@@ -8,7 +8,7 @@ namespace ProjectUWP.Views.ContentDialogs
     {
         public StudentRegister()
         {
-            this.InitializeComponent();
+            InitializeComponent();
             birthDatePicker.Date = DateTime.Now;
             enrollDatePicker.Date = DateTime.Now;
         }
@@ -33,7 +33,6 @@ namespace ProjectUWP.Views.ContentDialogs
                 Hide();
             }
             catch (Exception e) { }
-
         }
 
         private void StudentRegister_SecondaryButtonClick(ContentDialog sender, ContentDialogButtonClickEventArgs args)

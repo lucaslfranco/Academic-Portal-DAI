@@ -40,6 +40,8 @@ namespace ProjectUWP.Views.Pages
 
             MessageContentDialog messageDialog = new MessageContentDialog(selectedMessage);
             await messageDialog.ShowAsync();
+            Messages = GetAllMessages();
+            messageListView.ItemsSource = Messages;
         }
     }
 }

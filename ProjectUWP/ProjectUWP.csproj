@@ -104,6 +104,15 @@
     <Compile Include="SettingsPage.xaml.cs">
       <DependentUpon>SettingsPage.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Views\ContentDialogs\CourseRegister.xaml.cs">
+      <DependentUpon>CourseRegister.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\ContentDialogs\EnrollmentDialog.xaml.cs">
+      <DependentUpon>EnrollmentDialog.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\ContentDialogs\GradesUpdate.xaml.cs">
+      <DependentUpon>GradesUpdate.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Views\ContentDialogs\Login.xaml.cs">
       <DependentUpon>Login.xaml</DependentUpon>
     </Compile>
@@ -113,6 +122,9 @@
     <Compile Include="Views\ContentDialogs\MessageRegister.xaml.cs">
       <DependentUpon>MessageRegister.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Views\ContentDialogs\SchoolRegister.xaml.cs">
+      <DependentUpon>SchoolRegister.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Views\ContentDialogs\StudentDeleteConfirmation.xaml.cs">
       <DependentUpon>StudentDeleteConfirmation.xaml</DependentUpon>
     </Compile>
@@ -121,6 +133,12 @@
     </Compile>
     <Compile Include="Views\ContentDialogs\StudentRegister.xaml.cs">
       <DependentUpon>StudentRegister.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\ContentDialogs\SubjectRegister.xaml.cs">
+      <DependentUpon>SubjectRegister.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\ContentDialogs\TeacherRegister.xaml.cs">
+      <DependentUpon>TeacherRegister.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\Pages\MessagesView.xaml.cs">
       <DependentUpon>MessagesView.xaml</DependentUpon>
@@ -133,6 +151,9 @@
     </Compile>
     <Compile Include="Views\Pages\StudentsView.xaml.cs">
       <DependentUpon>StudentsView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Pages\SubjectsAdminPage.xaml.cs">
+      <DependentUpon>SubjectsAdminPage.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\Pages\SubjectsView.xaml.cs">
       <DependentUpon>SubjectsView.xaml</DependentUpon>
@@ -177,6 +198,18 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
+    <Page Include="Views\ContentDialogs\CourseRegister.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\ContentDialogs\EnrollmentDialog.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\ContentDialogs\GradesUpdate.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Views\ContentDialogs\Login.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -186,6 +219,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Views\ContentDialogs\MessageRegister.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\ContentDialogs\SchoolRegister.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -200,6 +237,14 @@
     <Page Include="Views\ContentDialogs\StudentRegister.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Views\ContentDialogs\SubjectRegister.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\ContentDialogs\TeacherRegister.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Views\Pages\MessagesView.xaml">
       <SubType>Designer</SubType>
@@ -216,6 +261,10 @@
     <Page Include="Views\Pages\StudentsView.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Views\Pages\SubjectsAdminPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Views\Pages\SubjectsView.xaml">
       <Generator>MSBuild:Compile</Generator>

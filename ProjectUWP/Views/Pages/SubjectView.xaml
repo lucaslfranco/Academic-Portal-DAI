@@ -226,9 +226,6 @@
                     </Grid>
                 </Grid>
             </PivotItem>
-            <PivotItem Header="Outros">
-                <TextBlock Text="Outras Informações Relevantes!"/>
-            </PivotItem>
         </Pivot>
         <Button x:Name="BackToMainPageButton" Click="BackToMainPageButton_Click">
             <SymbolIcon Symbol="Back"/>

@@ -11,7 +11,7 @@
     PrimaryButtonClick="StudentRegister_PrimaryButtonClick"
     SecondaryButtonClick="StudentRegister_SecondaryButtonClick">
 
-    <Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}" Width="500" Height="450">
+    <Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}" Width="500" Height="400">
         <Grid.RowDefinitions>
             <RowDefinition Height="2*"/>
             <RowDefinition Height="2*"/>
@@ -32,7 +32,7 @@
         <TextBox Grid.Row="1" Grid.Column="1" x:Name="nameTextBox" Height="30" Width="300"/>
         
         <TextBlock Grid.Row="2" Grid.Column="0" Text="Data de Nascimento" VerticalAlignment="Center" HorizontalAlignment="Left" Margin="10 0 0 0"/>
-        <DatePicker Language="" Grid.Row="2" Grid.Column="1" x:Name="birthDatePicker" HorizontalAlignment="Center" Width="300"/>
+        <DatePicker Grid.Row="2" Grid.Column="1" x:Name="birthDatePicker" HorizontalAlignment="Center" Width="300"/>
         <TextBlock Grid.Row="3" Grid.Column="0" Text="Data de Matrícula" VerticalAlignment="Center" HorizontalAlignment="Left" Margin="10 0 0 0"/>
         <DatePicker Grid.Row="3" Grid.Column="1" x:Name="enrollDatePicker" HorizontalAlignment="Center" Width="300"/>
         
