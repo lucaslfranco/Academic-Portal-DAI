@@ -10,76 +10,37 @@
     SecondaryButtonText="Cancelar"
     PrimaryButtonClick="StudentUpdate_PrimaryButtonClick"
     SecondaryButtonClick="StudentUpdate_SecondaryButtonClick">
-   
-    <Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}" 
-          Width="600" Height="500">
+
+    <Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}" Width="500" Height="450">
         <Grid.RowDefinitions>
             <RowDefinition Height="2*"/>
-            <RowDefinition Height="3*"/>
             <RowDefinition Height="2*"/>
-            <RowDefinition Height="3*"/>
             <RowDefinition Height="2*"/>
-            <RowDefinition Height="3*"/>
             <RowDefinition Height="2*"/>
-            <RowDefinition Height="3*"/>
             <RowDefinition Height="2*"/>
-            <RowDefinition Height="3*"/>
             <RowDefinition Height="2*"/>
-            <RowDefinition Height="3*"/>
             <RowDefinition Height="2*"/>
-            <RowDefinition Height="3*"/>
         </Grid.RowDefinitions>
         <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="3*"/>
+            <ColumnDefinition Width="5*"/>
         </Grid.ColumnDefinitions>
 
-        <GridView Grid.Row="0">
-            <TextBlock Text="Código"/>
-        </GridView>
-        <GridView Grid.Row="1" HorizontalAlignment="Left">
-            <TextBox x:Name="idTextBox" Width="250"/>
-        </GridView>
+        <TextBlock Grid.Row="0" Text="Código" VerticalAlignment="Center" HorizontalAlignment="Left" Margin="10 0 0 0"/>
+        <TextBox Grid.Row="0" Grid.Column="1" x:Name="idTextBox" Height="30" Width="300"/>
+        <TextBlock Grid.Row="1" Grid.Column="0" Text="Nome" VerticalAlignment="Center" HorizontalAlignment="Left" Margin="10 0 0 0"/>
+        <TextBox Grid.Row="1" Grid.Column="1" x:Name="nameTextBox" Height="30" Width="300"/>
 
-        <GridView Grid.Row="2" Margin="0 0 0 0">
-            <TextBlock Text="Nome"/>
-        </GridView>
-        <GridView Grid.Row="3" HorizontalAlignment="Left">
-            <TextBox x:Name="nameTextBox" Width="250"/>
-        </GridView>
+        <TextBlock Grid.Row="2" Grid.Column="0" Text="Data de Nascimento" VerticalAlignment="Center" HorizontalAlignment="Left" Margin="10 0 0 0"/>
+        <DatePicker Language="pt" Grid.Row="2" Grid.Column="1" x:Name="birthDatePicker" HorizontalAlignment="Center" Width="300"/>
+        <TextBlock Grid.Row="3" Grid.Column="0" Text="Data de Matrícula" VerticalAlignment="Center" HorizontalAlignment="Left" Margin="10 0 0 0"/>
+        <DatePicker Grid.Row="3" Grid.Column="1" x:Name="enrollDatePicker" HorizontalAlignment="Center" Width="300"/>
 
-        <GridView Grid.Row="4" Margin="0 0 0 0">
-            <TextBlock Text="Data de Nascimento"/>
-        </GridView>
-        <GridView Grid.Row="5" HorizontalAlignment="Left">
-            <TextBox x:Name="birthDateTextBox" Width="250"/>
-        </GridView>
-
-        <GridView Grid.Row="6" Margin="0 0 0 0">
-            <TextBlock Text="Data de Matrícula"/>
-        </GridView>
-        <GridView Grid.Row="7" HorizontalAlignment="Left">
-            <TextBox x:Name="enrollDateTextBox" Width="250"/>
-        </GridView>
-
-        <GridView Grid.Row="8" Margin="0 0 0 0">
-            <TextBlock Text="País" HorizontalAlignment="Left"/>
-        </GridView>
-        <GridView Grid.Row="9" HorizontalAlignment="Left">
-            <TextBox x:Name="countryTextBox" Width="250"/>
-        </GridView>
-
-        <GridView Grid.Row="10" Margin="0 0 0 0">
-            <TextBlock Text="Email"/>
-        </GridView>
-        <GridView Grid.Row="11" HorizontalAlignment="Left">
-            <TextBox x:Name="emailTextBox" Width="250"/>
-        </GridView>
-
-        <GridView Grid.Row="12" Margin="0 0 0 0">
-            <TextBlock Text="Número de Telemóvel"/>
-        </GridView>
-        <GridView Grid.Row="13" HorizontalAlignment="Left">
-            <TextBox x:Name="phoneTextBox" Width="250"/>
-        </GridView>
+        <TextBlock Grid.Row="4" Grid.Column="0" Text="País" VerticalAlignment="Center" HorizontalAlignment="Left" Margin="10 0 0 0"/>
+        <TextBox Grid.Row="4" Grid.Column="1" x:Name="countryTextBox" Height="30" Width="300"/>
+        <TextBlock Grid.Row="5" Grid.Column="0" Text="Email" VerticalAlignment="Center" HorizontalAlignment="Left" Margin="10 0 0 0"/>
+        <TextBox Grid.Row="5" Grid.Column="1" x:Name="emailTextBox" Height="30" Width="300"/>
+        <TextBlock Grid.Row="6" Grid.Column="0" Text="Número de Telemóvel" VerticalAlignment="Center" HorizontalAlignment="Left" Margin="10 0 0 0"/>
+        <TextBox Grid.Row="6" Grid.Column="1" x:Name="phoneTextBox" Height="30" Width="300" PlaceholderText="Ex.: +12 (34) 12 345 678"/>
     </Grid>
 </ContentDialog>

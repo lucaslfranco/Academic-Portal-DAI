@@ -33,6 +33,11 @@ namespace Library.BL
             return SubjectDAL.GetById(Id);
         }
 
+        public List<Student> GetStudentsBySubject()
+        {
+            return SubjectDAL.GetStudentsBySubject(Id);
+        }
+
         public void Update()
         {
             SubjectDAL.Update(this);

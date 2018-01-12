@@ -9,6 +9,8 @@ namespace ProjectUWP.Views.ContentDialogs
         public StudentRegister()
         {
             this.InitializeComponent();
+            birthDatePicker.Date = DateTime.Now;
+            enrollDatePicker.Date = DateTime.Now;
         }
 
         private void StudentRegister_PrimaryButtonClick(ContentDialog sender, ContentDialogButtonClickEventArgs args)
@@ -17,20 +19,26 @@ namespace ProjectUWP.Views.ContentDialogs
 
             Student student = new Student();
 
-            student.Id = Int32.Parse(idTextBox.Text);
-            student.Name = nameTextBox.Text;
-            student.BirthDate = new DateTime(1996, 10, 20);
-            student.EnrollDate = new DateTime(2017, 10, 5);
-            student.Country = countryTextBox.Text;
-            student.Email = emailTextBox.Text;
-            student.Phone = phoneTextBox.Text;
+            try
+            {
+                student.Id = Int32.Parse(idTextBox.Text);
+                student.Name = nameTextBox.Text;
+                student.BirthDate = birthDatePicker.Date.DateTime;
+                student.EnrollDate = enrollDatePicker.Date.DateTime;
+                student.Country = countryTextBox.Text;
+                student.Email = emailTextBox.Text;
+                student.Phone = phoneTextBox.Text;
 
-            student.Create();
+                student.Create();
+                Hide();
+            }
+            catch (Exception e) { }
+
         }
 
         private void StudentRegister_SecondaryButtonClick(ContentDialog sender, ContentDialogButtonClickEventArgs args)
         {
-
+            Hide();
         }
     }
 }

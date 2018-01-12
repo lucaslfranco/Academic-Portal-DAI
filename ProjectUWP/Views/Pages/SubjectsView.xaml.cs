@@ -51,7 +51,13 @@ namespace ProjectUWP.Views.Pages
 
         private void ListStudentsOption_Click(object sender, RoutedEventArgs e)
         {
-            ContentFrame.Navigate(typeof(StudentsView));
+            Subject selectedSubject = (Subject)((MenuFlyoutItem)sender).Tag;
+
+            Object[] objects = new Object[2];
+            objects[0] = ContentFrame;
+            objects[1] = selectedSubject;
+
+            ContentFrame.Navigate(typeof(StudentsEvaluation), objects);
         }
     }
 }

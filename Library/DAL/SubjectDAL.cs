@@ -107,6 +107,44 @@ namespace Library.DAL
             }
         }
 
+        public static List<Student> GetStudentsBySubject(int idSubject)
+        {
+            StringBuilder stringBuilder = new StringBuilder();
+            stringBuilder.Append("SELECT st.* " +
+                "FROM student st " +
+                "inner join enrollment e " +
+                    "on st.id = e.idStudent " +
+                "inner join subject s " +
+                    "on e.idSubject = s.id " +
+                "where s.id = @idSubject");
+            String sql = stringBuilder.ToString();
+
+            using (DB db = new DB())
+            {
+                Dictionary<string, int> subjectIdDict = new Dictionary<string, int>();
+                subjectIdDict.Add("@idSubject", idSubject);
+
+                List<Student> students = new List<Student>();
+                List<Object[]> objects = db.QueryCommand(sql, subjectIdDict);
+
+                foreach (Object[] obj in objects)
+                {
+                    Student student = new Student();
+
+                    student.Id = (int)obj[0];
+                    student.Name = (String)obj[1];
+                    student.BirthDate = (DateTime)obj[2];
+                    student.EnrollDate = (DateTime)obj[3];
+                    student.Country = (String)obj[4];
+                    student.Email = (String)obj[5];
+                    student.Phone = (String)obj[6];
+                   
+                    students.Add(student);
+                }
+                return students;
+            }
+        }
+
         public static void Update(Subject subject)
         {
             StringBuilder stringBuilder = new StringBuilder();

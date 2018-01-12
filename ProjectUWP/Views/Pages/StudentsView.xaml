@@ -12,7 +12,7 @@
         <Grid.RowDefinitions>
             <RowDefinition Height="50"/>
             <RowDefinition Height="40"/>
-            <RowDefinition Height="*"/>
+            <RowDefinition Height="450"/>
             <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
         <StackPanel Grid.Row="0" Orientation="Vertical">
@@ -44,11 +44,11 @@
                             <ColumnDefinition Width="300"/>
                             <ColumnDefinition Width="40"/>
                         </Grid.ColumnDefinitions>
-                        <TextBlock Grid.Column="0" Text="{x:Bind Id}"/>
-                        <TextBlock Grid.Column="1" Text="{Binding Name}"/>
-                        <TextBlock Grid.Column="2" Text="{Binding EnrollDate, Converter={StaticResource DateToStringFormatConverter}}"/>
-                        <TextBlock Grid.Column="3" Text="{x:Bind Email}"/>
-                        <Button x:Name="StudentMoreOptions" Click="StudentMoreOptions_Click" Grid.Column="4">
+                        <TextBlock Grid.Column="0" Text="{x:Bind Id}" VerticalAlignment="Center"/>
+                        <TextBlock Grid.Column="1" Text="{Binding Name}" VerticalAlignment="Center"/>
+                        <TextBlock Grid.Column="2" Text="{Binding EnrollDate, Converter={StaticResource DateToStringFormatConverter}}" VerticalAlignment="Center"/>
+                        <TextBlock Grid.Column="3" Text="{x:Bind Email}" VerticalAlignment="Center"/>
+                        <Button x:Name="StudentMoreOptions" Click="StudentMoreOptions_Click" Grid.Column="4" VerticalAlignment="Center">
                             <SymbolIcon Symbol="More"/>
                             <FlyoutBase.AttachedFlyout>
                                 <MenuFlyout>
@@ -61,6 +61,6 @@
                 </DataTemplate>
             </ListView.ItemTemplate>
         </ListView>
-        <Button Grid.Row="3" x:Name="AddStudentBtn" Click="AddStudentBtn_Click" Content="Adicionar Estudante"/>
+        <Button Grid.Row="3" x:Name="AddStudentBtn" Click="AddStudentBtn_Click" Content="Adicionar Estudante" HorizontalAlignment="Left"/>
     </Grid>
 </Page>

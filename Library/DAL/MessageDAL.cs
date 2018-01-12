@@ -26,14 +26,13 @@ namespace Library.DAL
         public static void Create(Message message)
         {
             StringBuilder stringBuilder = new StringBuilder();
-            stringBuilder.Append("INSERT INTO message (id, title, content, time, idSubject) VALUES " +
-                "(@id, @title, @content, @time, @idSubject)");
+            stringBuilder.Append("INSERT INTO message (title, content, time, idSubject) VALUES " +
+                "(@title, @content, @time, @idSubject)");
             String sql = stringBuilder.ToString();
 
             using (DB db = new DB())
             {
                 Dictionary<string, object> messageDictionary = new Dictionary<string, object>();
-                messageDictionary.Add("@id", message.Id);
                 messageDictionary.Add("@title", message.Title);
                 messageDictionary.Add("@content", message.Content);
                 messageDictionary.Add("@time", message.Time);
@@ -93,14 +92,13 @@ namespace Library.DAL
         public static void Update(Message message)
         {
             StringBuilder stringBuilder = new StringBuilder();
-            stringBuilder.Append("UPDATE message SET id = @id, title = @title, content = @content, " +
+            stringBuilder.Append("UPDATE message SET title = @title, content = @content, " +
                 "idSubject = @idSubject WHERE id = @id");
             String sql = stringBuilder.ToString();
 
             using (DB db = new DB())
             {
                 Dictionary<string, object> messageDictionary = new Dictionary<string, object>();
-                messageDictionary.Add("@id", message.Id);
                 messageDictionary.Add("@title", message.Title);
                 messageDictionary.Add("@content", message.Content);
                 messageDictionary.Add("@time", message.Time);

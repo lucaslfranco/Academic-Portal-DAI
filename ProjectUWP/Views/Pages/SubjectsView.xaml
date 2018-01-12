@@ -23,23 +23,24 @@
             <TextBlock Text="Lista de Disciplinas Ministradas" FontWeight="SemiBold" FontSize="20"/>
         </StackPanel>
         <Border Grid.Row="1" BorderBrush="{StaticResource tableHeaderColor}" Background="{StaticResource tableHeaderBackground}" BorderThickness="2">
-            <Grid>
+            <Grid Width="1100">
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="*"/>
                     <ColumnDefinition Width="3*"/>
                     <ColumnDefinition Width="*"/>
                     <ColumnDefinition Width="3*"/>
+                    <ColumnDefinition Width="*"/>
                 </Grid.ColumnDefinitions>
-                <TextBlock Grid.Column="0" Text="Código" FontWeight="Bold" VerticalAlignment="Center" HorizontalAlignment="Center"/>
+                <TextBlock Grid.Column="0" Text="Código" FontWeight="Bold" VerticalAlignment="Center" Margin="10 0 0 0"/>
                 <TextBlock Grid.Column="1" Text="Nome da Disciplina" FontWeight="Bold" VerticalAlignment="Center" Margin="10 0 0 0"/>
-                <TextBlock Grid.Column="2" Text="Créditos" FontWeight="Bold" VerticalAlignment="Center" HorizontalAlignment="Center" Margin="10 0 0 0"/>
-                <TextBlock Grid.Column="3" Text="Curso" FontWeight="Bold" VerticalAlignment="Center" Margin="10 0 0 0"/>
+                <TextBlock Grid.Column="2" Text="Créditos" FontWeight="Bold" VerticalAlignment="Center" HorizontalAlignment="Center" Margin="20 0 0 0"/>
+                <TextBlock Grid.Column="3" Text="Curso" FontWeight="Bold" VerticalAlignment="Center"/>
             </Grid>
         </Border>
         <ListView Grid.Row="2" ItemsSource="{x:Bind Subjects}" BorderBrush="{StaticResource tableHeaderColor}" BorderThickness="2 0 2 2" SelectionMode="None">
             <ListView.ItemTemplate>
                 <DataTemplate x:Name="SubjectsDataTemplate" x:DataType="bl:Subject">
-                    <Grid>
+                    <Grid Width="1100">
                         <Grid.RowDefinitions>
                             <RowDefinition/>
                         </Grid.RowDefinitions>
@@ -50,14 +51,14 @@
                             <ColumnDefinition Width="3*"/>
                             <ColumnDefinition Width="*"/>
                         </Grid.ColumnDefinitions>
-                        <TextBlock Grid.Column="0" Text="{x:Bind Id}" VerticalAlignment="Center" Margin="10 0 0 0"/>
+                        <TextBlock Grid.Column="0" Text="{x:Bind Id}" VerticalAlignment="Center" Margin="5 0 0 0"/>
                         <TextBlock Grid.Column="1" Text="{x:Bind Name}" VerticalAlignment="Center"/>
                         <TextBlock Grid.Column="2" Text="{x:Bind Credits}" VerticalAlignment="Center" HorizontalAlignment="Center"/>
-                        <TextBlock Grid.Column="3" Text="{x:Bind IdCourse}" VerticalAlignment="Center" Margin="10 0 0 0"/>
+                        <TextBlock Grid.Column="3" Text="{x:Bind IdCourse}" VerticalAlignment="Center"/>
                         <Button Grid.Column="4" x:Name="SubjectMoreOptions" Click="SubjectMoreOptions_Click">
                             <SymbolIcon Symbol="More"/>
                             <FlyoutBase.AttachedFlyout>
-                                <MenuFlyout Placement="Right">
+                                <MenuFlyout Placement="Bottom" >
                                     <MenuFlyoutItem Tag="{x:Bind}" x:Name="ListStudentsOption" Click="ListStudentsOption_Click" Icon="People" Text="Ver Alunos" />
                                     <MenuFlyoutItem Tag="{x:Bind}" x:Name="SendMessageOption" Click="SendMessageOption_Click"  Icon="Message" Text="Enviar Mensagem"/>
                                 </MenuFlyout>

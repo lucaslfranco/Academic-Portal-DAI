@@ -27,7 +27,7 @@
             <TextBlock Text="Informações Gerais do Aluno" FontWeight="SemiBold" FontSize="20" VerticalAlignment="Center" Margin="10 0 0 0"/>
         </Border>
         <Border Grid.Row="2" BorderBrush="{StaticResource tableHeaderColor}" BorderThickness="2 0 2 2">
-            <Grid>
+            <Grid ScrollViewer.VerticalScrollBarVisibility="Visible">
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="*"/>
                     <ColumnDefinition Width="2*"/>
@@ -55,17 +55,16 @@
                     <ColumnDefinition Width="3*"/>
                     <ColumnDefinition Width="*"/>
                 </Grid.ColumnDefinitions>
-                <TextBlock Grid.Column="0" Text="Código" FontWeight="Bold" VerticalAlignment="Center" HorizontalAlignment="Center"/>
+                <TextBlock Grid.Column="0" Text="Código" FontWeight="Bold" VerticalAlignment="Center" Margin="10 0 0 0"/>
                 <TextBlock Grid.Column="1" Text="Nome da Disciplina" FontWeight="Bold" VerticalAlignment="Center" Margin="10 0 0 0"/>
                 <TextBlock Grid.Column="2" Text="Créditos" FontWeight="Bold" VerticalAlignment="Center" HorizontalAlignment="Center" Margin="10 0 0 0"/>
                 <TextBlock Grid.Column="3" Text="Professor" FontWeight="Bold" VerticalAlignment="Center" Margin="10 0 0 0"/>
             </Grid>
         </Border>
-        <ListView Grid.Row="6" ItemsSource="{x:Bind EnrolledSubjects}" BorderBrush="{StaticResource tableHeaderColor}" BorderThickness="2 0 2 2" SelectionMode="None">
-            
+        <ListView Grid.Row="6" ItemsSource="{x:Bind EnrolledSubjects}" BorderBrush="{StaticResource tableHeaderColor}" BorderThickness="2 0 2 2">
             <ListView.ItemTemplate>
                 <DataTemplate x:Name="SubjectsDataTemplate" x:DataType="bl:Subject">
-                    <Grid Width="1060">
+                    <Grid Width="1060" x:Name="studentGrid">
                         <Grid.ColumnDefinitions>
                             <ColumnDefinition Width="*"/>
                             <ColumnDefinition Width="3*"/>
@@ -73,11 +72,11 @@
                             <ColumnDefinition Width="3*"/>
                             <ColumnDefinition Width="*"/>
                         </Grid.ColumnDefinitions>
-                        <TextBlock Grid.Column="0" Text="{x:Bind Id}" VerticalAlignment="Center" Margin="40 0 0 0"/>
+                        <TextBlock Grid.Column="0" Text="{x:Bind Id}" VerticalAlignment="Center"/>
                         <TextBlock Grid.Column="1" Text="{x:Bind Name}" VerticalAlignment="Center"/>
                         <TextBlock Grid.Column="2" Text="{x:Bind Credits}" VerticalAlignment="Center" HorizontalAlignment="Center"/>
                         <TextBlock Grid.Column="3" Text="{x:Bind IdTeacher}" VerticalAlignment="Center" Margin="10 0 0 0"/>
-                        <Button Grid.Column="4"  Tag="{x:Bind}" x:Name="SubjectViewButton" Click="SubjectViewButton_Click" VerticalAlignment="Center" HorizontalAlignment="Center">
+                        <Button Grid.Column="4" Tag="{x:Bind}" x:Name="SubjectViewButton" Click="SubjectViewButton_Click" VerticalAlignment="Center" HorizontalAlignment="Center">
                             <SymbolIcon Symbol="Forward"/>
                         </Button>
                     </Grid>

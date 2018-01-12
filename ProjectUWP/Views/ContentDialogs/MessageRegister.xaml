@@ -25,9 +25,9 @@
             <RowDefinition Height="5*"/>
         </Grid.RowDefinitions>
 
-        <TextBlock Grid.Row="0" x:Name="dateTextBlock"  Text="Título da Mensagem" VerticalAlignment="Center" Margin="0 15 0 0"/>
+        <TextBlock Grid.Row="0" x:Name="dateTextBlock"  Text="Título da Mensagem" VerticalAlignment="Center" Margin="0 10 0 0"/>
         <TextBox Grid.Row="1"  x:Name="titleTextBox"/>
-        <TextBlock Grid.Row="2" x:Name="contentTextBlock"  Text="Conteúdo" Margin="0 15 0 0"/>
+        <TextBlock Grid.Row="2" x:Name="contentTextBlock"  Text="Conteúdo" Margin="0 12 0 0"/>
         <TextBox Grid.Row="3" x:Name="contentTextBox" TextChanging="contentTextBox_TextChanging" TextWrapping="Wrap" AcceptsReturn="True" ScrollViewer.VerticalScrollBarVisibility="Auto"/>
     </Grid>
 </ContentDialog>

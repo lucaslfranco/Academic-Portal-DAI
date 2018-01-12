@@ -3,6 +3,7 @@ using System;
 using System.Collections.ObjectModel;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
+using Windows.UI.Xaml.Controls.Primitives;
 using Windows.UI.Xaml.Navigation;
 
 namespace ProjectUWP.Views.Pages
@@ -50,5 +51,6 @@ namespace ProjectUWP.Views.Pages
             
             ContentFrame.Navigate(typeof(SubjectView), objects);
         }
+
     }
 }
