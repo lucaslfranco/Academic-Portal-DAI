@@ -40,7 +40,7 @@ namespace ProjectUWP.Views.ContentDialogs
                 subject.Name = nameTextBox.Text;
                 subject.Credits = Int32.Parse(creditsTextBox.Text);
                 subject.Year = Int32.Parse(yearTextBox.Text);
-                subject.Semester = (int)semesterComboBox.Tag;
+                subject.Semester = Int32.Parse(semesterTextBox.Text);
                 
                 subject.StartTime = startTimePicker.Date.DateTime;
                 subject.EndTime = endTimePicker.Date.DateTime;

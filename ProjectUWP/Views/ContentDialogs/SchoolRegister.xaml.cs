@@ -1,35 +1,37 @@
-﻿using System;
-using System.Collections.Generic;
-using System.IO;
-using System.Linq;
-using System.Runtime.InteropServices.WindowsRuntime;
-using Windows.Foundation;
-using Windows.Foundation.Collections;
-using Windows.UI.Xaml;
+﻿using Library.BL;
+using System;
 using Windows.UI.Xaml.Controls;
-using Windows.UI.Xaml.Controls.Primitives;
-using Windows.UI.Xaml.Data;
-using Windows.UI.Xaml.Input;
-using Windows.UI.Xaml.Media;
-using Windows.UI.Xaml.Navigation;
-
-// The Content Dialog item template is documented at https://go.microsoft.com/fwlink/?LinkId=234238
 
 namespace ProjectUWP.Views.ContentDialogs
 {
     public sealed partial class SchoolRegister : ContentDialog
     {
+        public School School = new School();
+       
         public SchoolRegister()
         {
             this.InitializeComponent();
         }
 
-        private void ContentDialog_PrimaryButtonClick(ContentDialog sender, ContentDialogButtonClickEventArgs args)
+        private void SchoolRegisterButton_Click(ContentDialog sender, ContentDialogButtonClickEventArgs args)
         {
+            //SchoolDAL.CreateTable();
+
+            try
+            {
+                School.Name = nameTextBox.Text;
+                School.PostalCode = postalCodeTextBox.Text;
+                School.Phone = phoneTextBox.Text;
+
+                School.Create();
+                Hide();
+            }
+            catch (Exception e) { }
         }
 
-        private void ContentDialog_SecondaryButtonClick(ContentDialog sender, ContentDialogButtonClickEventArgs args)
+        private void CancelButton_Click(ContentDialog sender, ContentDialogButtonClickEventArgs args)
         {
+            Hide();
         }
     }
 }

@@ -463,16 +463,16 @@ namespace ConnectionTest
         public static void Main(String[] args)
         {
             /* Create all the tables */
-            /*
+            
             StudentDAL.CreateTable();
             SchoolDAL.CreateTable();
-            TeacherDAL.CreateTable();
             CourseDAL.CreateTable();
+            TeacherDAL.CreateTable();
             SubjectDAL.CreateTable();
             MessageDAL.CreateTable();
             GradesDAL.CreateTable();
             EnrollmentDAL.CreateTable();
-            */
+            
 
             /* Run some test methods */
             //TestStudents();

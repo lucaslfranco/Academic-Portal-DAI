@@ -44,11 +44,8 @@
         <TextBlock Grid.Row="5" Grid.Column="0" Text="Ano" VerticalAlignment="Center" HorizontalAlignment="Left" Margin="10 0 0 0"/>
         <TextBox Grid.Row="5" Grid.Column="1" x:Name="yearTextBox" Height="30" Width="300"/>
         <TextBlock Grid.Row="6" Grid.Column="0" Text="Semestre" VerticalAlignment="Center" HorizontalAlignment="Left" Margin="10 0 0 0"/>
-        <ComboBox Grid.Row="6" Grid.Column="1" x:Name="semesterComboBox" Height="30" Width="300" VerticalAlignment="Center" HorizontalAlignment="Center">
-            <ComboBoxItem Tag="1" IsSelected="True">1º</ComboBoxItem>
-            <ComboBoxItem Tag="2">2º</ComboBoxItem>
-        </ComboBox>
-            <TextBlock Grid.Row="7" Grid.Column="0" Text="Aulas Realizadas" VerticalAlignment="Center" HorizontalAlignment="Left" Margin="10 0 0 0"/>
+        <TextBox Grid.Row="6" Grid.Column="1" x:Name="semesterTextBox" Height="30" Width="300" VerticalAlignment="Center" HorizontalAlignment="Center"/>
+        <TextBlock Grid.Row="7" Grid.Column="0" Text="Aulas Realizadas" VerticalAlignment="Center" HorizontalAlignment="Left" Margin="10 0 0 0"/>
         <TextBox Grid.Row="7" Grid.Column="1" x:Name="classesHeldTextBox" Height="30" Width="300"/>
 
         <TextBlock Grid.Row="8" Grid.Column="0" Text="Professor" VerticalAlignment="Center" HorizontalAlignment="Left" Margin="10 0 0 0"/>

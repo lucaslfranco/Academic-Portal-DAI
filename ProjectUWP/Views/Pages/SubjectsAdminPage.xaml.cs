@@ -62,14 +62,6 @@ namespace ProjectUWP.Views.Pages
             UpdateListView();
         }
 
-        private async void AddSubjectButton_Click(object sender, RoutedEventArgs e)
-        {
-            SubjectRegister subjectRegister = new SubjectRegister();
-
-            await subjectRegister.ShowAsync();
-            UpdateListView();
-        }
-
         private async void AddSchoolButton_Click(object sender, RoutedEventArgs e)
         {
             SchoolRegister schoolRegister = new SchoolRegister();
@@ -91,6 +83,14 @@ namespace ProjectUWP.Views.Pages
             TeacherRegister teacherRegister = new TeacherRegister();
 
             await teacherRegister.ShowAsync();
+            UpdateListView();
+        }
+
+        private async void AddSubjectButton_Click(object sender, RoutedEventArgs e)
+        {
+            SubjectRegister subjectRegister = new SubjectRegister();
+
+            await subjectRegister.ShowAsync();
             UpdateListView();
         }
     }

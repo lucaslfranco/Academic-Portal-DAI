@@ -61,9 +61,7 @@ namespace ProjectUWP
                 { Content = "Portal do Aluno"});
                 NavView.MenuItems.Add(new NavigationViewItem()
                 { Content = "Início", Icon = new SymbolIcon(Symbol.Home), Tag = "home" });
-                NavView.MenuItems.Add(new NavigationViewItem()
-                { Content = "Perfil", Icon = new SymbolIcon(Symbol.ContactInfo), Tag = "perfil" });
-                NavView.MenuItems.Add(new NavigationViewItem()
+                 NavView.MenuItems.Add(new NavigationViewItem()
                 { Content = "Professores", Icon = new SymbolIcon(Symbol.People), Tag = "teachersView" });
                 NavView.MenuItems.Add(new NavigationViewItem()
                 { Content = "Avisos", Icon = new SymbolIcon(Symbol.Message), Tag = "messagesView" });
@@ -127,9 +125,6 @@ namespace ProjectUWP
                     case "home":
                         ContentFrame.Navigate(typeof(StudentHomeView), ObjectsToSendOnNavigate(Student));
                         break;
-                    case "perfil":
-                        ContentFrame.Navigate(typeof(StudentsView));
-                        break;
                     case "teachersView":
                         ContentFrame.Navigate(typeof(TeachersView), ContentFrame);
                         break;
@@ -181,9 +176,6 @@ namespace ProjectUWP
                     {
                         case "home":
                             ContentFrame.Navigate(typeof(StudentHomeView), ObjectsToSendOnNavigate(Student));
-                            break;
-                        case "perfil":
-                            ContentFrame.Navigate(typeof(StudentsView));
                             break;
                         case "teachersView":
                             ContentFrame.Navigate(typeof(TeachersView), ContentFrame);

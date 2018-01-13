@@ -13,7 +13,7 @@ namespace Library.DAL
 
             StringBuilder stringBuilder = new StringBuilder();
             stringBuilder.Append("DROP TABLE IF EXISTS school; " +
-                "CREATE TABLE school (id int not null, name varchar(255) not null, postalCode varchar(255) not null, phone varchar(45) not null " +
+                "CREATE TABLE school (id int not null IDENTITY(1,1), name varchar(255) not null, postalCode varchar(255) not null, phone varchar(45) not null " +
                 "CONSTRAINT PK_school PRIMARY KEY (id))");
             String sql = stringBuilder.ToString();
 
@@ -27,14 +27,13 @@ namespace Library.DAL
         {
 
             StringBuilder stringBuilder = new StringBuilder();
-            stringBuilder.Append("INSERT INTO school (id, name, postalCode, phone) VALUES " +
-                "(@id, @name, @postalCode, @phone)");
+            stringBuilder.Append("INSERT INTO school (name, postalCode, phone) VALUES " +
+                "(@name, @postalCode, @phone)");
             String sql = stringBuilder.ToString();
 
             using (DB db = new DB())
             {
                 Dictionary<string, object> schoolDictionary = new Dictionary<string, object>();
-                schoolDictionary.Add("@id", school.Id);
                 schoolDictionary.Add("@name", school.Name);
                 schoolDictionary.Add("@postalCode", school.PostalCode);
                 schoolDictionary.Add("@phone", school.Phone);
@@ -94,7 +93,7 @@ namespace Library.DAL
         {
 
             StringBuilder stringBuilder = new StringBuilder();
-            stringBuilder.Append("UPDATE school SET id = @id, name = @name, postalCode = @postalCode, " +
+            stringBuilder.Append("UPDATE school SET name = @name, postalCode = @postalCode, " +
                 "phone = @phone WHERE id = @id");
             String sql = stringBuilder.ToString();
 

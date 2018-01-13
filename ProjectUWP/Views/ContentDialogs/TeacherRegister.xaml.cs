@@ -1,35 +1,44 @@
-﻿using System;
-using System.Collections.Generic;
-using System.IO;
-using System.Linq;
-using System.Runtime.InteropServices.WindowsRuntime;
-using Windows.Foundation;
-using Windows.Foundation.Collections;
-using Windows.UI.Xaml;
+﻿using Library.BL;
+using System;
+using System.Collections.ObjectModel;
 using Windows.UI.Xaml.Controls;
-using Windows.UI.Xaml.Controls.Primitives;
-using Windows.UI.Xaml.Data;
-using Windows.UI.Xaml.Input;
-using Windows.UI.Xaml.Media;
-using Windows.UI.Xaml.Navigation;
-
-// The Content Dialog item template is documented at https://go.microsoft.com/fwlink/?LinkId=234238
 
 namespace ProjectUWP.Views.ContentDialogs
 {
     public sealed partial class TeacherRegister : ContentDialog
     {
+        public Teacher Teacher = new Teacher();
+        public School School = new School();
+        public ObservableCollection<School> Schools;
+
         public TeacherRegister()
         {
             this.InitializeComponent();
+            Schools = new ObservableCollection<School>(School.GetAll());
+            schoolComboBox.ItemsSource = Schools;
         }
 
-        private void ContentDialog_PrimaryButtonClick(ContentDialog sender, ContentDialogButtonClickEventArgs args)
+        private void TeacherRegisterButton_Click(ContentDialog sender, ContentDialogButtonClickEventArgs args)
         {
+            //TeacherDAL.CreateTable();
+            
+            try
+            {
+                Teacher.Id = Int32.Parse(idTextBox.Text);
+                Teacher.Name = nameTextBox.Text;
+                Teacher.Condition = conditionTextBox.Text;
+                Teacher.Email = emailTextBox.Text;
+                Teacher.IdSchool = (int)schoolComboBox.SelectedValue;
+
+                Teacher.Create();
+                Hide();
+            }
+            catch (Exception e) { }
         }
 
-        private void ContentDialog_SecondaryButtonClick(ContentDialog sender, ContentDialogButtonClickEventArgs args)
+        private void CancelButton_Click(ContentDialog sender, ContentDialogButtonClickEventArgs args)
         {
+            Hide();
         }
     }
 }

@@ -11,7 +11,7 @@
     PrimaryButtonClick="CourseRegisterButton_Click"
     SecondaryButtonClick="CancelButton_Click">
 
-    <Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}" Width="500" Height="450">
+    <Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}" Width="500" Height="250">
         <Grid.RowDefinitions>
             <RowDefinition Height="2*"/>
             <RowDefinition Height="2*"/>
@@ -25,12 +25,10 @@
 
         <TextBlock Grid.Row="0" Grid.Column="0" Text="Nome" VerticalAlignment="Center" HorizontalAlignment="Left" Margin="10 0 0 0"/>
         <TextBox Grid.Row="0" Grid.Column="1" x:Name="nameTextBox" Height="30" Width="300"/>
-
         <TextBlock Grid.Row="1" Grid.Column="0" Text="Grau" VerticalAlignment="Center" HorizontalAlignment="Left" Margin="10 0 0 0"/>
-        <TextBox Grid.Row="1" Grid.Column="1" x:Name="degreeTextBox" HorizontalAlignment="Center" Width="300"/>
+        <TextBox Grid.Row="1" Grid.Column="1" x:Name="degreeTextBox" HorizontalAlignment="Center" Height="30" Width="300"/>
         <TextBlock Grid.Row="2" Grid.Column="0" Text="Duração em Anos" VerticalAlignment="Center" HorizontalAlignment="Left" Margin="10 0 0 0"/>
-        <TextBox Grid.Row="2" Grid.Column="1" x:Name="durationyearsTextBox" HorizontalAlignment="Center" Width="300"/>
-
+        <TextBox Grid.Row="2" Grid.Column="1" x:Name="durationYearsTextBox" HorizontalAlignment="Center" Height="30" Width="300"/>
         <TextBlock Grid.Row="3" Grid.Column="0" Text="Escola" VerticalAlignment="Center" HorizontalAlignment="Left" Margin="10 0 0 0"/>
         <ComboBox Grid.Row="3" Grid.Column="1" x:Name="schoolComboBox" ItemsSource="{Binding Schools}" SelectedValuePath="Id" DisplayMemberPath="Name" Height="30" Width="300" VerticalAlignment="Center" HorizontalAlignment="Center"/>
     </Grid>

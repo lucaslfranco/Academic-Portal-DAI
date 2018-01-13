@@ -5,12 +5,36 @@
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     mc:Ignorable="d"
-    Title="TITLE"
-    PrimaryButtonText="Button1"
-    SecondaryButtonText="Button2"
-    PrimaryButtonClick="ContentDialog_PrimaryButtonClick"
-    SecondaryButtonClick="ContentDialog_SecondaryButtonClick">
+    Title="Cadastro de Professor"
+    PrimaryButtonText="Cadastrar"
+    SecondaryButtonText="Cancelar"
+    PrimaryButtonClick="TeacherRegisterButton_Click"
+    SecondaryButtonClick="CancelButton_Click">
 
-    <Grid>
+    <Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}" Width="500" Height="280">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="2*"/>
+            <RowDefinition Height="2*"/>
+            <RowDefinition Height="2*"/>
+            <RowDefinition Height="2*"/>
+            <RowDefinition Height="2*"/>
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="3*"/>
+            <ColumnDefinition Width="5*"/>
+        </Grid.ColumnDefinitions>
+
+        <TextBlock Grid.Row="0" Text="Código" VerticalAlignment="Center" HorizontalAlignment="Left" Margin="10 0 0 0"/>
+        <TextBox Grid.Row="0" Grid.Column="1" x:Name="idTextBox" Height="30" Width="300"/>
+        <TextBlock Grid.Row="1" Grid.Column="0" Text="Nome" VerticalAlignment="Center" HorizontalAlignment="Left" Margin="10 0 0 0"/>
+        <TextBox Grid.Row="1" Grid.Column="1" x:Name="nameTextBox" Height="30" Width="300"/>
+
+        <TextBlock Grid.Row="2" Grid.Column="0" Text="Condição" VerticalAlignment="Center" HorizontalAlignment="Left" Margin="10 0 0 0"/>
+        <TextBox Grid.Row="2" Grid.Column="1" x:Name="conditionTextBox" Height="30" HorizontalAlignment="Center" Width="300"/>
+        <TextBlock Grid.Row="3" Grid.Column="0" Text="Email" VerticalAlignment="Center" HorizontalAlignment="Left" Margin="10 0 0 0"/>
+        <TextBox Grid.Row="3" Grid.Column="1" x:Name="emailTextBox" HorizontalAlignment="Center" Height="30" Width="300"/>
+
+        <TextBlock Grid.Row="4" Grid.Column="0" Text="Escola" VerticalAlignment="Center" HorizontalAlignment="Left" Margin="10 0 0 0"/>
+        <ComboBox Grid.Row="4" Grid.Column="1" x:Name="schoolComboBox" ItemsSource="{Binding Schools}" SelectedValuePath="Id" DisplayMemberPath="Name" Height="30" Width="300" VerticalAlignment="Center" HorizontalAlignment="Center"/>
     </Grid>
 </ContentDialog>

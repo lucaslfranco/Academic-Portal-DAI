@@ -12,7 +12,7 @@ namespace Library.DAL
         {
             StringBuilder stringBuilder = new StringBuilder();
             stringBuilder.Append("DROP TABLE IF EXISTS course; " +
-                "CREATE TABLE course (id int not null, name varchar(255) not null, degree varchar(255) not null, durationYears int not null, idSchool int not null " +
+                "CREATE TABLE course (id int not null IDENTITY(1,1), name varchar(255) not null, degree varchar(255) not null, durationYears int not null, idSchool int not null " +
                 "CONSTRAINT PK_course PRIMARY KEY (id), " +
                 "CONSTRAINT FK_course_school FOREIGN KEY (idSchool) REFERENCES school (id) " +
                 "ON UPDATE CASCADE ON DELETE CASCADE)");
@@ -27,8 +27,8 @@ namespace Library.DAL
         public static void Create(Course course)
         {
             StringBuilder stringBuilder = new StringBuilder();
-            stringBuilder.Append("INSERT INTO course (id, name, degree, durationYears, idSchool) VALUES " +
-                "(@id, @name, @degree, @durationYears, @idSchool)");
+            stringBuilder.Append("INSERT INTO course (name, degree, durationYears, idSchool) VALUES " +
+                "(@name, @degree, @durationYears, @idSchool)");
             String sql = stringBuilder.ToString();
 
             using (DB db = new DB())
@@ -36,7 +36,6 @@ namespace Library.DAL
 
                 using (SqlCommand command = new SqlCommand(sql, db.Connection))
                 {
-                    command.Parameters.AddWithValue("@id", course.Id);
                     command.Parameters.AddWithValue("@name", course.Name);
                     command.Parameters.AddWithValue("@degree", course.Degree);
                     command.Parameters.AddWithValue("@durationYears", course.DurationYears);
@@ -111,7 +110,7 @@ namespace Library.DAL
         public static void Update(Course course)
         {
             StringBuilder stringBuilder = new StringBuilder();
-            stringBuilder.Append("UPDATE course SET id = @id, name = @name, degree = @degree, " +
+            stringBuilder.Append("UPDATE course SET name = @name, degree = @degree, " +
                 "durationYears = @durationYears, idSchool = @idSchool WHERE id = @id");
             String sql = stringBuilder.ToString();
 
